@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry combineaccessrules="false" kind="src" path="/MongoNode"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="lib" path="libs/netty-3.2.5.Final.jar"/>
+	<classpathentry kind="lib" path="libs/aradon_fat_0.5.jar"/>
+	<classpathentry kind="lib" path="libs/apache_fat.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk6.27"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

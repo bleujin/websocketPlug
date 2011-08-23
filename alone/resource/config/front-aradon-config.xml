@@ -1,0 +1,184 @@
+<?xml version="1.0"  encoding="UTF-8"?>
+
+<root>
+	<!-- 
+		FronAradon에서 사용하는 AradonConfig.
+	 -->
+	<section name="">
+		<path name="default">
+			<urls>/</urls>
+			<description>Default</description>
+			<handler class="net.ion.radon.impl.let.HelloWorldLet" scope="request" />
+		</path>
+		
+		<path name="favicon.ico">
+			<context>
+				<attribute id="base.dir">./resource/favicon.ico</attribute>
+			</context>
+			<urls>/favicon.ico</urls>
+			<handler class="net.ion.radon.impl.let.DirLet" scope="request" />
+		</path>
+	</section>
+
+
+	<section name="session">
+		<path name="register">
+			<urls>/register/{ip}/{port}/{id}</urls>
+			<desciption>SocketClient Per ServerNode </desciption>
+			<handler class="net.ion.websocket.aradon.front.RegisterLet" />
+		</path>
+	
+		<path name="login">
+			<prefilter class="net.ion.radon.core.security.RDBChallengeAuthenticator">
+				<configured-object>
+					<class-name>net.ion.radon.core.security.RDBChallengeAuthenticator</class-name>
+					<constructor>
+						<constructor-param>
+							<description>realm id</description>
+							<type>java.lang.String</type>
+							<value>secure</value>
+						</constructor-param>
+						<constructor-param>
+							<description>dc context id</description>
+							<type>java.lang.String</type>
+							<value>net.ion.framework.db.IDBController</value>
+						</constructor-param>
+						<constructor-param>
+							<description>query</description>
+							<type>java.lang.String</type>
+							<value>select pwd password from tt_user where login_id = :userid</value>
+						</constructor-param>
+					</constructor>
+				</configured-object>
+			</prefilter>
+			<urls>/login/{topicId}</urls>
+			<desciption>publish server address</desciption>
+			<handler class="net.ion.websocket.aradon.front.LoginLet" />
+		</path>
+	
+		<path name="servers">
+			<urls>/servers</urls>
+			<desciption></desciption>
+			<handler class="net.ion.websocket.aradon.front.ServersLet" />
+		</path>
+	
+		<context>
+			<configured-object id="net.ion.aradon.websocket.IClientWrapper" scope="application">
+			<class-name>net.ion.aradon.websocket.ClientWrapper</class-name>
+			</configured-object>
+		
+			<configured-object id="net.ion.radon.repository.RepositoryCentral" scope="application">
+			<class-name>net.ion.radon.repository.RepositoryCentral</class-name>
+				<constructor>
+					<constructor-param>
+						<description>mongo address</description>
+						<type>java.lang.String</type>
+						<value>61.250.201.78</value>
+					</constructor-param>
+					<constructor-param>
+						<description>mongo port</description>
+						<type>int</type>
+						<value>27017</value>
+					</constructor-param>
+					<constructor-param>
+						<description>default db name</description>
+						<type>java.lang.String</type>
+						<value>toonsvr</value>
+					</constructor-param>
+				</constructor>
+			</configured-object>
+			
+		
+			<connection id="net.ion.framework.db.IDBController">
+			<database-controller>
+			<controller-name>toonOracle</controller-name>
+	        <database-manager>
+	            <description>Oracle database manager</description>
+	            <configured-object>
+	                <class-name>net.ion.framework.db.manager.OraclePoolDBManager</class-name>
+	                <constructor>
+	                    <constructor-param>
+	                        <description>jdbc URL</description>
+	                        <type>java.lang.String</type>
+	                        <value>jdbc:oracle:thin:@61.250.201.76:1521:toontalk</value>
+	                    </constructor-param>
+	                    <constructor-param>
+	                        <description>User</description>
+	                        <type>java.lang.String</type>
+	                        <value>toonchat</value>
+	                    </constructor-param>
+	                    <constructor-param>
+	                        <description>Passwd</description>
+	                        <type>java.lang.String</type>
+	                        <value>TOON0711</value>
+	                    </constructor-param>
+	                    <!-- 
+	                    <constructor-param>
+	                        <description>ConnectionLimit</description>
+	                        <type>int</type>
+	                        <value>5</value>
+	                    </constructor-param>
+ 						-->	                   
+	                </constructor>
+	            </configured-object>
+	
+	        </database-manager>
+	        <limited-rows>10000</limited-rows>
+	        <extra-servant>
+	            <configured-object>
+	                <class-name>net.ion.framework.db.servant.StdOutServant</class-name>
+	                <constructor>
+	                    <constructor-param>
+	                        <description>show std out (userProcedure : 1, userCommand : 2, userProcedureBatch : 4, userProcedures : 8 )</description>
+	                        <type>int</type>
+	                        <value>15</value>
+	                    </constructor-param>
+	                </constructor>
+	            </configured-object>
+	        </extra-servant>
+    		</database-controller>
+			</connection>
+		</context>
+	</section>
+
+
+
+	<prefilter class="net.ion.radon.impl.filter.SayHello">
+	</prefilter>
+
+	<afterfilter class="net.ion.radon.impl.filter.SayHello">
+	</afterfilter>
+
+	<context>
+		<attribute id="let.contact.email">bleujin@i-on.net</attribute>
+		<attribute id="let.contact.help.doc">/help/doc</attribute>
+	</context>
+		
+	<plugin includepath="plugin/;lib/;">
+		
+	</plugin>
+	
+	
+	<server-config>
+		<!-- System.setProperty("java.util.logging.config.file", "./resource/config/myLogging.properties") ; -->
+		<log-config-file>./resource/config/front-log4j.properties</log-config-file>
+		<connector-config>
+			<parameter name="minThreads" description="Minimum threads waiting to service requests." >5</parameter> 
+			<parameter name="maxThreads" description="Maximum threads that will service requests." >255</parameter> 
+			<parameter name="threadMaxIdleTimeMs" description="Minimum threads waiting to service requests.">60000</parameter> 
+	
+			<parameter name="lowResourcesMaxIdleTimeMs" description="Time for an idle thread to wait for a request or read." >2500</parameter> 
+			<parameter name="acceptorThreads" description="Number of acceptor threads to set." >1</parameter>
+			<parameter name="acceptQueueSize" description="Size of the accept queue." >0</parameter>
+			<parameter name="requestHeaderSize" description="Size of the buffer to be used for request headers." >4096</parameter>
+			<parameter name="responseHeaderSize" description="Size of the buffer to be used for response headers." >4096</parameter>
+			<parameter name="requestBufferSize" description="Size of the content buffer for receiving requests." >4096</parameter>
+			<parameter name="responseBufferSize" description="Size of the content buffer for sending responses." >8192</parameter>
+			<parameter name="ioMaxIdleTimeMs" description="Maximum time to wait on an idle IO operation." >30000</parameter>
+			<parameter name="soLingerTime" description="SO linger time (see Jetty documentation)." >1000</parameter>
+			<parameter name="gracefulShutdown" description="The time (in ms) to wait for existing requests to complete before fully stopping the server." >500</parameter>
+		</connector-config>
+		<manage-port auto-start="false">4567</manage-port>
+	</server-config>
+	
+</root>

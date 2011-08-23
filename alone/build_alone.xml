@@ -1,0 +1,167 @@
+<?xml version="1.0"?>
+<project name="FatJar aradon(experimental)" default="publish" basedir=".">
+
+	<!-- uncomment the above lines to use ANT outside of Eclipse -->
+	<property name="baseDir" value="." />
+	<property name="rootDir" value="../" />
+	<property name="buildDir" value="../bin/" />
+	<property name="libDir" value="../libs/" />
+
+	<property name="version.number" value="0" />
+	<property name="build.number" value="2" />
+
+	
+    <target name="apache_fat">
+    	<delete file="${libDir}/apache_fat.jar"></delete>
+        <fatjar.build output="${libDir}/apache_fat.jar">
+            <fatjar.manifest/>
+        	<fatjar.jarsource file="${libDir}\apache\commons-beanutils-1.8.0.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libDir}\apache\commons-codec-1.4.jar" relpath=""/>  
+        	<fatjar.jarsource file="${libDir}\apache\commons-fileupload-1.2.1.jar" relpath=""/>
+        	<fatjar.jarsource file="${libDir}\apache\ecs-1.4.2.jar" relpath=""/>
+        	
+        	<fatjar.jarsource file="${libDir}\apache\commons-collections-3.2.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libDir}\apache\commons-configuration-1.6.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libDir}\apache\commons-io-1.4.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libDir}\apache\commons-lang-2.4.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libDir}\apache\commons-logging-1.1.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libDir}\apache\javolution-5.5.1.jar" relpath=""/>  
+        	<fatjar.jarsource file="${libDir}\apache\json-2-RELEASE65.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libDir}\apache\log4j-1.2.16.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libDir}\apache\netsf-json-lib-2.2.2-jdk15.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libDir}\apache\servlet-api-2.5-6.1.14.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libDir}\apache\slf4j-api-1.5.6.jar" relpath=""/>  
+        	<fatjar.jarsource file="${libDir}\apache\slf4j-jdk14-1.5.10.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libDir}\apache\slf4j-log4j12-1.5.8.jar" relpath=""/> 
+        </fatjar.build>
+    </target>
+    
+	 <target name="aradon_fat">
+    	<delete file="${libDir}/aradon_fat_0.5.jar"></delete>
+        <fatjar.build output="${libDir}/aradon_fat_0.5.jar">
+            <fatjar.manifest/>
+        	<fatjar.jarsource file="${libDir}\aradon\aradon_0.5.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libDir}\aradon\mongo-2.6.3.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libDir}\aradon\mongonode_0.2.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libDir}\aradon\iframework_2.2.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libDir}\aradon\jetty_fat.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libDir}\aradon\rest_fat.jar" relpath=""/> 
+        </fatjar.build>
+    </target>
+
+	 <target name="notifier_fat">
+   	<delete file="${libDir}/notifier_fat.jar"></delete>
+       <fatjar.build output="${libDir}/notifier_fat.jar">
+       		<fatjar.manifest/>
+	   		<fatjar.jarsource file="${libDir}\notifier\bcprov-ext-jdk16-146.jar" relpath=""/> 
+	   		<fatjar.jarsource file="${libDir}\notifier\guava-r09.jar" relpath=""/> 
+	   		<fatjar.jarsource file="${libDir}\notifier\javapns-jdk16-168.jar" relpath=""/> 
+	   		<fatjar.jarsource file="${libDir}\notifier\lyndir_system-1.4.jar" relpath=""/> 
+       </fatjar.build>
+   </target>
+
+	<target name="copy_resource">
+		<delete dir="${baseDir}/resource">
+		</delete>
+		<copy todir="${baseDir}/resource/config">
+			<fileset dir="../resource/config">
+			</fileset>
+		</copy>
+		<copy todir="${baseDir}/resource">
+			<fileset file="../resource/favicon.ico">
+			</fileset>
+		</copy>
+		<copy todir="${baseDir}/resource/html">
+			<fileset dir="../resource/html">
+			</fileset>
+		</copy>
+	</target>
+	
+	
+	<target name="publish_jar" depends="make_jar">
+		<copy tofile="${baseDir}/websocket.jar">
+			<fileset file="${libDir}/websocket_${version.number}.${build.number}.jar"></fileset>
+		</copy>
+	</target>
+	
+	<target name="test_websocket" depends="publish_jar, copy_resource">
+		<path id="test.classpath">
+			<pathelement location="${libDir}/apache/junit.jar" />
+			<fileset dir="${libDir}">
+			    <include name="*.jar"/>
+		  	</fileset>
+			<pathelement location="../bin" />
+		</path>
+
+		<mkdir dir="/resource/report/html" />
+		<junit printsummary="on" haltonfailure="on" fork="true">
+			<classpath refid="test.classpath" />
+			<formatter type="xml" />
+			<test name="net.ion.websocket.TestAllSocket" />
+		</junit>
+	</target>
+
+
+	<target name="make_jar">
+		<property name="manifest.main.class" value="net.ion.websocket.server.AllOnRunner" />
+		<property name="manifest.classpath" value="lib/apache_fat.jar lib/aradon_fat_0.5.jar lib/netty-3.2.5.Final.jar lib/ojdbc14.jar"/> 
+		<!-- lib/notifier_fat.jar -->
+		<!-- delete  file="${libDir}/websocket_${version.number}.${build.number}.jar" /-->
+		<jar destfile="${libDir}/websocket_${version.number}.${build.number}.jar">
+			<manifest>
+				<attribute name="Manifest-Version" value="1.0" />
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Created-By" value="${user.name}" />
+				<attribute name="Main-Class" value="${manifest.main.class}" />
+				<attribute name="Built-Date" value="${TODAY_MY}" />
+				<attribute name="Class-Path" value="${manifest.classpath}" />
+				<section name="common">
+					<attribute name="Specification-Title" value="websocket" />
+					<attribute name="Specification-Version" value="${version.number}.${build.number}" />
+					<attribute name="Specification-Vendor" value="i-on" />
+					<attribute name="Specification-Dev" value="bleujin,minato" />
+				</section>
+			</manifest>
+			<fileset dir="${buildDir}/" includes="net/**" />
+		</jar>
+	</target>
+
+	<target name="copy_lib">
+		<delete dir="${baseDir}/lib" />
+		<mkdir  dir="${baseDir}/lib" />
+		<copy todir="${baseDir}/lib">
+			<fileset dir="${libDir}" includes="*.jar">
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="copy_source">
+		<delete dir="${baseDir}/main" />
+		<mkdir  dir="${baseDir}/main" />
+		<mkdir  dir="${baseDir}/main/src" />
+		<mkdir  dir="${baseDir}/main/test" />
+		<copy todir="${baseDir}/main/src">
+			<fileset dir="${rootDir}/src" />
+		</copy>
+		<copy todir="${baseDir}/main/test">
+			<fileset dir="${rootDir}/test" />
+		</copy>
+	</target>
+
+	
+	<target name="publish" depends="make_jar, copy_lib, copy_source"><!-- test_websocket,  -->
+		<delete file="${baseDir}/websocket_fat.zip" />
+		<delete dir="${baseDir}/_" />
+		<copy tofile="${baseDir}/websocket.jar">
+			<fileset file="${libDir}/websocket_${version.number}.${build.number}.jar"></fileset>
+		</copy>
+		<zip destfile="${baseDir}/websocket_fat.zip">
+			<fileset dir="./">
+				<exclude name="build_alone.xml" />
+				<exclude name="manifest.mf" />
+			</fileset>
+		</zip>
+		<delete dir="${baseDir}/main" />
+	</target>
+
+</project>

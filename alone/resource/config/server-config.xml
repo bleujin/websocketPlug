@@ -1,0 +1,216 @@
+<?xml version="1.0"  encoding="UTF-8"?>
+
+
+<root>
+
+
+	<server id="chatserver0" name="Server" uripath="/{userId}/{sessionId}/{params}" />
+
+	<aradon config="resource/config/embed-aradon-config.xml"/>
+
+	<engine id="netty0" name="Netty" port="8787" class="net.ion.websocket.server.engine.netty.NettyEngine">
+		<domain>localhost</domain>
+		<max-frame-size>16384</max-frame-size>
+	</engine>
+
+
+	<context>
+		<attribute id="my.server.dev">bleujin@i-on.net</attribute>
+
+		<connection id="net.ion.framework.db.IDBController">
+			<database-controller>
+			<controller-name>toonOracle</controller-name>
+	        <database-manager>
+	            <description>Oracle database manager</description>
+	            <configured-object>
+	                <class-name>net.ion.framework.db.manager.OraclePoolDBManager</class-name>
+	                <constructor>
+	                    <constructor-param>
+	                        <description>jdbc URL</description>
+	                        <type>java.lang.String</type>
+	                        <value>jdbc:oracle:thin:@61.250.201.76:1521:toontalk</value>
+	                    </constructor-param>
+	                    <constructor-param>
+	                        <description>User</description>
+	                        <type>java.lang.String</type>
+	                        <value>toonchat</value>
+	                    </constructor-param>
+	                    <constructor-param>
+	                        <description>Passwd</description>
+	                        <type>java.lang.String</type>
+	                        <value>TOON0711</value>
+	                    </constructor-param>
+	                    <!-- 
+	                    <constructor-param>
+	                        <description>ConnectionLimit</description>
+	                        <type>int</type>
+	                        <value>5</value>
+	                    </constructor-param>
+ 						-->	                   
+	                </constructor>
+	            </configured-object>
+	
+	        </database-manager>
+	        <limited-rows>10000</limited-rows>
+	        <extra-servant>
+	            <configured-object>
+	                <class-name>net.ion.framework.db.servant.StdOutServant</class-name>
+	                <constructor>
+	                    <constructor-param>
+	                        <description>show std out (userProcedure : 1, userCommand : 2, userProcedureBatch : 4, userProcedures : 8 )</description>
+	                        <type>int</type>
+	                        <value>15</value>
+	                    </constructor-param>
+	                </constructor>
+	            </configured-object>
+	        </extra-servant>
+    		</database-controller>
+		</connection>
+
+		<configured-object id="net.ion.radon.repository.RepositoryCentral" scope="application">
+		<class-name>net.ion.radon.repository.RepositoryCentral</class-name>
+			<constructor>
+				<constructor-param>
+					<description>mongo address</description>
+					<type>java.lang.String</type>
+					<value>61.250.201.78</value>
+				</constructor-param>
+				<constructor-param>
+					<description>mongo port</description>
+					<type>int</type>
+					<value>27017</value>
+				</constructor-param>
+				<constructor-param>
+					<description>default mongo dbname</description>
+					<type>java.lang.String</type>
+					<value>toonsvr</value>
+				</constructor-param>
+			</constructor>
+		</configured-object>
+		
+		
+		<configured-object id="net.ion.websocket.notifier.IPushServer" scope="application">
+			<class-name>net.ion.websocket.notifier.ion.HTTPPushServer</class-name>
+			<constructor>
+				<constructor-param>
+					<description>host</description>
+					<type>java.lang.String</type>
+					<value>https://tipns.appservice.i-on.net/</value>
+				</constructor-param>
+				<constructor-param>
+					<description>path</description>
+					<type>java.lang.String</type>
+					<value>BL.jsp?tr=</value>
+				</constructor-param>
+				<constructor-param>
+					<description>id</description>
+					<type>java.lang.String</type>
+					<value>ipnstest</value>
+				</constructor-param>
+				<constructor-param>
+					<description>pwd</description>
+					<type>java.lang.String</type>
+					<value>test1234</value>
+				</constructor-param>
+				<constructor-param>
+					<description>certi file path</description>
+					<type>java.lang.String</type>
+					<value>./resource/jssecacerts.conf</value>
+				</constructor-param>
+				</constructor>
+		</configured-object> 
+ 		
+ 		<!-- 
+		<configured-object id="net.ion.websocket.message.handler" scope="application">
+			<class-name>net.ion.websocket.notifier.ion.MockMessageHandler</class-name>
+		</configured-object>
+		-->
+		
+	</context>
+
+	<filters>
+	</filters>
+
+
+	<plugins>
+		<plugin name="session">
+			<description>set userbean</description>
+			<configured-object>
+				<class-name>net.ion.websocket.plugin.toon.SessionAuthPlugin</class-name>
+			</configured-object>
+		</plugin>
+		
+		<plugin name="mstate">
+			<description>Mongo StateMachine</description>
+			<configured-object>
+				<class-name>net.ion.websocket.plugin.toon.state.MongoStateMachinePlugIn</class-name>
+			</configured-object>
+		</plugin>
+		
+		
+		<plugin name="astate">
+			<description>Aradon StateMachine</description>
+			<configured-object>
+				<class-name>net.ion.websocket.plugin.toon.state.AradonStateMachinePlugIn</class-name>
+				<constructor>
+					<constructor-param>
+						<description>aradon host address</description>
+						<type>java.lang.String</type>
+						<value>http://127.0.0.1:8080</value>
+					</constructor-param>
+				</constructor>
+			</configured-object>
+		</plugin>
+
+		
+		<plugin name="topic">
+			<description />
+			<configured-object>
+				<class-name>net.ion.websocket.plugin.toon.TopicStorePlugIn</class-name>
+			</configured-object>
+		</plugin>
+
+		<plugin name="log">
+			<description />
+			<configured-object>
+				<class-name>net.ion.websocket.common.plugin.LogPlugIn</class-name>
+			</configured-object>
+		</plugin>
+	</plugins>
+
+
+	<listeners>
+		<listener name="debug">
+				<description />
+				<configured-object>
+					<class-name>net.ion.websocket.common.listener.ChannelListener</class-name>
+					<constructor>
+					<constructor-param>
+						<description>async listener</description>
+						<type>net.ion.websocket.common.api.WebSocketServerListener</type>
+						<value><configured-object>
+								<class-name>net.ion.websocket.common.listener.DebugListener</class-name>
+							   </configured-object>	
+						</value>
+					</constructor-param>
+					<!-- 
+					<constructor-param>
+						<description>async listener</description>
+						<type>net.ion.websocket.common.api.WebSocketServerListener</type>
+						<value><configured-object>
+								<class-name>net.ion.websocket.common.listener.DebugListener</class-name>
+							   </configured-object>	
+						</value>
+					</constructor-param>
+				 	-->
+					<constructor-param>
+						<description>maxium queue size</description>
+						<type>int</type>
+						<value>2000</value>
+					</constructor-param>
+				</constructor>
+				</configured-object>
+		</listener>
+	</listeners>
+
+</root>

@@ -1,0 +1,1 @@
+java -cp websocket.jar;lib/apache_fat.jar;lib/aradon_fat_0.5.jar;lib/netty-3.2.5.Final.jar;$CLASSPATH net.ion.websocket.server.ServerNodeRunner -config:resource/config/server-config.xml %*
