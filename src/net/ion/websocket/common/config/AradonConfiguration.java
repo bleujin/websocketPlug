@@ -1,5 +1,6 @@
 package net.ion.websocket.common.config;
 
+import net.ion.framework.util.PathMaker;
 import net.ion.radon.core.config.XMLConfig;
 
 public class AradonConfiguration {
@@ -12,8 +13,8 @@ public class AradonConfiguration {
 		this.portNo = portNum ;
 	}
 
-	public final static AradonConfiguration create(XMLConfig config){
-		return new AradonConfiguration(config.getString("[@config]"), config.getInt("[@port]", 0)) ;
+	public final static AradonConfiguration create(XMLConfig config, String baseDir){
+		return new AradonConfiguration( PathMaker.getFilePath(baseDir, config.getString("[@config]")) , config.getInt("[@port]", 0)) ;
 	}
 	public final static AradonConfiguration test(){
 		return new AradonConfiguration("resource/config/aradon-client-config.xml", 9090) ;

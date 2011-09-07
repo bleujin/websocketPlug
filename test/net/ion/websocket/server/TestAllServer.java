@@ -9,6 +9,7 @@ public class TestAllServer extends TestCase{
 		TestSuite suite = new TestSuite() ;
 		
 		suite.addTestSuite(TestServerConfigParser.class) ;
+		
 		suite.addTestSuite(TestServerRunner.class) ;
 //		suite.addTestSuite(TestDeploy.class) ;
 		suite.addTestSuite(TestURIParser.class) ;

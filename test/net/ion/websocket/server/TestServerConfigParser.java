@@ -13,7 +13,7 @@ import net.ion.websocket.server.context.ServiceContext;
 
 public class TestServerConfigParser extends TestCase{
 
-	private String configPath = "resource/config/server-config.xml" ;
+	private String configPath = "resource/config/test-server-config.xml" ;
 
 	private ServerConfigParser parser ;
 	@Override
@@ -24,10 +24,9 @@ public class TestServerConfigParser extends TestCase{
 		this.parser = ServerConfigParser.parse(root) ;
 	}
 	
-	public void testParse() throws Exception {
-		parser.getServerConfiguration() ;
+	public void testBaseDir() throws Exception {
+		assertEquals("./resource/config/embed-aradon-config.xml", parser.getAradonConfiguration().getConfigPath()) ;
 	}
-	
 	
 	public void testServerConfig() throws Exception {
 		ServerConfiguration sconfig =  parser.getServerConfiguration() ;
@@ -46,13 +45,12 @@ public class TestServerConfigParser extends TestCase{
 		assertEquals(8787, econfig.getPort()) ;
 	}
 	
-	public void testContext() throws Exception {
+	public void testContextConfig() throws Exception {
 		ServiceContext sc = parser.getContext() ;
 		assertEquals("bleujin@i-on.net", sc.getAttributeObject("my.server.dev")) ;
 	}
 	
-	
-	public void testPlugin() throws Exception {
+	public void testPluginConfig() throws Exception {
 		List<PlugInInfo> plugins = parser.getPlugins() ;
 		
 		assertEquals(2, plugins.size()) ;
@@ -60,7 +58,7 @@ public class TestServerConfigParser extends TestCase{
 		assertEquals("log", plugins.get(1).getName()) ;
 	}
 	
-	public void testListener() throws Exception {
+	public void testListenerConfig() throws Exception {
 		List<ListenerInfo> plugins = parser.getListener() ;
 		
 		assertEquals(1, plugins.size()) ;

@@ -23,10 +23,8 @@ public class SyncMockClient implements WebSocketCallback {
 	private String userName;
 	private List<IMessagePacket> messages = ListUtil.newList();
 
-	private EventListenerMap emap = new EventListenerMap() ;
+	private EventListenerMap emap = new EventListenerMap();
 
-	
-	
 	private SyncMockClient(String userName) {
 		this.userName = userName;
 	}
@@ -39,11 +37,12 @@ public class SyncMockClient implements WebSocketCallback {
 		return new SyncMockClient(userName);
 	}
 
-	public void connect(URI uri) {
+	public synchronized void connect(URI uri) {
 		URI newURI = makeNewURI(uri);
 
-		if (getStatus() == Status.CONNECTING) return ;
-		
+		if (getStatus() == Status.CONNECTING)
+			return;
+
 		asyncClient = WebSocketClientFactory.newClient(newURI, this);
 		asyncClient.connect();
 		setStatus(Status.CONNECTING);
@@ -58,7 +57,8 @@ public class SyncMockClient implements WebSocketCallback {
 		future.addListener(new ChannelFutureListener() {
 			public void operationComplete(ChannelFuture arg0) throws Exception {
 				messages.remove(packet);
-				if (messages.isEmpty()) client.notifyAll();
+				if (messages.isEmpty())
+					client.notifyAll();
 			}
 		});
 	}
@@ -71,7 +71,8 @@ public class SyncMockClient implements WebSocketCallback {
 				e.printStackTrace();
 			}
 		}
-		if (asyncClient != null) asyncClient.disconnect().awaitUninterruptibly(3, TimeUnit.SECONDS) ;
+		if (asyncClient != null)
+			asyncClient.disconnect().awaitUninterruptibly(3, TimeUnit.SECONDS);
 	}
 
 	private URI makeNewURI(URI uri) {
@@ -79,7 +80,7 @@ public class SyncMockClient implements WebSocketCallback {
 			String userInfo = userName + ":" + RandomUtil.nextRandomString(10);
 			return new URI(uri.getScheme(), userInfo, uri.getHost(), uri.getPort(), uri.getPath(), uri.getQuery(), uri.getFragment());
 		} catch (URISyntaxException e) {
-			throw new IllegalArgumentException(e.getMessage()) ;
+			throw new IllegalArgumentException(e.getMessage());
 		}
 	}
 
@@ -105,7 +106,7 @@ public class SyncMockClient implements WebSocketCallback {
 	}
 
 	public final void onDisconnect(WebSocketClient client) {
-		emap.onClose() ;
+		emap.onClose();
 		setStatus(Status.CLOSED);
 	}
 
@@ -114,10 +115,10 @@ public class SyncMockClient implements WebSocketCallback {
 	}
 
 	public void onMessage(WebSocketClient client, WebSocketFrame frame) {
-		lastPacket = MessagePacket.load(frame.getTextData()) ;
-		emap.onMessage(lastPacket) ;
-		synchronized(this){
-			notifyAll() ;
+		lastPacket = MessagePacket.load(frame.getTextData());
+		emap.onMessage(lastPacket);
+		synchronized (this) {
+			notifyAll();
 		}
 	}
 
@@ -125,11 +126,9 @@ public class SyncMockClient implements WebSocketCallback {
 		return lastPacket;
 	}
 
-	private synchronized void waitOnConnected(int timeout) {
+	private void waitOnConnected(int timeout) {
 		try {
-			while (status != Status.OPEN) {
-				wait(timeout);
-			}
+			wait(timeout);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -144,21 +143,19 @@ public class SyncMockClient implements WebSocketCallback {
 	}
 
 	public EventListenerMap getMessageListener() {
-		return emap ;
+		return emap;
 	}
 
 	public synchronized void awaitOnMessage() {
 		try {
-			wait(3000) ;
+			wait(3000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public void ping() throws WebSocketException {
-		sendMessage(MessagePacket.PING) ;
+		sendMessage(MessagePacket.PING);
 	}
-	
-	
-}
 
+}

@@ -9,7 +9,7 @@ import net.ion.websocket.common.PacketConstant;
 import net.ion.websocket.common.kit.WebSocketException;
 import net.ion.websocket.common.plugin.AllBroadCastPlugIn;
 import net.ion.websocket.common.plugin.CounterPlugIn;
-import net.ion.websocket.common.plugin.EchoPlugin;
+import net.ion.websocket.common.plugin.EchoPlugIn;
 
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
@@ -38,7 +38,7 @@ public class TestPlugIn extends TestBaseWebSocket implements PacketConstant {
 	}
 
 	public void testServerRecive() throws Exception {
-		server.getPlugInChain().addPlugIn(new EchoPlugin());
+		server.getPlugInChain().addPlugIn(new EchoPlugIn());
 		server.startServer() ;
 
 		SyncMockClient mock = SyncMockClient.newTest();

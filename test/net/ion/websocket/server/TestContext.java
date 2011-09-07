@@ -21,6 +21,11 @@ public class TestContext extends TestBaseWebSocket{
 	}
 	
 	
+	public void testContext() throws Exception {
+		ServiceContext sc = server.getContext() ;
+		assertEquals("bleujin@i-on.net", sc.getAttributeObject("my.server.dev")) ;
+	}
+	
 	
 	
 }

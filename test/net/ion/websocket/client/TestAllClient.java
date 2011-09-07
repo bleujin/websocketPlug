@@ -1,6 +1,5 @@
 package net.ion.websocket.client;
 
-import net.ion.websocket.plugin.TestMessagePacket;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
@@ -11,6 +10,7 @@ public class TestAllClient extends TestCase{
 		suite.addTestSuite(TestSyncMockClient.class) ;
 		suite.addTestSuite(TestMessagePacket.class) ;
 		
+		suite.addTestSuite(TestClientListener.class) ;
 
 		return suite;
 	}

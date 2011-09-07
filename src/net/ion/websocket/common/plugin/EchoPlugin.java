@@ -4,12 +4,13 @@ import net.ion.framework.util.Debug;
 import net.ion.websocket.common.api.WebSocketConnector;
 import net.ion.websocket.common.api.WebSocketPacket;
 import net.ion.websocket.common.kit.PlugInResponse;
-import net.ion.websocket.plugin.MessagePacket;
 
-public class EchoPlugin extends BasePlugIn {
+public class EchoPlugIn extends BasePlugIn {
 
+	public final static EchoPlugIn SELF = new EchoPlugIn() ; 
+	
 	@Override public void connectorStarted(WebSocketConnector conn) {
-		conn.sendPacket(MessagePacket.create().put("greeting", "hi").toRoot().forSend()) ;
+		// conn.sendPacket(MessagePacket.create().put("greeting", "hi").toRoot().forSend()) ;
 	}
 
 	

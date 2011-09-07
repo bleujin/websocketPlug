@@ -7,7 +7,6 @@ import java.util.List;
 import net.ion.framework.util.InstanceCreationException;
 import net.ion.framework.util.ListUtil;
 import net.ion.framework.util.StringUtil;
-import net.ion.radon.Options;
 import net.ion.radon.core.config.XMLConfig;
 import net.ion.websocket.common.api.EngineConfiguration;
 import net.ion.websocket.common.api.ServerConfiguration;
@@ -28,12 +27,17 @@ public class ServerConfigParser {
 	private List<ListenerInfo> listeners = ListUtil.newList() ;
 	private AradonConfiguration aradonConfig ;
 	
-	private ServerConfigParser(XMLConfig root) {
+	private String baseDir ;
+	private ServerConfigParser(XMLConfig root, String baseDir) {
 		this.root = root ;
+		this.baseDir = baseDir ;
 	}
 
 	public final static ServerConfigParser parse(XMLConfig root) throws ConfigurationException, InstanceCreationException{
-		ServerConfigParser result = new ServerConfigParser(root);
+		return parse(root, "./") ;
+	}
+	public final static ServerConfigParser parse(XMLConfig root, String baseDir) throws ConfigurationException, InstanceCreationException{
+		ServerConfigParser result = new ServerConfigParser(root, baseDir);
 		result.init() ;
 		return result ;
 	}
@@ -45,7 +49,7 @@ public class ServerConfigParser {
 		
 		this.plugins = makePlugInInfos(root.firstChild("plugins")) ;
 		this.listeners = makeListenerInfos(root.firstChild("listeners")) ;
-		this.aradonConfig = AradonConfiguration.create(root.firstChild("aradon")) ;
+		this.aradonConfig = AradonConfiguration.create(root.firstChild("aradon"), this.baseDir) ;
 		
 	}
 

@@ -2,7 +2,7 @@ package net.ion.aradon.websocket;
 
 import junit.framework.TestCase;
 import net.ion.websocket.common.plugin.DebugPlugIn;
-import net.ion.websocket.common.plugin.EchoPlugin;
+import net.ion.websocket.common.plugin.EchoPlugIn;
 import net.ion.websocket.server.DefaultServer;
 import net.ion.websocket.server.engine.netty.NettyEngine;
 
@@ -25,7 +25,7 @@ public class TestClientsWrapper extends TestCase{
 	
 	private DefaultServer runServer() throws Exception {
 		DefaultServer server = new DefaultServer(NettyEngine.test());
-		server.getPlugInChain().addPlugIn(new EchoPlugin()) ;
+		server.getPlugInChain().addPlugIn(new EchoPlugIn()) ;
 		server.getPlugInChain().addPlugIn(new DebugPlugIn()) ;
 		
 		server.startServer() ;

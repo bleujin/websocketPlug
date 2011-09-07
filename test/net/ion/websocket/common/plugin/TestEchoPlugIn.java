@@ -8,7 +8,7 @@ import net.ion.websocket.plugin.MessagePacket;
 public class TestEchoPlugIn extends TestBaseWebSocket{
 
 	public void testConnected() throws Exception {
-		server.getPlugInChain().addPlugIn(new EchoPlugin()) ;
+		server.getPlugInChain().addPlugIn(new EchoPlugIn()) ;
 		server.startServer() ;
 		
 
