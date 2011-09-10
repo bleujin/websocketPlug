@@ -8,12 +8,12 @@ public class TestAllServer extends TestCase{
 	public static TestSuite suite(){
 		TestSuite suite = new TestSuite() ;
 		
+		suite.addTestSuite(TestURIParser.class) ;
 		suite.addTestSuite(TestServerConfigParser.class) ;
 		
 		suite.addTestSuite(TestServerRunner.class) ;
-//		suite.addTestSuite(TestDeploy.class) ;
-		suite.addTestSuite(TestURIParser.class) ;
 		suite.addTestSuite(TestContext.class) ;
+		suite.addTestSuite(TestEmbedAradon.class) ;
 		return suite ;
 	}
 }

@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title>WebSocket Client Test</title>
+  <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js'></script> 
+  <script>
+  	var ws;
+  	var url = "ws://localhost:9000/"
+	$(function() {
+		//alert('jquery..');
+		ws = new WebSocket(url);
+		ws.onopen = function(event) { $('#status').text("The WebSocket Connection Is Open."); }
+		ws.onmessage = function(event) { 
+				$('#result').text("Result= "+event.data);
+				var obj = eval('(' + event.data + ')');
+				$('#msgBox').append(obj.body.message + '<br/>');
+			}
+		ws.onclose = function(event) { $('#status').text("The WebSocket Connection Has Been Closed."); }
+	});
+  	
+  	function testInvite() {
+		var invite = "{head:{command:'INVITE',requestid:'minato'},body:{room:{roomid:'room1'},target:'test1;test2'}}";
+  		ws.send(invite);
+  	}
+  	
+  	function testJoin() {
+  		var join = "{head:{command:'JOIN',requestid:'test1'},body:{room:{roomid:'room1'},target:'minato'}}";
+  		ws.send(join);
+  	}
+  	
+  	function _submit() {
+  		var msg = $('#txtId').val();
+  		var json = "{head:{command:'CHAT',requestid:'minato'},body:{room:{roomid:'room1'},message:'" + msg + "'}}";
+  		ws.send(json)
+  		$('#msgBox').append(msg + '<br/>');
+  	}
+  </script>
+ </head>
+
+ <body>
+  <input type="button" value="invite" onclick="testInvite();">
+  <input type="button" value="join" onclick="testJoin();">
+  <div id="status"></div><br/>
+  <div id="msgBox"></div><br/>
+  <input type="text" id="txtId" name="txtInput" value="hello..">
+  <input type="button" value="send" onclick="_submit();">
+  <br/>
+  <br/>
+  <div id="result"></div>
+ </body>
+</html>

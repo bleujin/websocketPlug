@@ -1,0 +1,232 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>WebSocket Client Test</title>
+        <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js'></script>
+        <script src='https://raw.github.com/LiosK/UUID.js/master/src/uuid.js'></script>
+        <script src="chat.js"></script>
+        <script src='jquery.json-2.2.js'></script>
+        <script src="json-packet.js"></script>
+        <script>
+            $(function(){
+                $('body').css('font-size', '10pt');
+                $('div').css('padding', '5px 0');
+				$('#debug').hide();
+				$('#debugBtn').click(function() {
+					$("#debug").toggle();
+				});
+            });
+        </script>
+        <script>
+            $(function(){
+                var client = new WebSocketClient();
+                
+                $('#connectBtn').click(function connect(){
+					var user = $('#users').val();
+					if (user == '') {
+						console.log("no selected..");
+						return;
+					}
+                    client.setUserId(user);
+                    
+                    var url = "ws://127.0.0.1:9000/" + client.getUserId() + "/123455/;";
+                    client.createServer(url);
+                    
+                    client.getServer().onopen = function(event){
+                        console.log("Websocket Open.");
+						connectView(true);
+                    };
+                    
+                    client.getServer().onmessage = function(event){
+						messageHandle(event.data);
+                    };
+                    
+                    client.getServer().onclose = function(event){
+                        console.log("Websocket Close.");
+                    };
+                    
+                });
+                
+                $('#sendBtn').click(function(){
+                    if (!client.isConnected()) {
+                        console.log("client disconnect");
+                        return;
+                    }
+                    var receiver = $('input[name$="receiver"]:checked').map(function(){
+                        return $(this).val();
+                    }).get().join(';');
+					var room;
+					if (!receiver) {
+						console.log('select receiver....');
+						return;
+					} else if (receiver.split(';').length > 1) {
+						room = client.getUserId() + '-' + receiver.replace(';', '-');
+					} else {
+						room = receiver;
+					}
+					createRoom(room);
+                    var msg = "{'head':{'sender':'" + client.getUserId() + "', 'receiver':'" + receiver + "', 'command':'MESSAGE'}, 'body':{'room':'" + room + "','message':'" + $('#sendMsg').val() + "'}}";
+                    client.sendData(msg);
+                });
+                
+                $('#outBtn').click(function(){
+					if (!client.isConnected()) {
+                        console.log("client disconnect");
+                        return;
+                    }
+                    var receiver = $('input[name$="receiver"]:checked').map(function(){
+                        return $(this).val();
+                    }).get().join(';');
+                    var msg = "{'head':{'sender':'" + client.getUserId() + "', 'receiver':'" + receiver + "', 'command':'OUT'}}";
+                    client.sendData(msg);
+                    $('input[name$="receiver"]:checked').attr('checked', '');
+                });
+				
+				$("#addBtn").click(function() {
+					if (!client.isConnected()) {
+                        console.log("client disconnect");
+                        return;
+                    }
+					var friend = $('#friendId').val();
+					if (friend == '' || client.getUserId() == friend) {
+						return;
+					}
+					var friends = $('input[name=receiver]').map(function(){
+                       	return $(this).val();
+                    }).get();
+					for (var i = 0 ; i < friends.length ; i++) {
+						if (friends[i] == friend) return;
+					}
+					var input = $('<input type="checkbox" name="receiver" value="' + friend + '">' + friend + '</input><br/>');
+					input.appendTo('#v-friend-list');
+				
+				});
+				
+				messageHandle = function(data) {
+					var message = MessagePacket.load(data);
+                    if (message.getCommand() == 'apn') {
+                        $('#result').append('APN : ' + event.data + '<br/>');
+                    } else if (message.getCommand() == 'message') {
+						var room;
+						if (message.getRoom() == client.getUserId()) {
+							room = message.getSender();
+						} else {
+							room = message.getRoom();
+						}
+                        createRoom(room);
+						$('#' + room).append(message.getSender() + ' : ' + message.getMessage() + '<br/>');
+                        $('input[value=' + message.getSender() + ']').attr('checked', 'checked');
+						
+                    } else if (message.getCommand() == 'out') {
+                        $('#msgBox').append(message.getSender() + ' out.<br/>');
+                        $('input[value=' + message.getSender() + ']').attr('checked', '');
+                    } else if (message.getCommand() == 'debug') {
+						$('#tbl-users').html('');
+						$.each(message.getUsers(), function(i, user) {
+							$('#tbl-users').append(user.host + '/' + user.port + '/' + user.username + '/' + user.sessionid + '<br>');
+						});
+					}
+				};
+				
+				logout = function(){
+                    console.log(client.getUserId() + " logout.");
+                    client.disconnect();
+                    $('input[name$="receiver"]:checked').attr('checked', '');
+                    connectView(false);
+                };
+				
+				connectView = function(flag) {
+					if (flag) {
+						$('#v-connect').hide();
+						$('<span style="padding-left:10px;">' + client.getUserId() + '<input type="button" value="logout" onClick="javascript:logout();"/></span>').appendTo('#v-logout');
+					} else {
+						$('#v-logout').html('');
+                    	$('#v-connect').show();
+					}
+				};
+				
+				createRoom = function(room) {
+					if ($('#roomId option[value="' + room + '"]').length > 0) {
+						$('#msgBox > div').hide();
+						$('#' + room).show();
+						return;
+					}
+					console.log('create ' + room);
+					$('<option></option>').attr('value', room).attr("selected","selected").text(room).appendTo("#roomId");
+					$('#msgBox > div').hide();
+					$('<div></div>').attr('id', room).css('width', '100%').css('height', '100%').appendTo("#msgBox").show();
+				};
+
+            });
+			
+			$(function() {
+
+			});
+        </script>
+    </head>
+    <body>
+        <table border="1" width="660" cellpadding="0" cellspacing="0">
+            <tr>
+                <td height="30">
+                    <table border="0" width="100%" height="100%" cellpadding="0" cellspacing="0">
+                        <tr>
+                        	<td width="460" align="right" style="padding-right:10px;">
+								room : 
+                        		<select id="roomId">
+                        			<option value="">---------</option>
+                        		</select>
+                        	</td>
+                            <td width="200" align="right">
+                            	<span id="v-connect" style="padding-right:10px;">
+	                            	<select id="users">
+	                            		<option value="">사용자</option>
+										<option value="bleujin">bleujin</option>
+										<option value="novision">novision</option>
+										<option value="minato">minato</option>
+										<option value="hero">hero</option>
+	                            	</select>
+									<input type="button" id="connectBtn" value="connect">
+								</span>
+								<span id="v-logout"></span>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td height="300">
+                    <table border="1" width="660" height="100%" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="460">
+                            	<div id="msgBox" style="overflow-y:scroll; width:99%; height:99%; padding:10px;font-size: 12px;"></div>
+                            </td>
+                            <td width="200" valign="top">
+							   <div id="v-friend-list" style="overflow-y:scroll; width:99%; height:99%; padding:10px;font-size: 12px;">
+							   		<input name="receiver" type="checkbox" value="novision">novision</input><br/>
+							   </div>
+                            </td>
+						</tr>
+						<tr>
+                            <td height="30">
+                            	<input type="text" id="sendMsg" value="hello....." size="40">
+								<input type="button" id="sendBtn" value="send">
+								<input type="button" id="outBtn" value="out">
+								<input type="button" id="debugBtn" value="all-user">
+                            </td> 
+							<td align="right">
+								<input type="text" id="friendId" size="14">
+								<input id="addBtn" type="button" value="Add">
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+		<div id="debug">
+			-- 사용자
+			<div id="tbl-users">
+			</div>
+		</div>
+		<div id="result"></div>
+    </body>
+</html>

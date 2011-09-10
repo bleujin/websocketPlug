@@ -3,6 +3,7 @@ package net.ion.websocket.client;
 import java.net.URI;
 
 import net.ion.websocket.TestBaseWebSocket;
+import net.ion.websocket.plugin.MessagePacket;
 
 public class TestSyncMockClient extends TestBaseWebSocket{
 
@@ -26,5 +27,15 @@ public class TestSyncMockClient extends TestBaseWebSocket{
 		client.disconnect() ;
 		assertEquals(false, client.isConnected()) ;
 	}
-	
+
+
+	public void testSendMessage() throws Exception {
+		server.startServer() ;
+		
+		SyncMockClient client1 = SyncMockClient.newTest();
+		client1.connect(uri);
+		MessagePacket mp = MessagePacket.create().inner(BODY).put("greeting", "Hi").toRoot();
+		client1.sendMessage(mp);
+		client1.disconnect();
+	}
 }

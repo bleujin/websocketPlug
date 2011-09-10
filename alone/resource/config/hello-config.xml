@@ -26,6 +26,29 @@
 			</constructor>
 		</configured-object>
 		
+		<configured-object id="my.sb.application" scope="application">
+			<class-name>java.lang.StringBuffer</class-name>
+			<constructor>
+				<constructor-param>
+					<description>test StringBuffer</description>
+					<type>java.lang.String</type>
+					<value>Hello</value>
+				</constructor-param>
+			</constructor>
+		</configured-object>
+
+		<configured-object id="my.sb.request" scope="request">
+			<class-name>java.lang.StringBuffer</class-name>
+			<constructor>
+				<constructor-param>
+					<description>test StringBuffer</description>
+					<type>java.lang.String</type>
+					<value>Hello</value>
+				</constructor-param>
+			</constructor>
+		</configured-object>
+		
+		
 	</context>
 
 	<filters>
@@ -35,14 +58,14 @@
 		<plugin name="chat">
 			<description />
 			<configured-object>
-				<class-name>net.ion.websocket.plugin.chat.AllBroadCastPlugIn</class-name>
+				<class-name>net.ion.websocket.common.plugin.AllBroadCastPlugIn</class-name>
 			</configured-object>
 		</plugin>
 
 		<plugin name="log">
 			<description />
 			<configured-object>
-				<class-name>net.ion.websocket.plugin.chat.LogPlugIn</class-name>
+				<class-name>net.ion.websocket.common.plugin.LogPlugIn</class-name>
 			</configured-object>
 		</plugin>
 	</plugins>

@@ -4,21 +4,62 @@
 	<property name="baseDir" value="." />
 	<property name="binDir" value="./bin" />
 	<property name="publishDir" value="./publish" />
-	
+	<property name="libDir" value="./libs/" />
 	<tstamp>
 	  <format property="TODAY_MY" pattern="MM/dd/yyyy hh:mm"/>
 	</tstamp>
 	
 	
 	<property name="version.number" value="0"/>
-	<property name="build.number" value="2"/>
+	<property name="build.number" value="3"/>
 	
-	<target name="test_websocket">
+
+    <target name="apache_fat">
+    	<delete file="${libDir}/apache_fat.jar"></delete>
+        <fatjar.build output="${libDir}/apache_fat.jar">
+            <fatjar.manifest/>
+        	<fatjar.jarsource file="${libDir}\apache\commons-beanutils-1.8.0.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libDir}\apache\commons-codec-1.4.jar" relpath=""/>  
+        	<fatjar.jarsource file="${libDir}\apache\commons-fileupload-1.2.1.jar" relpath=""/>
+        	<fatjar.jarsource file="${libDir}\apache\ecs-1.4.2.jar" relpath=""/>
+        	
+        	<fatjar.jarsource file="${libDir}\apache\commons-collections-3.2.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libDir}\apache\commons-configuration-1.6.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libDir}\apache\commons-io-1.4.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libDir}\apache\commons-lang-2.4.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libDir}\apache\commons-logging-1.1.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libDir}\apache\javolution-5.5.1.jar" relpath=""/>  
+        	<fatjar.jarsource file="${libDir}\apache\json-2-RELEASE65.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libDir}\apache\log4j-1.2.16.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libDir}\apache\netsf-json-lib-2.2.2-jdk15.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libDir}\apache\servlet-api-2.5-6.1.14.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libDir}\apache\slf4j-api-1.5.6.jar" relpath=""/>  
+        	<fatjar.jarsource file="${libDir}\apache\slf4j-jdk14-1.5.10.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libDir}\apache\slf4j-log4j12-1.5.8.jar" relpath=""/> 
+        </fatjar.build>
+    </target>
+    
+	 <target name="aradon_fat">
+    	<delete file="${libDir}/aradon_fat_0.5.jar"></delete>
+        <fatjar.build output="${libDir}/aradon_fat_0.5.jar">
+            <fatjar.manifest/>
+        	<fatjar.jarsource file="${libDir}\aradon\aradon_0.5.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libDir}\aradon\mongo-2.6.3.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libDir}\aradon\mongonode_0.2.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libDir}\aradon\iframework_2.2.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libDir}\aradon\jetty_fat.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libDir}\aradon\rest_fat.jar" relpath=""/> 
+        </fatjar.build>
+    </target>
+
+	
+	<target name="test_websocket" depends="apache_fat, aradon_fat" >
 		<property name="test.reports" value="./resource/report" /> 
 
 		<path id="test.classpath">
 			<pathelement location="bin" />
-			<fileset dir="lib">
+			<pathelement path="libs/apache/junit.jar" />
+			<fileset dir="libs">
 			    <include name="*.jar"/>
 		  </fileset>
 		</path>
@@ -26,7 +67,7 @@
 		<junit printsummary="on" haltonfailure="on" fork="true">
 			<classpath refid="test.classpath" />
 			<formatter type="xml" />
-			<test name="net.ion.websocket.TestAllSocket" />
+			<test name="net.ion.websocket.TestAllWebSocket" todir="resource"/>
 		</junit>
 		<!--
 		<junit fork="yes" printsummary="no" haltonfailure="no">
@@ -46,10 +87,10 @@
 		    <report todir="${test.reports}" />
 		</junitreport> -->
 	</target>
+
 	
-	
-	<target name="publish">
-		<property name="manifest.main.class" value="net.ion.websocket.server.AllOnRunner" />
+	<target name="publish" depends="test_websocket">
+		<property name="manifest.main.class" value="net.ion.websocket.server.ServerNodeRunner" />
 		<property name="manifest.classpath" value="lib/apache_fat.jar lib/aradon_fat_0.5.jar lib/netty-3.2.5.Final.jar lib/ojdbc14.jar"/> 
 		<!-- lib/notifier_fat.jar -->
 		<!-- delete  file="${libDir}/websocket_${version.number}.${build.number}.jar" /-->

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite errors="0" failures="0" hostname="mycom" name="net.ion.websocket.TestAllWebSocket" tests="41" time="3.813" timestamp="2011-09-10T09:01:08">
+  <properties>
+    <property name="java.vendor" value="Sun Microsystems Inc." />
+    <property name="sun.java.launcher" value="SUN_STANDARD" />
+    <property name="eclipse.pdebuild.templates" value="/D:/eclipse341/plugins/org.eclipse.pde.build_3.4.1.R34x_v20081217/templates/" />
+    <property name="sun.management.compiler" value="HotSpot Client Compiler" />
+    <property name="os.name" value="Windows XP" />
+    <property name="sun.boot.class.path" value="D:\java\jdk6.27\jre\lib\resources.jar;D:\java\jdk6.27\jre\lib\rt.jar;D:\java\jdk6.27\jre\lib\sunrsasign.jar;D:\java\jdk6.27\jre\lib\jsse.jar;D:\java\jdk6.27\jre\lib\jce.jar;D:\java\jdk6.27\jre\lib\charsets.jar;D:\java\jdk6.27\jre\lib\modules\jdk.boot.jar;D:\java\jdk6.27\jre\classes" />
+    <property name="TODAY" value="September 10 2011" />
+    <property name="build.number" value="3" />
+    <property name="sun.desktop" value="windows" />
+    <property name="java.vm.specification.vendor" value="Sun Microsystems Inc." />
+    <property name="ant.home" value="D:\eclipse341\plugins\org.apache.ant_1.7.0.v200803061910" />
+    <property name="java.runtime.version" value="1.6.0_27-b07" />
+    <property name="version.number" value="0" />
+    <property name="user.name" value="Administrator" />
+    <property name="ant.file.Jar Publish" value="D:\eclipse\workspace\websocketPlug\build.xml" />
+    <property name="publishDir" value="./publish" />
+    <property name="user.language" value="ko" />
+    <property name="sun.boot.library.path" value="D:\java\jdk6.27\jre\bin" />
+    <property name="ant.project.name" value="Jar Publish" />
+    <property name="DSTAMP" value="20110910" />
+    <property name="java.version" value="1.6.0_27" />
+    <property name="user.timezone" value="" />
+    <property name="sun.arch.data.model" value="32" />
+    <property name="java.endorsed.dirs" value="D:\java\jdk6.27\jre\lib\endorsed" />
+    <property name="sun.cpu.isalist" value="pentium_pro+mmx pentium_pro pentium+mmx pentium i486 i386 i86" />
+    <property name="sun.jnu.encoding" value="MS949" />
+    <property name="file.encoding.pkg" value="sun.io" />
+    <property name="file.separator" value="\" />
+    <property name="java.specification.name" value="Java Platform API Specification" />
+    <property name="java.class.version" value="50.0" />
+    <property name="user.country" value="KR" />
+    <property name="java.home" value="D:\java\jdk6.27\jre" />
+    <property name="java.vm.info" value="mixed mode, sharing" />
+    <property name="ant.file" value="D:\eclipse\workspace\websocketPlug\build.xml" />
+    <property name="os.version" value="5.1" />
+    <property name="test.reports" value="./resource/report" />
+    <property name="path.separator" value=";" />
+    <property name="java.vm.version" value="20.2-b06" />
+    <property name="user.variant" value="" />
+    <property name="ant.library.dir" value="D:\eclipse341\plugins\org.apache.ant_1.7.0.v200803061910\lib" />
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob" />
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle" />
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
+    <property name="eclipse.pdebuild.scripts" value="/D:/eclipse341/plugins/org.eclipse.pde.build_3.4.1.R34x_v20081217/scripts/" />
+    <property name="user.home" value="C:\Documents and Settings\Administrator" />
+    <property name="java.specification.vendor" value="Sun Microsystems Inc." />
+    <property name="binDir" value="./bin" />
+    <property name="java.library.path" value="D:\java\jdk6.27\jre\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;D:/java/jdk5_22/bin/../jre/bin/client;D:/java/jdk5_22/bin/../jre/bin;D:\java\jdk5_22;D:\java\jdk5_22\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\Program Files\QuickTime\QTSystem\;C:\Program Files\TortoiseSVN\bin;C:\Program Files\TortoiseGit\bin;D:\java\jdk5se_22\bin;D:\java\jdk5_22;D:\java\jdk5_22\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\Program Files\QuickTime\QTSystem\;C:\Program Files\TortoiseSVN\bin;C:\Program Files\TortoiseGit\bin;." />
+    <property name="java.vendor.url" value="http://java.sun.com/" />
+    <property name="java.vm.vendor" value="Sun Microsystems Inc." />
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner net.ion.websocket.TestAllWebSocket filtertrace=true haltOnError=false haltOnFailure=true formatter=org.apache.tools.ant.taskdefs.optional.junit.SummaryJUnitResultFormatter showoutput=false outputtoformatters=true logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,D:\eclipse\workspace\websocketPlug\resource\TEST-net.ion.websocket.TestAllWebSocket.xml crashfile=D:\eclipse\workspace\websocketPlug\junitvmwatcher1674362019.properties propsfile=D:\eclipse\workspace\websocketPlug\junit1502516318.properties" />
+    <property name="java.class.path" value="D:\eclipse\workspace\websocketPlug\bin;D:\eclipse\workspace\websocketPlug\libs\apache\junit.jar;D:\eclipse\workspace\websocketPlug\libs\apache_fat.jar;D:\eclipse\workspace\websocketPlug\libs\aradon_fat_0.5.jar;D:\eclipse\workspace\websocketPlug\libs\iframework_2.2.jar;D:\eclipse\workspace\websocketPlug\libs\netty-3.2.5.Final.jar;D:\eclipse\workspace\websocketPlug\libs\websocket_0.2.jar;D:\eclipse341\plugins\org.apache.ant_1.7.0.v200803061910\lib\ant-launcher.jar;D:\eclipse341\plugins\org.apache.ant_1.7.0.v200803061910\lib\ant.jar;D:\eclipse341\plugins\org.apache.ant_1.7.0.v200803061910\lib\ant-junit.jar" />
+    <property name="ant.version" value="Apache Ant version 1.7.0 compiled on December 13 2006" />
+    <property name="TSTAMP" value="0900" />
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
+    <property name="java.vm.specification.version" value="1.0" />
+    <property name="sun.cpu.endian" value="little" />
+    <property name="sun.os.patch.level" value="Service Pack 3" />
+    <property name="eclipse.pdebuild.home" value="/D:/eclipse341/plugins/org.eclipse.pde.build_3.4.1.R34x_v20081217/./" />
+    <property name="java.io.tmpdir" value="C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\" />
+    <property name="java.vendor.url.bug" value="http://java.sun.com/cgi-bin/bugreport.cgi" />
+    <property name="os.arch" value="x86" />
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment" />
+    <property name="java.ext.dirs" value="D:\java\jdk6.27\jre\lib\ext;C:\WINDOWS\Sun\Java\lib\ext" />
+    <property name="user.dir" value="D:\eclipse\workspace\websocketPlug" />
+    <property name="libDir" value="./libs/" />
+    <property name="line.separator" value="
+" />
+    <property name="java.vm.name" value="Java HotSpot(TM) Client VM" />
+    <property name="basedir" value="D:\eclipse\workspace\websocketPlug" />
+    <property name="baseDir" value="." />
+    <property name="ant.java.version" value="1.6" />
+    <property name="TODAY_MY" value="09/10/2011 09:00" />
+    <property name="ant.core.lib" value="D:\eclipse341\plugins\org.apache.ant_1.7.0.v200803061910\lib\ant.jar" />
+    <property name="file.encoding" value="MS949" />
+    <property name="java.specification.version" value="1.6" />
+  </properties>
+  <testcase classname="net.ion.websocket.client.TestSyncMockClient" name="testConnect" time="0.36" />
+  <testcase classname="net.ion.websocket.client.TestSyncMockClient" name="testDisconnect" time="0.015" />
+  <testcase classname="net.ion.websocket.client.TestSyncMockClient" name="testSendMessage" time="0.016" />
+  <testcase classname="net.ion.websocket.client.TestMessagePacket" name="testInit" time="0.0" />
+  <testcase classname="net.ion.websocket.client.TestMessagePacket" name="testPath" time="0.0" />
+  <testcase classname="net.ion.websocket.client.TestMessagePacket" name="testLoad" time="0.016" />
+  <testcase classname="net.ion.websocket.client.TestMessagePacket" name="testEmpty" time="0.0" />
+  <testcase classname="net.ion.websocket.client.TestMessagePacket" name="testHas" time="0.0" />
+  <testcase classname="net.ion.websocket.client.TestMessagePacket" name="testGetDefaultString" time="0.0" />
+  <testcase classname="net.ion.websocket.client.TestMessagePacket" name="testInner" time="0.0" />
+  <testcase classname="net.ion.websocket.client.TestMessagePacket" name="testAraray" time="0.0" />
+  <testcase classname="net.ion.websocket.client.TestClientListener" name="testOnMessage" time="0.062" />
+  <testcase classname="net.ion.websocket.client.TestClientListener" name="testOnClose" time="0.016" />
+  <testcase classname="net.ion.websocket.server.TestURIParser" name="testBlank" time="0.0" />
+  <testcase classname="net.ion.websocket.server.TestURIParser" name="testLimit1" time="0.0" />
+  <testcase classname="net.ion.websocket.server.TestURIParser" name="testLimit2" time="0.0" />
+  <testcase classname="net.ion.websocket.server.TestURIParser" name="testLimitCase" time="0.0" />
+  <testcase classname="net.ion.websocket.server.TestURIParser" name="testPattern" time="0.0" />
+  <testcase classname="net.ion.websocket.server.TestURIParser" name="testOverCase" time="0.0" />
+  <testcase classname="net.ion.websocket.server.TestServerConfigParser" name="testBaseDir" time="0.109" />
+  <testcase classname="net.ion.websocket.server.TestServerConfigParser" name="testServerConfig" time="0.016" />
+  <testcase classname="net.ion.websocket.server.TestServerConfigParser" name="testEngineConfig" time="0.0" />
+  <testcase classname="net.ion.websocket.server.TestServerConfigParser" name="testContextConfig" time="0.015" />
+  <testcase classname="net.ion.websocket.server.TestServerConfigParser" name="testPluginConfig" time="0.0" />
+  <testcase classname="net.ion.websocket.server.TestServerConfigParser" name="testListenerConfig" time="0.016" />
+  <testcase classname="net.ion.websocket.server.TestServerRunner" name="testConnectUriParamter" time="0.516" />
+  <testcase classname="net.ion.websocket.server.TestContext" name="testOnStart" time="0.0" />
+  <testcase classname="net.ion.websocket.server.TestContext" name="testLoadObject" time="0.015" />
+  <testcase classname="net.ion.websocket.server.TestContext" name="testApplicationScope" time="0.016" />
+  <testcase classname="net.ion.websocket.server.TestContext" name="testRequestScope" time="0.0" />
+  <testcase classname="net.ion.websocket.server.TestEmbedAradon" name="testConfirmAradon" time="0.25" />
+  <testcase classname="net.ion.websocket.server.TestEmbedAradon" name="testAradonContext" time="0.016" />
+  <testcase classname="net.ion.websocket.server.TestEmbedAradon" name="testMonitorLet" time="0.125" />
+  <testcase classname="net.ion.websocket.common.plugin.TestPlugIn" name="testCounterPlugIn" time="0.109" />
+  <testcase classname="net.ion.websocket.common.plugin.TestPlugIn" name="testMultiClient" time="0.266" />
+  <testcase classname="net.ion.websocket.common.plugin.TestEchoPlugIn" name="testConnected" time="0.516" />
+  <testcase classname="net.ion.websocket.common.plugin.TestEchoPlugIn" name="testServerRecive" time="0.125" />
+  <testcase classname="net.ion.websocket.common.plugin.TestBroadCastPlugIn" name="testBroadCast" time="0.015" />
+  <testcase classname="net.ion.websocket.common.plugin.TestChannelPlugIn" name="testProcess" time="0.11" />
+  <testcase classname="net.ion.websocket.common.listener.TestListener" name="testListener" time="0.515" />
+  <testcase classname="net.ion.websocket.common.listener.TestChannelListener" name="testChannelListener" time="0.516" />
+  <system-out><![CDATA[2011-09-10 09:01:08,750 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.EchoPlugIn@e80842 added
+[====================, [{"body":{},"head":{"command":"ping"}}]] by net.ion.websocket.client.TestClientListener$1:onMessage[20110910-090108]
+[====================, [127.0.0.1:3449 (anonymous), net.ion.websocket.common.kit.RawPacket@f1bb78]] by net.ion.websocket.common.plugin.EchoPlugIn:processPacket[20110910-090108]
+2011-09-10 09:01:08,812 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.EchoPlugIn@e80842 added
+2011-09-10 09:01:09,515 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.AllBroadCastPlugIn@156b6b9 added
+2011-09-10 09:01:09,515 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.LogPlugIn@1f66cff added
+2011-09-10 09:01:09,531 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.AllBroadCastPlugIn@1901437 added
+2011-09-10 09:01:09,531 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.LogPlugIn@1f6226 added
+2011-09-10 09:01:09,531 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.AllBroadCastPlugIn@158f9d3 added
+2011-09-10 09:01:09,531 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.LogPlugIn@79a2e7 added
+2011-09-10 09:01:09,546 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.AllBroadCastPlugIn@19836ed added
+2011-09-10 09:01:09,546 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.LogPlugIn@3e0ebb added
+[    Application[aradon], let.contact.email : bleujin@i-on.net] by net.ion.radon.core.config.AttributeUtil:setStringAttribute[20110910-090109]
+[    Application[aradon], let.contact.help.doc : /help/doc] by net.ion.radon.core.config.AttributeUtil:setStringAttribute[20110910-090109]
+[SECTION :  loaded] by net.ion.radon.core.Aradon:setSection[20110910-090109]
+[ROOT loaded] by net.ion.radon.core.Aradon:initConfig[20110910-090109]
+[Bye....... Aradon] by net.ion.radon.core.Aradon:slayReleasable[20110910-090109]
+[End World.........] by net.ion.radon.core.Aradon:slayReleasable[20110910-090109]
+2011-09-10 09:01:09,796 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.AllBroadCastPlugIn@26d607 added
+2011-09-10 09:01:09,796 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.LogPlugIn@1ad98ef added
+[    Application[aradon], let.contact.email : bleujin@i-on.net] by net.ion.radon.core.config.AttributeUtil:setStringAttribute[20110910-090109]
+[    Application[aradon], let.contact.help.doc : /help/doc] by net.ion.radon.core.config.AttributeUtil:setStringAttribute[20110910-090109]
+[SECTION :  loaded] by net.ion.radon.core.Aradon:setSection[20110910-090109]
+[ROOT loaded] by net.ion.radon.core.Aradon:initConfig[20110910-090109]
+[Bye....... Aradon] by net.ion.radon.core.Aradon:slayReleasable[20110910-090109]
+[End World.........] by net.ion.radon.core.Aradon:slayReleasable[20110910-090109]
+2011-09-10 09:01:09,828 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.AllBroadCastPlugIn@1343ed0 added
+2011-09-10 09:01:09,828 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.LogPlugIn@13c0b53 added
+[    Application[aradon], let.contact.email : bleujin@i-on.net] by net.ion.radon.core.config.AttributeUtil:setStringAttribute[20110910-090109]
+[    Application[aradon], let.contact.help.doc : /help/doc] by net.ion.radon.core.config.AttributeUtil:setStringAttribute[20110910-090109]
+[SECTION :  loaded] by net.ion.radon.core.Aradon:setSection[20110910-090109]
+[ROOT loaded] by net.ion.radon.core.Aradon:initConfig[20110910-090109]
+[Bye....... Aradon] by net.ion.radon.core.Aradon:slayReleasable[20110910-090109]
+[End World.........] by net.ion.radon.core.Aradon:slayReleasable[20110910-090109]
+2011-09-10 09:01:09,937 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.CounterPlugIn@1ed1b0b added
+2011-09-10 09:01:10,046 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.CounterPlugIn@12b6c89 added
+2011-09-10 09:01:10,312 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.EchoPlugIn@31f2a7 added
+[{}] by net.ion.websocket.common.plugin.TestEchoPlugIn:testConnected[20110910-090110]
+[====================, [127.0.0.1:3572 (anonymous), net.ion.websocket.common.kit.RawPacket@2b7db1]] by net.ion.websocket.common.plugin.EchoPlugIn:processPacket[20110910-090110]
+[[{}]] by net.ion.websocket.common.plugin.TestEchoPlugIn:testConnected[20110910-090110]
+2011-09-10 09:01:10,828 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.EchoPlugIn@1815338 added
+[====================, [127.0.0.1:3582 (anonymous), net.ion.websocket.common.kit.RawPacket@987a33]] by net.ion.websocket.common.plugin.EchoPlugIn:processPacket[20110910-090110]
+2011-09-10 09:01:10,953 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.AllBroadCastPlugIn@118d189 added
+2011-09-10 09:01:10,968 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.ChannelPlugIn@157ea4a added
+]]></system-out>
+  <system-err><![CDATA[2011. 9. 10 오전 9:01:08 java.util.jar.Attributes read
+경고: Duplicate name in Manifest: Specification-Title.
+Ensure that the manifest does not have duplicate entries, and
+that blank lines separate individual sections in both your
+manifest and in the META-INF/MANIFEST.MF entry in the jar file.
+2011. 9. 10 오전 9:01:08 java.util.jar.Attributes read
+경고: Duplicate name in Manifest: Specification-Version.
+Ensure that the manifest does not have duplicate entries, and
+that blank lines separate individual sections in both your
+manifest and in the META-INF/MANIFEST.MF entry in the jar file.
+2011. 9. 10 오전 9:01:08 java.util.jar.Attributes read
+경고: Duplicate name in Manifest: Specification-Vendor.
+Ensure that the manifest does not have duplicate entries, and
+that blank lines separate individual sections in both your
+manifest and in the META-INF/MANIFEST.MF entry in the jar file.
+2011. 9. 10 오전 9:01:08 java.util.jar.Attributes read
+경고: Duplicate name in Manifest: Specification-Title.
+Ensure that the manifest does not have duplicate entries, and
+that blank lines separate individual sections in both your
+manifest and in the META-INF/MANIFEST.MF entry in the jar file.
+2011. 9. 10 오전 9:01:08 java.util.jar.Attributes read
+경고: Duplicate name in Manifest: Specification-Version.
+Ensure that the manifest does not have duplicate entries, and
+that blank lines separate individual sections in both your
+manifest and in the META-INF/MANIFEST.MF entry in the jar file.
+2011. 9. 10 오전 9:01:08 java.util.jar.Attributes read
+경고: Duplicate name in Manifest: Specification-Vendor.
+Ensure that the manifest does not have duplicate entries, and
+that blank lines separate individual sections in both your
+manifest and in the META-INF/MANIFEST.MF entry in the jar file.
+log4j:WARN No appenders could be found for logger (org.apache.commons.configuration.ConfigurationUtils).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+[Warn, plugin not exists] by net.ion.radon.core.ClassAppender:appendPath[20110910-090109]
+[Warn, lib not exists] by net.ion.radon.core.ClassAppender:appendPath[20110910-090109]
+SLF4J: The requested version 1.5.10 by your slf4j binding is not compatible with [1.5.5, 1.5.6]
+SLF4J: See http://www.slf4j.org/codes.html#version_mismatch for further details.
+jetty-7.x.y-SNAPSHOT
+Started SelectChannelConnector@0.0.0.0:18787
+aradon server started : 18787
+aradon server stoped
+[Warn, plugin not exists] by net.ion.radon.core.ClassAppender:appendPath[20110910-090109]
+[Warn, lib not exists] by net.ion.radon.core.ClassAppender:appendPath[20110910-090109]
+aradon server stoped
+jetty-7.x.y-SNAPSHOT
+Started SelectChannelConnector@0.0.0.0:18787
+aradon server started : 18787
+[Warn, plugin not exists] by net.ion.radon.core.ClassAppender:appendPath[20110910-090109]
+[Warn, lib not exists] by net.ion.radon.core.ClassAppender:appendPath[20110910-090109]
+jetty-7.x.y-SNAPSHOT
+Started SelectChannelConnector@0.0.0.0:18787
+aradon server started : 18787
+aradon server stoped
+]]></system-err>
+</testsuite>

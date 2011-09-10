@@ -19,13 +19,6 @@
 			<handler class="net.ion.websocket.aradon.embed.SampleMonitorLet" scope="request" />
 		</path>
 		
-		<path name="favicon.ico">
-			<context>
-				<attribute id="base.dir">./resource/favicon.ico</attribute>
-			</context>
-			<urls>/favicon.ico</urls>
-			<handler class="net.ion.radon.impl.let.DirLet" scope="request" />
-		</path>
 	</section>
 	
 	<context>

@@ -142,13 +142,4 @@ public class DefaultServer extends BaseServer {
 		return getEngine().isAlive();
 	}
 
-	// public WebSocketConnector getConnector(String aId) {
-	// for (WebSocketConnector conn : getAllConnectors()) {
-	// if (conn != null && aId.equals(conn.getUsername())) {
-	// return conn;
-	// }
-	// }
-	// return null;
-	// }
-
 }

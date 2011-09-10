@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>WebSocket Client Test</title>
+  <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js'></script>
+  <script src='https://raw.github.com/LiosK/UUID.js/master/src/uuid.js'></script>
+  <script src="chat.js"></script>
+  <script src='jquery.json-2.2.js'></script>
+  <script src="json-packet.js"></script>  
+  
+  <script>
+  	$(function(){
+  		var client = new WebSocketClient() ;
+		var roomId ;
+		
+		$("#s-room").change(function() {
+				roomId = $(this).find(":selected").val();
+				viewChange(roomId);
+			}
+		);
+
+		function viewChange(roomId) {
+	  		$('#msgBox').children().hide();
+	  		$('#'+roomId+"-msg").show();
+	  	} ;
+
+	  	//6a134a74-5be6-4543-b716-8be367ffc3cf
+	  	function isExist(roonId) {
+	  		flag = false;
+	  		$("#s-room option").each(function(i){
+	            if ($(this).val() == roomId) {
+	            	flag = true;
+	            }
+	    	});
+	  		return flag;
+	  	} ;
+	  	
+	  	function addOption(target, value) {
+	  		$("<option></option>")
+	  			.attr("selected", "selected")
+	  			.text(target)
+	  			.attr("value", value)
+	  			.appendTo("#s-room");
+	  	} ;
+			
+  	  	
+  		$('#joinBtn').click( function(){
+  	  		msg = $('#info').val();
+  	  		var obj2 = eval('(' + msg + ')');
+  	  		roomId = obj2.body.room.roomid;
+  	  		target = obj2.body.target;
+  	  		if (isExist(roomId)) return;
+  	  		
+  	  		addOption(target, roomId);
+  	  		$('#msgBox').children().hide();
+  	  		$('<div></div>').attr("id", roomId+"-msg").appendTo('#msgBox');
+  	  		client.setUserId(obj2.head.requestid) ;
+
+
+	  	  	var url = $('#serverURL').val() ;
+	  		client.createServer(url);
+	  		client.getServer().onopen = function(event) {
+	  			console.log("The WebSocket Connection Is Open.");
+				$('#msgBox').show();
+				client.getServer().send(msg); 
+			} ;
+			
+			client.getServer().onmessage = function(event) { 
+				console.log("Result= "+event.data);
+				var obj = eval('(' + event.data + ')');
+				if (obj.body.message && obj.head.command != 'SYSTEM') {
+					var target = obj.head.requestid ? obj.head.requestid : obj.head.command;
+					var sendRoom = obj.body.room.roomid;
+					$('#'+sendRoom+'-msg').append(target + ' : ' + obj.body.message + '<br/>');
+				}
+			} ;
+			client.getServer().onclose = function(event) {
+				$('#status').text("The WebSocket Connection Has Been Closed.");
+			} ;
+
+  		}) ;
+
+  		$('#sendBtn').click( function(){
+			if (client.getServer() == null){
+				alert('not connected') ;
+				return ;
+			}
+  	  		
+  			var msg = $('#txtId').val();
+  	  		//var json = "{head:{command:'CHAT',requestid:'" + client.getUserId() + "'},body:{room:{roomid:'" + roomId + "'},message:'" + msg + "'}}";
+  	  		var message = new MessagePacket(null, new Object());
+  	  		//message.setCommand('CHAT').setRequestId(client.getUserId()).setRoomId(roomId).setMessage(msg);
+			message
+				.inner('head').put('command', 'CHAT').put('requestid', client.getUserId()).toParent()
+				.inner('body').put('message', msg)
+					.inner('room').put('roomid', roomId);
+  	  		client.sendData(message.toJSONString());
+  	  		$('#' + roomId + '-msg').append(msg + '<br/>');
+  		}) ;
+  	  		
+  		$('#outBtn').click( function(){
+  			var json = "{head:{command:'OUT',requestid:'" + client.getUserId() + "'},body:{room:{roomid:'" + roomId + "'}}}";
+  			var message = new MessagePacket(null, new Object());
+  	  		//message.setCommand('OUT').setRequestId(client.getUserId()).setRoomId(roomId);
+			message
+				.inner('head').put('command', 'OUT').put('requestid', client.getUserId()).toParent()
+				.inner('body')
+					.inner('room').put('roomid', roomId);
+  			client.sendData(message.toJSONString())
+  	  		$("#s-room option:selected").remove();
+  	  		$('#' + roomId + "-msg").remove();
+  	  		roomId = $("#s-room option:first").val();
+  	  		viewChange(roomId);
+  	  		$("#s-room option:first").attr("selected", "selected");
+  		}) ;
+
+  		$('#logoutBtn').click( function(){
+  	  		//MessagePacket.create(PacketType.LOGOUT).inner(HEAD).put("requestId", client.getUserName()).toRoot();
+  	  		//var json = "{head:{command:'LOGOUT',requestid:'" + client.getUserId() + "'},body:{}}";
+  	  		var message = new MessagePacket(null, new Object());
+	  		//message.setCommand('LOGOUT').setRequestId(client.getUserId());
+			message
+				.inner('head').put('command', 'LOGOUT').put('requestid', client.getUserId());
+  	  		client.sendData(message.toJSONString()) ;
+  	  		client.disconnect() ;
+  		}) ;
+  	  		
+  	}) ;
+
+    </script>
+ </head>
+
+<body>
+
+	<table>
+		<tr><td colspan="3"><input type="text" id="serverURL" size="40" value="ws://127.0.0.1:8787/;timeout=60000"/></td></tr>
+		<tr>
+			<td><input type=text id="info" size="50"></td>
+			<td><input type="button" id="joinBtn" value="Join"></td>
+			<td><input type="button" id="logoutBtn" value="Logout" /></td>
+		</tr>
+	</table>
+ 
+  <div id="msgBox" style="overflow-y:scroll; width:400px; height:200px; padding:10px;"></div><br/>
+  <span>
+  	<select id='s-room'></select>
+  </span>
+  
+  <input type="text" id="txtId" name="txtInput" value="hello..">
+  <input type="button" id="sendBtn" value="send" />
+  <input type="button" id="outBtn" value="Out" />
+  <br/>
+  <br/>
+  <div id="result"></div>
+  
+</body>
+</html>

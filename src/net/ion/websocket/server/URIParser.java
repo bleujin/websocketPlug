@@ -20,6 +20,7 @@ public class URIParser {
 		
 		Map<String, String> result = MapUtil.newMap();
 		for (int i = 0; i < urls.length; i++) {
+			if (i > urlPatterns.length-1) continue ;
 			String pattern = urlPatterns[i];
 			String url = urls[i];
 			if (pattern.matches(FIND_PATTERN)) {
