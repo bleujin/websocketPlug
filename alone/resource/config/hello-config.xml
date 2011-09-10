@@ -6,8 +6,6 @@
 
 	<server id="chatserver0" name="Server" uripath="/{userId}/{sessionId}/{params}" />
 
-	<aradon config="resource/config/embed-aradon-config.xml"/>
-	
 	<engine id="netty0" name="Netty" port="9000" class="net.ion.websocket.server.engine.netty.NettyEngine">
 		<domain>localhost</domain>
 		<max-frame-size>16384</max-frame-size>

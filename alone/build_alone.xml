@@ -8,7 +8,7 @@
 	<property name="libDir" value="../libs/" />
 
 	<property name="version.number" value="0" />
-	<property name="build.number" value="2" />
+	<property name="build.number" value="3" />
 
 	<target name="copy_resource">
 		<delete dir="${baseDir}/resource">
@@ -30,6 +30,9 @@
 			<fileset dir="${libDir}" includes="*.jar">
 			</fileset>
 		</copy>
+		<copy tofile="${baseDir}/websocket.jar">
+			<fileset file="../publish/websocket_${version.number}.${build.number}.jar"></fileset>
+		</copy>
 	</target>
 
 	<target name="copy_source">
@@ -45,23 +48,15 @@
 		</copy>
 	</target>
 
-	<target name="publish_jar">
-		<copy tofile="${baseDir}/websocket.jar">
-			<fileset file="${libDir}/websocket_${version.number}.${build.number}.jar"></fileset>
-		</copy>
-	</target>
-	
-	
-	<target name="test_websocket" depends="publish_jar, copy_lib, copy_source, copy_resource">
+	<target name="test_websocket" depends="copy_lib, copy_source, copy_resource">
 		<path id="test.classpath">
 			<pathelement location="${libDir}/apache/junit.jar" />
+			<pathelement path="./websocket.jar" />
 			<fileset dir="${libDir}">
 			    <include name="*.jar"/>
 		  	</fileset>
-			<pathelement location="../bin" />
 		</path>
 
-		<mkdir dir="/resource/report/html" />
 		<junit printsummary="on" haltonfailure="on" fork="true">
 			<classpath refid="test.classpath" />
 			<formatter type="xml" />
@@ -72,9 +67,6 @@
 	<target name="publish" depends="test_websocket">
 		<delete file="${baseDir}/websocket_fat.zip" />
 		<delete dir="${baseDir}/_" />
-		<copy tofile="${baseDir}/websocket.jar">
-			<fileset file="${libDir}/websocket_${version.number}.${build.number}.jar"></fileset>
-		</copy>
 		<zip destfile="${baseDir}/websocket_fat.zip">
 			<fileset dir="./">
 				<exclude name="build_alone.xml" />

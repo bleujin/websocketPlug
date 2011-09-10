@@ -9,7 +9,6 @@
 	  <format property="TODAY_MY" pattern="MM/dd/yyyy hh:mm"/>
 	</tstamp>
 	
-	
 	<property name="version.number" value="0"/>
 	<property name="build.number" value="3"/>
 	
@@ -91,8 +90,7 @@
 	
 	<target name="publish" depends="test_websocket">
 		<property name="manifest.main.class" value="net.ion.websocket.server.ServerNodeRunner" />
-		<property name="manifest.classpath" value="lib/apache_fat.jar lib/aradon_fat_0.5.jar lib/netty-3.2.5.Final.jar lib/ojdbc14.jar"/> 
-		<!-- lib/notifier_fat.jar -->
+		<property name="manifest.classpath" value="lib/apache_fat.jar lib/aradon_fat_0.5.jar lib/netty-3.2.5.Final.jar"/> 
 		<!-- delete  file="${libDir}/websocket_${version.number}.${build.number}.jar" /-->
 		<jar destfile="publish/websocket_${version.number}.${build.number}.jar">
 			<manifest>
