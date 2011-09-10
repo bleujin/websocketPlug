@@ -7,16 +7,16 @@ import net.ion.websocket.common.plugin.TestChannelPlugIn;
 import net.ion.websocket.common.plugin.TestEchoPlugIn;
 import net.ion.websocket.common.plugin.TestPlugIn;
 
-public class TestAllPlugIn  extends TestCase{
-
-	public static TestSuite suite(){
-		TestSuite suite = new TestSuite() ;
-		
-		suite.addTestSuite(TestPlugIn.class) ;
-		suite.addTestSuite(TestEchoPlugIn.class) ;
-		suite.addTestSuite(TestBroadCastPlugIn.class) ;
-		suite.addTestSuite(TestChannelPlugIn.class) ;
-		
-		return suite ;
+	public class TestAllPlugIn  extends TestCase{
+	
+		public static TestSuite suite(){
+			TestSuite suite = new TestSuite() ;
+			
+			suite.addTestSuite(TestPlugIn.class) ;
+			suite.addTestSuite(TestEchoPlugIn.class) ;
+			suite.addTestSuite(TestBroadCastPlugIn.class) ;
+			suite.addTestSuite(TestChannelPlugIn.class) ;
+			
+			return suite ;
+		}
 	}
-}

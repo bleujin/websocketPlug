@@ -21,6 +21,7 @@ public class TestEchoPlugIn extends TestBaseWebSocket{
 		c.sendMessage(MessagePacket.PING) ;
 		
 		
+		c.await(300) ;
 		server.stopServer() ;
 		Debug.debug(c.getLastPacket()) ;
 	}
@@ -30,13 +31,13 @@ public class TestEchoPlugIn extends TestBaseWebSocket{
 		server.getPlugInChain().addPlugIn(new EchoPlugIn());
 		server.startServer() ;
 
-		SyncMockClient mock = SyncMockClient.newTest();
-		mock.connect(uri);
-		mock.sendMessage(MessagePacket.create().inner(BODY).put("greeting", "Hi").toRoot());
-		mock.await(300) ;
-		mock.disconnect();
+		SyncMockClient c = SyncMockClient.newTest();
+		c.connect(uri);
+		c.sendMessage(MessagePacket.create().inner(BODY).put("greeting", "Hi").toRoot());
+		c.await(300) ;
+		c.disconnect();
 		
-		MessagePacket received = mock.getLastPacket() ;
+		MessagePacket received = c.getLastPacket() ;
 		assertEquals("Hi", received.get("body/greeting"));
 	}
 }
