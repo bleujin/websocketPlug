@@ -46,7 +46,7 @@ public class SyncMockClient implements WebSocketCallback {
 		asyncClient = WebSocketClientFactory.newClient(newURI, this);
 		asyncClient.connect();
 		setStatus(Status.CONNECTING);
-		waitOnConnected(3000); // Guarded Suspension
+		waitOnConnected(2000); // Guarded Suspension
 	}
 
 	public synchronized void sendMessage(final IMessagePacket packet) throws WebSocketException {

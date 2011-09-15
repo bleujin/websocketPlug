@@ -28,6 +28,19 @@ public class TestSyncMockClient extends TestBaseWebSocket{
 		assertEquals(false, client.isConnected()) ;
 	}
 
+	
+	public void testWrongIP() throws Exception {
+		URI myuri = new URI("ws://61.250.201.78:9000/mytopic/0;timeout=3600000");
+		SyncMockClient client = SyncMockClient.newTest() ;
+		client.connect(myuri) ;
+		assertEquals(false, client.isConnected()) ;
+
+		try {
+			client.ping() ;
+			fail() ;
+		} catch(IllegalStateException ignore){
+		}
+	}
 
 	public void testSendMessage() throws Exception {
 		server.startServer() ;

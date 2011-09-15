@@ -1,0 +1,21 @@
+2011-09-15 14:17:59,959 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.AllBroadCastPlugIn@1bd7848 added
+2011-09-15 14:17:59,975 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.LogPlugIn@18d9850 added
+2011-09-15 14:20:10,396 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.AllBroadCastPlugIn@1bd7848 added
+2011-09-15 14:20:10,396 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.LogPlugIn@18d9850 added
+2011-09-15 14:27:27,546 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.AllBroadCastPlugIn@1bd7848 added
+2011-09-15 14:27:27,546 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.LogPlugIn@18d9850 added
+2011-09-15 14:31:39,272 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.AllBroadCastPlugIn@1bd7848 added
+2011-09-15 14:31:39,272 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.LogPlugIn@18d9850 added
+[====================, [./resource/config/embed-aradon-config.xml]] by net.ion.websocket.common.config.AradonConfiguration:<init>[20110915-143838]
+2011-09-15 14:38:38,544 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.AllBroadCastPlugIn@176e552 added
+2011-09-15 14:38:38,544 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.LogPlugIn@281d4b added
+[====================, [./resource/config/embed-aradon-config.xml]] by net.ion.websocket.common.config.AradonConfiguration:<init>[20110915-145152]
+2011-09-15 14:51:53,020 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.AllBroadCastPlugIn@176e552 added
+2011-09-15 14:51:53,020 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.LogPlugIn@281d4b added
+[====================, [D:/eclipse/workspace/websocketPlug/alone/resource/config/embed-aradon-config.xml]] by net.ion.websocket.common.config.AradonConfiguration:<init>[20110915-145925]
+2011-09-15 14:59:25,326 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.AllBroadCastPlugIn@176e552 added
+2011-09-15 14:59:25,326 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.LogPlugIn@281d4b added
+[    Application[aradon], let.contact.email : bleujin@i-on.net] by net.ion.radon.core.config.AttributeUtil:setStringAttribute[20110915-145925]
+[    Application[aradon], let.contact.help.doc : /help/doc] by net.ion.radon.core.config.AttributeUtil:setStringAttribute[20110915-145925]
+[SECTION :  loaded] by net.ion.radon.core.Aradon:setSection[20110915-145925]
+[ROOT loaded] by net.ion.radon.core.Aradon:initConfig[20110915-145925]

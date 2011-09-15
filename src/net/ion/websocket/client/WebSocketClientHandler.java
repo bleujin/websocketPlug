@@ -131,6 +131,7 @@ public class WebSocketClientHandler extends SimpleChannelUpstreamHandler impleme
 	}
 
 	public ChannelFuture send(WebSocketFrame frame) {
+		if (channel == null) throw new IllegalStateException("timeout or not connected.") ;
 		return channel.write(frame);
 	}
 

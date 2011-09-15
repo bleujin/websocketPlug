@@ -23,10 +23,11 @@ public class ServerNodeRunner {
 	
 	public ServerNodeRunner(Options option) throws ConfigurationException, WebSocketException, InstanceCreationException{
 		String configPath = option.getString("config", "resource/config/server-config.xml") ;
+		String baseDir = option.getString("basedir", "./") ;
 
 		if (! new File(configPath).exists() ) throw new ConfigurationException("not found config file : " + option) ;
 		XMLConfig root = XMLConfig.create(configPath) ;
-		ServerConfigParser config = ServerConfigParser.parse(root) ;
+		ServerConfigParser config = ServerConfigParser.parse(root, baseDir) ;
 		
 		init(option, config) ;
 	}

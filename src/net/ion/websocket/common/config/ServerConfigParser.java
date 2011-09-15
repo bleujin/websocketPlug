@@ -49,7 +49,7 @@ public class ServerConfigParser {
 		
 		this.plugins = makePlugInInfos(root.firstChild("plugins")) ;
 		this.listeners = makeListenerInfos(root.firstChild("listeners")) ;
-		this.aradonConfig = AradonConfiguration.create(root.firstChild("aradon"), this.baseDir) ;
+		this.aradonConfig = AradonConfiguration.create(this.baseDir, root.firstChild("aradon")) ;
 		
 	}
 
