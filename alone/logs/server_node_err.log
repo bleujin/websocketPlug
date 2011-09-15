@@ -159,3 +159,5 @@ A response with a 200 (Ok) status should have an entity. Make sure that resource
 A response with a 200 (Ok) status should have an entity. Make sure that resource "http://127.0.0.1:18787/favicon.ico" returns one or sets the status to 204 (No content).
 2011-09-15	14:59:50	127.0.0.1	-	127.0.0.1	18787	GET	/monitor	-	200	-	0	0	http://127.0.0.1:18787	Mozilla/5.0 (Windows NT 5.1; rv:6.0.2) Gecko/20100101 Firefox/6.0.2	-
 IDLE SCEP@5660886	[d=false,io=1,w=true,rb=false,wb=false]
+2011-09-15	15:40:06	127.0.0.1	-	127.0.0.1	18787	GET	/monitor	-	200	-	0	0	http://127.0.0.1:18787	Mozilla/5.0 (Windows NT 5.1; rv:6.0.2) Gecko/20100101 Firefox/6.0.2	-
+IDLE SCEP@9097155	[d=false,io=1,w=true,rb=false,wb=false]
