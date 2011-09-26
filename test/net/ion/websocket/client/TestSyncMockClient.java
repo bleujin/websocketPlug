@@ -13,7 +13,7 @@ public class TestSyncMockClient extends TestBaseWebSocket{
 		URI myuri = new URI("ws://127.0.0.1:9000/mytopic/0;timeout=3600000");
 		SyncMockClient client = SyncMockClient.newTest() ;
 		client.connect(myuri) ;
-
+		assertEquals(true, client.isConnected()) ;
 		client.disconnect() ;
 	}
 	
@@ -29,6 +29,16 @@ public class TestSyncMockClient extends TestBaseWebSocket{
 	}
 
 	
+	public void testSendMessage() throws Exception {
+		server.startServer() ;
+		
+		SyncMockClient client1 = SyncMockClient.newTest();
+		client1.connect(uri);
+		MessagePacket mp = MessagePacket.create().inner(BODY).put("greeting", "Hi").toRoot();
+		client1.sendMessage(mp);
+		client1.disconnect();
+	}
+
 	public void testWrongIP() throws Exception {
 		URI myuri = new URI("ws://61.250.201.78:9000/mytopic/0;timeout=3600000");
 		SyncMockClient client = SyncMockClient.newTest() ;
@@ -42,13 +52,5 @@ public class TestSyncMockClient extends TestBaseWebSocket{
 		}
 	}
 
-	public void testSendMessage() throws Exception {
-		server.startServer() ;
-		
-		SyncMockClient client1 = SyncMockClient.newTest();
-		client1.connect(uri);
-		MessagePacket mp = MessagePacket.create().inner(BODY).put("greeting", "Hi").toRoot();
-		client1.sendMessage(mp);
-		client1.disconnect();
-	}
+
 }

@@ -3,6 +3,7 @@ package net.ion.websocket.client;
 import java.util.Date;
 
 import junit.framework.TestCase;
+import net.ion.framework.util.Debug;
 import net.ion.websocket.common.kit.WebSocketException;
 import net.ion.websocket.plugin.MessagePacket;
 
@@ -36,7 +37,7 @@ public class TestMessagePacket extends TestCase{
 		MessagePacket source = makeExample();
 		
 		String msg = source.getFullString() ;
-		
+		Debug.line(msg) ;
 		MessagePacket mp = MessagePacket.load(msg) ;
 		assertEquals(source.get("head/requestTime"), mp.get("Head/RequestTime")) ;
 	}

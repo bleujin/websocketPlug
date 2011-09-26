@@ -13,8 +13,8 @@ public class TestAllWebSocket extends TestCase {
 	public static TestSuite suite(){
 		TestSuite suite = new TestSuite() ;
 		
-		suite.addTest(TestAllServer.suite()) ;
 		suite.addTest(TestAllClient.suite()) ;
+		suite.addTest(TestAllServer.suite()) ;
 		
 		suite.addTest(TestAllPlugIn.suite()) ;
 		suite.addTest(TestAllListener.suite()) ;

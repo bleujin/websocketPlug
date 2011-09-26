@@ -1,7 +1,6 @@
 package net.ion.websocket.server.context;
 
 import java.lang.Thread.UncaughtExceptionHandler;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -14,7 +13,6 @@ import net.ion.framework.util.ListUtil;
 import net.ion.framework.util.MapUtil;
 import net.ion.radon.core.config.Releasable;
 import net.ion.radon.core.context.IParentContext;
-import net.ion.radon.repository.RepositoryCentral;
 import net.ion.websocket.common.EnumClass.Scope;
 import net.ion.websocket.common.api.WebSocketServer;
 
@@ -91,12 +89,8 @@ public class ServiceContext {
 		return context.put(key, value);
 	}
 
-	public Map<?, ?> getAttributes() {
-		return Collections.unmodifiableMap(context.getAttributes());
-	}
-
 	public boolean contains(Object key) {
-		return getAttributes().get(key) != null;
+		return context.getAttributes().containsKey(key) ;
 	}
 
 	public void setAttributes(Map<String, Object> attributes) {
@@ -104,7 +98,7 @@ public class ServiceContext {
 	}
 
 	public String toString() {
-		return "Context[" + hashCode() + "] : " + getAttributes();
+		return "Context[" + hashCode() + "] : " + context.getAttributes();
 	}
 
 	public void addReleasable(Releasable releasable) {
@@ -119,8 +113,6 @@ public class ServiceContext {
 		for (Entry<String, Object> entry : context.getApplicationValues().entrySet()) {
 			if (entry.getValue() instanceof Releasable) {
 				((Releasable) entry.getValue()).doRelease();
-			} else if (entry.getValue() instanceof RepositoryCentral) {
-				((RepositoryCentral) entry.getValue()).unload();
 			} else if (entry.getValue() instanceof IEndOn) {
 				((IEndOn) entry.getValue()).onEnd() ;
 			}

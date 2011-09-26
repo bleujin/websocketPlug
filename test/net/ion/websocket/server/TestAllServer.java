@@ -10,10 +10,10 @@ public class TestAllServer extends TestCase{
 		
 		suite.addTestSuite(TestURIParser.class) ;
 		suite.addTestSuite(TestServerConfigParser.class) ;
+		suite.addTestSuite(TestContext.class) ;
 		
 		suite.addTestSuite(TestDefaultServer.class) ;
 		suite.addTestSuite(TestServerRunner.class) ;
-		suite.addTestSuite(TestContext.class) ;
 		suite.addTestSuite(TestEmbedAradon.class) ;
 		return suite ;
 	}

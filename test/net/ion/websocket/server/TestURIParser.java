@@ -19,6 +19,14 @@ public class TestURIParser extends TestCase {
 		assertEquals("bleujin", map.get("userId"));
 	}
 
+	public void testCaseSensitive() throws Exception {
+		Map<String, String> map = URIParser.parse("/bleujin/", "/{userId}/{sessionId}/{params}");
+
+		assertEquals(1, map.size());
+		assertNull(map.get("userid"));
+		assertNotNull(map.get("userId"));
+	}
+
 	public void testLimit2() throws Exception {
 		Map<String, String> map = URIParser.parse("/bleujin/123", "/{userId}/{sessionId}/{params}");
 

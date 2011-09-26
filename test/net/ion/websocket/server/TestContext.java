@@ -49,10 +49,10 @@ public class TestContext extends TestBaseWebSocket{
 		DefaultServer ds = srunner.getServer() ;
 
 		ServiceContext sc = ds.getContext() ;
-		StringBuffer appScope = (StringBuffer)(sc.getAttributeObject("my.sb.request"));
-		assertEquals("Hello", appScope.toString()) ;
+		StringBuffer reqScope = (StringBuffer)(sc.getAttributeObject("my.sb.request"));
+		assertEquals("Hello", reqScope.toString()) ;
 		
-		appScope.append(" World") ;
+		reqScope.append(" World") ;
 
 		assertEquals("Hello", ((StringBuffer)(sc.getAttributeObject("my.sb.request"))).toString() ) ;
 	}
