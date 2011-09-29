@@ -5,9 +5,8 @@ import java.util.List;
 import net.ion.framework.db.DBController;
 import net.ion.framework.db.IDBController;
 import net.ion.framework.db.manager.DBManager;
-import net.ion.framework.db.servant.ExtraServant;
-import net.ion.framework.db.servant.NoneServant;
-import net.ion.framework.db.servant.ServantChannel;
+import net.ion.framework.db.servant.ChannelServant;
+import net.ion.framework.db.servant.IExtraServant;
 import net.ion.framework.util.InstanceCreationException;
 import net.ion.radon.core.config.XMLConfig;
 
@@ -24,27 +23,11 @@ public class RDBConnection {
 		
 		List<XMLConfig> cconfig = dbConfig.children("extra-servant.configured-object");
 		
-
-		ServantChannel echannel = null; 
-		ExtraServant eservant = null;
-		// None Channel...
-		if (cconfig.size() == 0) {
-			echannel = new ServantChannel(new NoneServant());
-		} else if (cconfig.size() == 1){
-			eservant = (ExtraServant) ConfigCreator.createConfiguredInstance(cconfig.get(0));
-			echannel = new ServantChannel(eservant);
-			eservant.setChannel(echannel);
-		} else {
-			for (XMLConfig sconfig : cconfig) {
-				ExtraServant nextServant = (ExtraServant) ConfigCreator.createConfiguredInstance(sconfig);
-				if (eservant != null) eservant.setNext(nextServant);
-				eservant = nextServant;
-			}
+		ChannelServant cservant = new ChannelServant() ;
+		for (XMLConfig sconfig : cconfig) {
+			IExtraServant nextServant = (IExtraServant) ConfigCreator.createConfiguredInstance(sconfig);
+			cservant.add(nextServant) ;
 		}
-		DBController dc = new DBController(name, dbm) ;
-		dc.setServantChannel(echannel) ;
-		
-
-		return new DBController(dbm);
+		return new DBController(name, dbm, cservant) ;
 	}
 }

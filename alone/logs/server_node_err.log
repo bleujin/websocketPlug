@@ -377,3 +377,91 @@ SLF4J: See http://www.slf4j.org/codes.html#version_mismatch for further details.
 jetty-7.x.y-SNAPSHOT
 Started SelectChannelConnector@0.0.0.0:18787
 aradon server started : 18787
+2011. 9. 27 오후 1:13:22 java.util.jar.Attributes read
+경고: Duplicate name in Manifest: Specification-Title
+2011. 9. 27 오후 1:13:24 java.util.jar.Attributes read
+경고: Duplicate name in Manifest: Specification-Version
+2011. 9. 27 오후 1:13:24 java.util.jar.Attributes read
+경고: Duplicate name in Manifest: Specification-Vendor
+2011. 9. 27 오후 1:13:24 java.util.jar.Attributes read
+경고: Duplicate name in Manifest: Specification-Title
+2011. 9. 27 오후 1:13:24 java.util.jar.Attributes read
+경고: Duplicate name in Manifest: Specification-Version
+2011. 9. 27 오후 1:13:24 java.util.jar.Attributes read
+경고: Duplicate name in Manifest: Specification-Vendor
+log4j:WARN No appenders could be found for logger (org.apache.commons.configuration.ConfigurationUtils).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+[Warn, plugin not exists] by net.ion.radon.core.ClassAppender:appendPath[20110927-131339]
+[Warn, lib not exists] by net.ion.radon.core.ClassAppender:appendPath[20110927-131339]
+SLF4J: The requested version 1.5.10 by your slf4j binding is not compatible with [1.5.5, 1.5.6]
+SLF4J: See http://www.slf4j.org/codes.html#version_mismatch for further details.
+jetty-7.x.y-SNAPSHOT
+Started SelectChannelConnector@0.0.0.0:18787
+aradon server started : 18787
+2011. 9. 28 오후 12:05:48 java.util.jar.Attributes read
+경고: Duplicate name in Manifest: Specification-Title
+2011. 9. 28 오후 12:05:50 java.util.jar.Attributes read
+경고: Duplicate name in Manifest: Specification-Version
+2011. 9. 28 오후 12:05:50 java.util.jar.Attributes read
+경고: Duplicate name in Manifest: Specification-Vendor
+2011. 9. 28 오후 12:05:50 java.util.jar.Attributes read
+경고: Duplicate name in Manifest: Specification-Title
+2011. 9. 28 오후 12:05:50 java.util.jar.Attributes read
+경고: Duplicate name in Manifest: Specification-Version
+2011. 9. 28 오후 12:05:50 java.util.jar.Attributes read
+경고: Duplicate name in Manifest: Specification-Vendor
+log4j:WARN No appenders could be found for logger (org.apache.commons.configuration.ConfigurationUtils).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+[Warn, plugin not exists] by net.ion.radon.core.ClassAppender:appendPath[20110928-120603]
+[Warn, lib not exists] by net.ion.radon.core.ClassAppender:appendPath[20110928-120603]
+SLF4J: The requested version 1.5.10 by your slf4j binding is not compatible with [1.5.5, 1.5.6]
+SLF4J: See http://www.slf4j.org/codes.html#version_mismatch for further details.
+jetty-7.x.y-SNAPSHOT
+Started SelectChannelConnector@0.0.0.0:18787
+aradon server started : 18787
+2011. 9. 29 오전 12:03:58 java.util.jar.Attributes read
+경고: Duplicate name in Manifest: Specification-Title
+2011. 9. 29 오전 12:03:59 java.util.jar.Attributes read
+경고: Duplicate name in Manifest: Specification-Version
+2011. 9. 29 오전 12:03:59 java.util.jar.Attributes read
+경고: Duplicate name in Manifest: Specification-Vendor
+2011. 9. 29 오전 12:03:59 java.util.jar.Attributes read
+경고: Duplicate name in Manifest: Specification-Title
+2011. 9. 29 오전 12:03:59 java.util.jar.Attributes read
+경고: Duplicate name in Manifest: Specification-Version
+2011. 9. 29 오전 12:03:59 java.util.jar.Attributes read
+경고: Duplicate name in Manifest: Specification-Vendor
+log4j:WARN No appenders could be found for logger (org.apache.commons.configuration.ConfigurationUtils).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+[Warn, plugin not exists] by net.ion.radon.core.ClassAppender:appendPath[20110929-000414]
+[Warn, lib not exists] by net.ion.radon.core.ClassAppender:appendPath[20110929-000414]
+SLF4J: The requested version 1.5.10 by your slf4j binding is not compatible with [1.5.5, 1.5.6]
+SLF4J: See http://www.slf4j.org/codes.html#version_mismatch for further details.
+jetty-7.x.y-SNAPSHOT
+Started SelectChannelConnector@0.0.0.0:18787
+aradon server started : 18787
+2011. 9. 29 오후 12:54:53 java.util.jar.Attributes read
+경고: Duplicate name in Manifest: Specification-Title
+2011. 9. 29 오후 12:54:55 java.util.jar.Attributes read
+경고: Duplicate name in Manifest: Specification-Version
+2011. 9. 29 오후 12:54:55 java.util.jar.Attributes read
+경고: Duplicate name in Manifest: Specification-Vendor
+2011. 9. 29 오후 12:54:55 java.util.jar.Attributes read
+경고: Duplicate name in Manifest: Specification-Title
+2011. 9. 29 오후 12:54:55 java.util.jar.Attributes read
+경고: Duplicate name in Manifest: Specification-Version
+2011. 9. 29 오후 12:54:55 java.util.jar.Attributes read
+경고: Duplicate name in Manifest: Specification-Vendor
+log4j:WARN No appenders could be found for logger (org.apache.commons.configuration.ConfigurationUtils).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+[Warn, plugin not exists] by net.ion.radon.core.ClassAppender:appendPath[20110929-125511]
+[Warn, lib not exists] by net.ion.radon.core.ClassAppender:appendPath[20110929-125511]
+SLF4J: The requested version 1.5.10 by your slf4j binding is not compatible with [1.5.5, 1.5.6]
+SLF4J: See http://www.slf4j.org/codes.html#version_mismatch for further details.
+jetty-7.x.y-SNAPSHOT
+Started SelectChannelConnector@0.0.0.0:18787
+aradon server started : 18787

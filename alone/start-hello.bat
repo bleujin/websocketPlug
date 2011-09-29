@@ -1,1 +1,0 @@
-java -Xms128m -Xmx256m -jar websocket.jar -config:./resource/config/hello-config.xml
