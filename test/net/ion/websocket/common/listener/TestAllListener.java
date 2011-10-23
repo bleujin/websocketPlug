@@ -6,7 +6,7 @@ import junit.framework.TestSuite;
 public class TestAllListener extends TestCase{
 	
 	public static TestSuite suite(){
-		TestSuite suite = new TestSuite() ;
+		TestSuite suite = new TestSuite("Test All Listener") ;
 		suite.addTestSuite(TestListener.class) ;
 		suite.addTestSuite(TestChannelListener.class) ;
 		

@@ -6,7 +6,7 @@ import junit.framework.TestSuite;
 public class TestAllServer extends TestCase{
 	
 	public static TestSuite suite(){
-		TestSuite suite = new TestSuite() ;
+		TestSuite suite = new TestSuite("Test All Server") ;
 		
 		suite.addTestSuite(TestURIParser.class) ;
 		suite.addTestSuite(TestServerConfigParser.class) ;

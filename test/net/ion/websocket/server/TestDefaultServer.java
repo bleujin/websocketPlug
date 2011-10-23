@@ -9,8 +9,6 @@ public class TestDefaultServer extends TestBaseWebSocket{
 		assertEquals(false, server.isAlive()) ;
 		server.startServer() ;
 		assertEquals(true, server.isAlive()) ;
-		
-		
 	}
 	
 	public void testConnector() throws Exception {

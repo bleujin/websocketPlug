@@ -17,7 +17,6 @@ public class TestPlugIn extends TestBaseWebSocket implements PacketConstant {
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
-		// server.getPlugInChain().addPlugIn(new DebugPlugIn());
 	}
 	
 	public void testCounterPlugIn() throws Exception {
@@ -25,7 +24,6 @@ public class TestPlugIn extends TestBaseWebSocket implements PacketConstant {
 		server.getPlugInChain().addPlugIn(counter);
 		server.startServer() ;
 
-		// clientRun("{command:'Login',userid:'bleujin'}");
 		SyncMockClient client = SyncMockClient.newTest();
 		client.connect(uri);
 		client.sendMessage(MessagePacket.PING);

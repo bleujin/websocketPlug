@@ -6,10 +6,6 @@ import net.ion.radon.core.Aradon;
 import net.ion.radon.core.SectionService;
 import net.ion.radon.core.TreeContext;
 
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.Method;
-
 public class TestEmbedAradon extends TestCase{
 
 	
@@ -40,17 +36,6 @@ public class TestEmbedAradon extends TestCase{
 		
 		assertEquals("bleujin@i-on.net", context.getAttributeObject("let.contact.email", String.class)) ;
 	}
-	
-	
-	public void testMonitorLet() throws Exception {
-		Aradon aradon = runner.getAradon() ;
-		Request request = new Request(Method.GET, "riap://component/monitor") ;
-		
-		Response response = aradon.handle(request) ;
-		assertEquals(200, response.getStatus().getCode()) ;
-	}
-	
-	
 	
 
 }

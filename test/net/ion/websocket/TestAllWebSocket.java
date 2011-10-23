@@ -11,7 +11,7 @@ public class TestAllWebSocket extends TestCase {
 
 	
 	public static TestSuite suite(){
-		TestSuite suite = new TestSuite() ;
+		TestSuite suite = new TestSuite("Test All WebSocket") ;
 		
 		suite.addTest(TestAllClient.suite()) ;
 		suite.addTest(TestAllServer.suite()) ;

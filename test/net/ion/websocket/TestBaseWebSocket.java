@@ -43,7 +43,6 @@ public class TestBaseWebSocket extends TestCase implements PacketConstant {
 		super.setUp();
 
 		server = new DefaultServer(TEST_CONFIG, NettyEngine.test(), ServiceContext.createRoot());
-
 		uri = new URI("ws://127.0.0.1:9000/;timeout=3600000");
 		//server.startServer();
 	}

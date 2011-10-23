@@ -43,8 +43,6 @@
         <fatjar.build output="${libDir}/aradon_fat_0.5.jar">
             <fatjar.manifest/>
         	<fatjar.jarsource file="${libDir}\aradon\aradon_0.5.jar" relpath=""/> 
-        	<fatjar.jarsource file="${libDir}\aradon\mongo-2.6.3.jar" relpath=""/> 
-        	<fatjar.jarsource file="${libDir}\aradon\mongonode_0.2.jar" relpath=""/> 
         	<fatjar.jarsource file="${libDir}\aradon\iframework_2.2.jar" relpath=""/> 
         	<fatjar.jarsource file="${libDir}\aradon\jetty_fat.jar" relpath=""/> 
         	<fatjar.jarsource file="${libDir}\aradon\rest_fat.jar" relpath=""/> 

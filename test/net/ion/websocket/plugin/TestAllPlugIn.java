@@ -10,7 +10,7 @@ import net.ion.websocket.common.plugin.TestPlugIn;
 	public class TestAllPlugIn  extends TestCase{
 	
 		public static TestSuite suite(){
-			TestSuite suite = new TestSuite() ;
+			TestSuite suite = new TestSuite("Test All PlugIn") ;
 			
 			suite.addTestSuite(TestPlugIn.class) ;
 			suite.addTestSuite(TestEchoPlugIn.class) ;
