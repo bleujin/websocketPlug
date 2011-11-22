@@ -1,5 +1,8 @@
 package net.ion.websocket.aradon;
 
+import net.ion.radon.client.AradonClient;
+import net.ion.radon.client.AradonClientFactory;
+import net.ion.radon.client.IAradonRequest;
 import net.ion.radon.core.Aradon;
 import net.ion.websocket.common.api.WebSocketServer;
 import net.ion.websocket.common.config.AradonConfiguration;
@@ -46,7 +49,10 @@ public class EmbedAradonServer {
 
 	public void start(WebSocketServer server) throws Exception {
 		int port = (portNo == 0) ? server.getEngine().getConfiguration().getPort() + 10000 : portNo;
-		startAradon(port);
+//		AradonClient ac = AradonClientFactory.create("http://127.0.0.1:" + port ) ;
+//		IAradonRequest req = ac.createRequest("/shutdown") ;
+//		req.delete() ;
+//		startAradon(port);
 		aradon.getServiceContext().putAttribute(WebSocketServer.class.getCanonicalName(), server);
 	}
 

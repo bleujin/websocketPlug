@@ -14,7 +14,7 @@ public class TestAllServer extends TestCase{
 		
 		suite.addTestSuite(TestDefaultServer.class) ;
 		suite.addTestSuite(TestServerRunner.class) ;
-		suite.addTestSuite(TestEmbedAradon.class) ;
+		// suite.addTestSuite(TestEmbedAradon.class) ;
 		return suite ;
 	}
 }
