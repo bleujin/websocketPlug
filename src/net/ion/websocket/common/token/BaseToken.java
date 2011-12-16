@@ -15,15 +15,87 @@
 //	---------------------------------------------------------------------------
 package net.ion.websocket.common.token;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  *
  * @author aschulze
  */
-public class BaseToken {
+public abstract class BaseToken implements Token {
 
 	/**
 	 *
 	 */
 	public static final String TT_EVENT = "event";
 
+	@Override
+	public void setDouble(String key, Float value) {
+		setDouble(key, Double.valueOf(value));
+	}
+
+	@Override
+	public boolean setValidated(String key, Object value) {
+		boolean lRes = true;
+		if (value instanceof BaseTokenizable) {
+			Token lToken = TokenFactory.createToken();
+			((BaseTokenizable)value).writeToToken(lToken);
+			setToken(key, lToken);
+		} else if (value instanceof Boolean) {
+			setBoolean(key, (Boolean) value);
+		} else if (value instanceof Integer) {
+			setInteger(key, (Integer) value);
+		} else if (value instanceof Double) {
+			setDouble(key, (Double) value);
+		} else if (value instanceof String) {
+			setString(key, (String) value);
+		} else if (value instanceof List) {
+			setList(key, (List) value);
+		} else if (value instanceof Map) {
+			setMap(key, (Map) value);
+		} else {
+			lRes = false;
+		}
+		return lRes;
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	@Override
+	public final String getType() {
+		return getString("type");
+	}
+
+	/**
+	 *
+	 * @param type
+	 */
+	@Override
+	public final void setType(String type) {
+		setString("type", type);
+	}
+
+	/**
+	 * Returns the name space of the token. If you have the same token type
+	 * interpreted by multiple different plug-ins the name space allows to
+	 * uniquely address a certain plug-in. Each plug-in has its own name space.
+	 * @return the name space.
+	 */
+	@Override
+	public final String getNS() {
+		return getString("ns");
+	}
+
+	/**
+	 * Sets the name space of the token. If you have the same token type
+	 * interpreted by multiple different plug-ins the namespace allows to
+	 * uniquely address a certain plug-in. Each plug-in has its own namespace.
+	 * @param ns the namespace to be set for the token.
+	 */
+	@Override
+	public final void setNS(String ns) {
+		setString("ns", ns);
+	}
 }

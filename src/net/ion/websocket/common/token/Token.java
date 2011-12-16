@@ -1,5 +1,5 @@
 //	---------------------------------------------------------------------------
-//	jWebSocket - Token Implementation
+//	jWebSocket - Token Interface
 //	Copyright (c) 2010 Alexander Schulze, Innotrade GmbH
 //	---------------------------------------------------------------------------
 //	This program is free software; you can redistribute it and/or modify it
@@ -15,347 +15,264 @@
 //	---------------------------------------------------------------------------
 package net.ion.websocket.common.token;
 
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-
-import net.ion.websocket.common.api.WebSocketToken;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
- * A token is ...
- * 
+ *
  * @author aschulze
  */
-public class Token extends BaseToken implements WebSocketToken {
-
-	private JSONObject mData = new JSONObject();
+public interface Token {
 
 	/**
-	 * Creates a new empty instance of a token. The token does not contain any
-	 * items.
+	 * resets all fields of the token. After this operation the token is empty.
 	 */
-	public Token() {
-	}
+	void clear();
 
 	/**
-	 * 
-	 * @param aType
+	 * copies all fields of the given ITokenizable to the token. Existing fields
+	 * do not get deleted but overwritten in case of naming conflicts. Use the
+	 * <tt>clear</tt> method to explicitely reset the token if desired.
+	 * @param aTokenizable
 	 */
-	public Token(String aType) {
-		setType(aType);
-	}
+	void set(ITokenizable aTokenizable);
 
 	/**
-	 * 
-	 * @param aJSON
-	 */
-	public Token(JSONObject aJSON) {
-		mData = aJSON;
-	}
-
-	/**
-	 * 
-	 * @param namespace
-	 * @param type
-	 */
-	public Token(String namespace, String type) {
-		setNS(namespace);
-		setType(type);
-	}
-
-	/**
-	 * 
-	 * @param json
-	 */
-	public void setJSONObject(JSONObject json) {
-		mData = json;
-	}
-
-	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @return
 	 */
-	public JSONObject getJSONObject() {
-		return mData;
-	}
-
-	private Object getValue(Object value) {
-		if (value instanceof Token) {
-			value = ((Token) value).getJSONObject();
-		} else if (value instanceof Collection) {
-			JSONArray lJA = new JSONArray();
-			for (Object lItem : (Collection) value) {
-				lJA.put(getValue(lItem));
-			}
-			value = lJA;
-		} else if (value instanceof Map) {
-			JSONObject lJO = new JSONObject();
-			for (Entry<Object, Object> lItem : ((Map<Object, Object>) value).entrySet()) {
-				try {
-					lJO.put(lItem.getKey().toString(), getValue(lItem.getValue()));
-				} catch (JSONException ex) {
-				}
-			}
-			value = lJO;
-		} else if (value instanceof Object[]) {
-			JSONArray lJA = new JSONArray();
-			Object[] lOA = (Object[]) value;
-			for (int i = 0; i < lOA.length; i++) {
-				lJA.put(getValue(lOA[i]));
-			}
-			value = lJA;
-		}
-		return value;
-	}
+	Map getMap();
 
 	/**
-	 * puts a new key/value pair into the token, in other words it adds a new
-	 * item to the token.
-	 * 
-	 * @param key
-	 *            key of the the token item.
-	 * @param value
-	 *            value of the token item.
-	 */
-	public void put(String key, Object value) {
-		try {
-			mData.put(key, getValue(value));
-		} catch (JSONException ex) {
-			// TODO: handle exception
-		}
-	}
-
-	/**
-	 * 
-	 * @param key
+	 * copies all fields from a Map into the Token. A check has to be made
+	 * by the corresponding implementations that only such data types are
+	 * passed that are supported by the Token abstraction.
+	 *
 	 * @return
 	 */
-	public Object get(String key) {
-		try {
-			return mData.get(key);
-		} catch (JSONException ex) {
-			return null;
-		}
-	}
+	void setMap(Map aMap);
 
 	/**
-	 * 
+	 *
 	 * @param aKey
 	 * @return
 	 */
-	public void remove(String aKey) {
-		mData.remove(aKey);
-	}
+	Object getObject(String aKey);
 
 	/**
-	 * 
+	 *
+	 * @param aKey
+	 * @param aDefault
 	 * @return
 	 */
-	public Iterator<String> getKeys() {
-		return mData.keys();
-	}
+	String getString(String aKey, String aDefault);
 
 	/**
-	 * 
-	 * @param key
-	 * @param dftValue
+	 *
+	 * @param aKey
 	 * @return
 	 */
-	public String getString(String key, String dftValue) {
-		String lResult;
-		try {
-			lResult = mData.getString(key);
-		} catch (JSONException ex) {
-			lResult = dftValue;
-		}
-		return lResult;
-	}
+	String getString(String aKey);
 
 	/**
-	 * 
-	 * @param key
+	 *
+	 * @param aKey
+	 * @param aValue
 	 */
-	public void setString(String key, String dftValue) {
-		try {
-			mData.put(key, dftValue);
-		} catch (JSONException ex) {
-			// TODO: handle exception
-		}
-	}
+	void setString(String aKey, String aValue);
 
 	/**
-	 * 
-	 * @param key
+	 *
+	 * @param aKey
+	 * @param aDefault
 	 * @return
 	 */
-	public String getString(String key) {
-		return getString(key, null);
-	}
+	Integer getInteger(String aKey, Integer aDefault);
 
 	/**
-	 * 
-	 * @param key
-	 * @param dftValue
+	 *
+	 * @param aKey
 	 * @return
 	 */
-	public Integer getInteger(String key, Integer dftValue) {
-		Integer lResult;
-		try {
-			lResult = mData.getInt(key);
-		} catch (JSONException ex) {
-			lResult = dftValue;
-		}
-		return lResult;
-	}
+	Integer getInteger(String aKey);
 
 	/**
-	 * 
-	 * @param key
+	 *
+	 * @param aKey
+	 * @param aValue
+	 */
+	void setInteger(String aKey, Integer aValue);
+
+	/**
+	 *
+	 * @param aKey
+	 * @param aDefault
 	 * @return
 	 */
-	public Integer getInteger(String key) {
-		return getInteger(key, null);
-	}
-
-	public void setInteger(String key, Integer dftValue) {
-		try {
-			mData.put(key, dftValue);
-		} catch (JSONException ex) {
-			// TODO: handle exception
-		}
-	}
+	Double getDouble(String aKey, Double aDefault);
 
 	/**
-	 * 
-	 * @param key
-	 * @param dftValue
+	 *
+	 * @param aKey
 	 * @return
 	 */
-	public Boolean getBoolean(String key, Boolean dftValue) {
-		Boolean lResult;
-		try {
-			lResult = mData.getBoolean(key);
-		} catch (JSONException ex) {
-			lResult = dftValue;
-		}
-		return lResult;
-	}
+	Double getDouble(String aKey);
 
 	/**
-	 * 
-	 * @param arg
+	 *
+	 * @param aKey
+	 * @param aValue
+	 */
+	void setDouble(String aKey, Double aValue);
+
+	/**
+	 *
+	 * @param aKey
+	 * @param aValue
+	 */
+	void setDouble(String aKey, Float aValue);
+
+	/**
+	 *
+	 * @param aKey
+	 * @param aDefault
 	 * @return
 	 */
-	public Boolean getBoolean(String arg) {
-		return getBoolean(arg, null);
-	}
+	Boolean getBoolean(String aKey, Boolean aDefault);
 
 	/**
-	 * 
-	 * @param key
-	 */
-	public void setBoolean(String key, Boolean dftValue) {
-		try {
-			mData.put(key, dftValue);
-		} catch (JSONException ex) {
-			// TODO: handle exception
-		}
-	}
-
-	/**
-	 * 
-	 * @param key
-	 * @param dftValue
+	 *
+	 * @param aKey
 	 * @return
 	 */
-	public List getList(String key, Boolean dftValue) {
-		// TODO: Implement this
-		return null;
-	}
+	Boolean getBoolean(String aKey);
 
 	/**
-	 * 
-	 * @param key
+	 *
+	 * @param aKey
+	 * @param aValue
+	 */
+	void setBoolean(String aKey, Boolean aValue);
+
+	/**
+	 *
+	 * @param aKey
+	 * @param aDefault
 	 * @return
 	 */
-	public List getList(String key) {
-		// TODO: Implement this
-		return null;
-	}
+	List getList(String aKey, List aDefault);
 
 	/**
-	 * 
-	 * @param key
-	 * @param dftValue
+	 *
+	 * @param aKey
 	 * @return
 	 */
-	public Map getMap(String key, Boolean dftValue) {
-		// TODO: Implement this
-		return null;
-	}
+	List getList(String aKey);
 
 	/**
-	 * 
-	 * @param key
+	 *
+	 * @param aKey
+	 * @param aList
+	 */
+	void setList(String aKey, List aList);
+
+	// TODO: Add list access methods
+	/**
+	 *
+	 * @param aKey
+	 * @param aTokenizable
+	 */
+	void setToken(String aKey, ITokenizable aTokenizable);
+
+	/**
+	 *
+	 * @param aKey
+	 * @param aToken
+	 */
+	void setToken(String aKey, Token aToken);
+
+	/**
+	 *
+	 * @param aKey
 	 * @return
 	 */
-	public Map getMap(String key) {
-		// TODO: Implement this
-		return null;
-	}
+	Token getToken(String aKey);
 
 	/**
-	 * 
+	 *
+	 * @param aKey
+	 * @param aDefault
 	 * @return
 	 */
-	public final String getType() {
-		return getString("type");
-	}
+	Token getToken(String aKey, Token aDefault);
 
 	/**
-	 * 
-	 * @param type
-	 */
-	public final void setType(String type) {
-		put("type", type);
-	}
-
-	/**
-	 * Returns the name space of the token. If you have the same token type
-	 * interpreted by multiple different plug-ins the name space allows to
-	 * uniquely address a certain plug-in. Each plug-in has its own name space.
-	 * 
-	 * @return the name space.
-	 */
-	public final String getNS() {
-		return getString("ns");
-	}
-
-	/**
-	 * Sets the name space of the token. If you have the same token type
-	 * interpreted by multiple different plug-ins the namespace allows to
-	 * uniquely address a certain plug-in. Each plug-in has its own namespace.
-	 * 
-	 * @param namespace
-	 *            the namespace to be set for the token.
-	 */
-	public final void setNS(String namespace) {
-		put("ns", namespace);
-	}
-
-	/**
-	 * 
+	 *
+	 * @param aKey
+	 * @param aDefault
 	 * @return
 	 */
-	@Override
-	public String toString() {
-		return mData.toString();
-	}
+	Map getMap(String aKey, Map aDefault);
+
+	/**
+	 *
+	 * @param aKey
+	 * @return
+	 */
+	Map getMap(String aKey);
+
+	/**
+	 *
+	 * @param aKey
+	 * @param aMap
+	 */
+	void setMap(String aKey, Map aMap);
+
+	// TODO: Add map access methods
+	// TODO: Add date/time fields
+	/**
+	 *
+	 * @param aKey
+	 */
+	void remove(String aKey);
+
+	/**
+	 *
+	 * @return
+	 */
+	String getType();
+
+	/**
+	 *
+	 * @param aType
+	 */
+	void setType(String aType);
+
+	/**
+	 *
+	 * @return
+	 */
+	String getNS();
+
+	/**
+	 *
+	 * @param aNS
+	 */
+	void setNS(String aNS);
+
+	/**
+	 * validates the passed objects and uses the appropriate assignment method
+	 * @param aKey
+	 * @param aObj
+	 * @return true if value could be set otherwise false
+	 */
+	boolean setValidated(String aKey, Object aObj);
+
+	/**
+	 *
+	 * @return
+	 */
+	Iterator<String> getKeyIterator();
 }

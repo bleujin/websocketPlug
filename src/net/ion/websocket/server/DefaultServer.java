@@ -1,17 +1,22 @@
 package net.ion.websocket.server;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
+import net.ion.framework.util.Debug;
 import net.ion.framework.util.InstanceCreationException;
+import net.ion.framework.util.MapUtil;
 import net.ion.websocket.TestBaseWebSocket;
 import net.ion.websocket.common.CommonEnum.SubProtocol;
-import net.ion.websocket.common.api.ServerConfiguration;
 import net.ion.websocket.common.api.WebSocketConnector;
 import net.ion.websocket.common.api.WebSocketEngine;
 import net.ion.websocket.common.api.WebSocketPacket;
 import net.ion.websocket.common.api.WebSocketPlugIn;
 import net.ion.websocket.common.api.WebSocketPlugInChain;
 import net.ion.websocket.common.api.WebSocketServerListener;
+import net.ion.websocket.common.config.CommonConstants;
+import net.ion.websocket.common.config.ServerConfiguration;
 import net.ion.websocket.common.filter.BaseFilterChain;
 import net.ion.websocket.common.kit.CloseReason;
 import net.ion.websocket.common.kit.PlugInResponse;
@@ -20,10 +25,14 @@ import net.ion.websocket.common.kit.WebSocketException;
 import net.ion.websocket.common.kit.WebSocketServerEvent;
 import net.ion.websocket.common.plugin.BasePlugInChain;
 import net.ion.websocket.common.server.BaseServer;
+import net.ion.websocket.common.server.IConnectorManager;
 import net.ion.websocket.server.context.ServiceContext;
 import net.ion.websocket.server.engine.netty.NettyEngine;
 
 public class DefaultServer extends BaseServer {
+
+	
+	private final ConnectorManager connectors = new ConnectorManager("userId");
 
 	public DefaultServer(WebSocketEngine engine) {
 		this(new DefaultServerConfiguration(), engine, ServiceContext.createRoot());
@@ -32,7 +41,7 @@ public class DefaultServer extends BaseServer {
 	public DefaultServer(ServerConfiguration config, WebSocketEngine engine, ServiceContext context) {
 		super(context, config);
 		init(new BasePlugInChain(this), new BaseFilterChain(this));
-		addEngine(engine);
+		setEngine(engine);
 	}
 
 	public final static DefaultServer test() {
@@ -48,17 +57,17 @@ public class DefaultServer extends BaseServer {
 		PlugInResponse response = getPlugInChain().processPacket(connector, packet);
 
 		List<WebSocketServerListener> listeners = getListeners();
-		WebSocketServerEvent event = WebSocketServerEvent.create(connector, response, this, packet);
+		WebSocketServerEvent event = new WebSocketServerEvent(connector, this);
 		for (WebSocketServerListener listener : listeners) {
-			listener.processPacket(event);
+			listener.processPacket(event, packet);
 		}
 	}
 
 	private boolean isAllowedProtocol(WebSocketConnector connector) {
-		RequestHeader headers = connector.getHeader();
-		String subProtocol = (headers != null ? headers.getSubProtocol(null) : null);
+		RequestHeader lHeader = connector.getHeader();
+		String lFormat = (lHeader != null ? lHeader.getFormat() : null);
 
-		return SubProtocol.MESSENGER == SubProtocol.from(subProtocol);
+		return (lFormat != null && (CommonConstants.WS_FORMAT_TEXT.equals(lFormat)) || CommonConstants.WS_FORMAT_JSON.equals(lFormat));
 	}
 
 	/**
@@ -90,7 +99,6 @@ public class DefaultServer extends BaseServer {
 		// connector.stopConnector(CloseReason.SERVER);
 		// return;
 		// }
-
 		addConnector(connector);
 		getPlugInChain().connectorStarted(connector);
 	}
@@ -141,5 +149,23 @@ public class DefaultServer extends BaseServer {
 	public boolean isAlive() {
 		return getEngine().isAlive();
 	}
+	
+	public FoundResult findConnectorByUserId(Set<String> userIds) {
+		FoundResult result = FoundResult.create(userIds) ;
+		Map<String, WebSocketConnector> definedMap = getConnectors().getDefinedMap() ;
+		for (String userId : userIds) {
+			WebSocketConnector found = definedMap.get(userId) ;
+			result.addReuslt(userId, found);
+		}
+		
+		return result;
+	}
+
+	
+	public final ConnectorManager getConnectors(){
+		return connectors ;
+	}
+
+
 
 }

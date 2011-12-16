@@ -18,7 +18,6 @@ package net.ion.websocket.common.packet.processor;
 import net.ion.websocket.common.api.WebSocketPacket;
 import net.ion.websocket.common.token.Token;
 
-
 /**
  *
  * @author aschulze
@@ -27,16 +26,16 @@ public interface WebSocketPacketProcessor {
 
 	/**
 	 * 
-	 * @param aDataPacket
+	 * @param dataPacket
 	 * @return
 	 */
-	Token packetToToken(WebSocketPacket aDataPacket);
+	Token packetToToken(WebSocketPacket dataPacket);
 
 	/**
 	 *
-	 * @param aToken
+	 * @param token
 	 * @return
 	 */
-	WebSocketPacket tokenToPacket(Token aToken);
+	WebSocketPacket tokenToPacket(Token token);
 
 }

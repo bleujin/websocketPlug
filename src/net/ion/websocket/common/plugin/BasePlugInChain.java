@@ -118,7 +118,7 @@ public class BasePlugInChain implements WebSocketPlugInChain {
 	public void addPlugIn(WebSocketPlugIn plugin) {
 		plugins.add(plugin);
 		plugin.setPlugInChain(this);
-		mLog.info(plugin + " added") ;
+//		mLog.info(plugin + " added") ;
 	}
 
 	/**
@@ -128,7 +128,7 @@ public class BasePlugInChain implements WebSocketPlugInChain {
 	public void removePlugIn(WebSocketPlugIn plugin) {
 		plugins.remove(plugin);
 		plugin.setPlugInChain(null);
-		mLog.info(plugin + " removed") ;
+//		mLog.info(plugin + " removed") ;
 	}
 
 	/**

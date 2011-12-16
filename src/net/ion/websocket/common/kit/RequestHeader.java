@@ -16,99 +16,142 @@
 package net.ion.websocket.common.kit;
 
 import java.util.Map;
-
 import javolution.util.FastMap;
+import net.ion.websocket.common.config.CommonConstants;
 
 /**
- * Holds the header of the initial WebSocket request from the client to the
- * server. The RequestHeader internally maintains a FastMap to store key/values
- * pairs.
- * 
+ * Holds the header of the initial WebSocket request from the client
+ * to the server. The RequestHeader internally maintains a FastMap to store
+ * key/values pairs.
  * @author aschulze
- * @version $Id: RequestHeader.java,v 1.3 2011/07/15 07:14:12 bleujin Exp $
+ * @author jang
+ * @version $Id: RequestHeader.java,v 1.4 2011/12/15 06:30:18 bleujin Exp $
  */
 public final class RequestHeader {
 
-	private Map<String, Object> args = new FastMap<String, Object>();
-	private static final String ARGS = "args";
-	private static final String PROT = "prot";
-	private static final String TIMEOUT = "timeout";
+	private Map<String, Object> mFields = new FastMap<String, Object>();
+	public static final String WS_PROTOCOL = "subprot";
+	public static final String WS_DRAFT = "draft";
+	public static final String WS_VERSION = "version";
+	public static final String WS_ORIGIN = "origin";
+	public static final String WS_LOCATION = "location";
+	public static final String WS_PATH = "path";
+	public static final String WS_SEARCHSTRING = "searchString";
+	public static final String WS_HOST = "host";
+	public static final String WS_SECKEY = "secKey";
+	public static final String WS_SECKEY1 = "secKey1";
+	public static final String WS_SECKEY2 = "secKey2";
+	public static final String URL_ARGS = "args";
+	public static final String TIMEOUT = "timeout";
+	public static final String USER_AGENT = "User-Agent";
 
 	/**
 	 * Puts a new object value to the request header.
-	 * 
-	 * @param key
-	 * @param value
+	 * @param aKey
+	 * @param aValue
 	 */
-	public void put(String key, Object value) {
-		args.put(key, value);
+	public void put(String aKey, Object aValue) {
+		mFields.put(aKey, aValue);
 	}
 
 	/**
-	 * Returns the object value for the given key or {@code null} if the key
-	 * does not exist in the header.
-	 * 
-	 * @param key
+	 * Returns the object value for the given key or {@code null} if the
+	 * key does not exist in the header.
+	 * @param aKey
 	 * @return object value for the given key or {@code null}.
 	 */
-	public Object get(String key) {
-		return args.get(key);
+	public Object get(String aKey) {
+		return mFields.get(aKey);
 	}
 
 	/**
-	 * Returns the string value for the given key or {@code null} if the key
-	 * does not exist in the header.
-	 * 
-	 * @param key
+	 * Returns the string value for the given key or {@code null} if the
+	 * key does not exist in the header.
+	 * @param aKey
 	 * @return String value for the given key or {@code null}.
 	 */
-	public String getString(String key) {
-		return (String) args.get(key);
+	public String getString(String aKey) {
+		return (String) mFields.get(aKey);
 	}
 
 	/**
-	 * Returns a FastMap of the optional URL arguments passed by the client.
-	 * 
-	 * @return FastMap of the optional URL arguments.
+	 * Returns a Map of the optional URL arguments passed by the client.
+	 * @return Map of the optional URL arguments.
 	 */
 	public Map getArgs() {
-		return (Map) args.get(ARGS);
+		return (Map) mFields.get(URL_ARGS);
 	}
 
 	/**
-	 * Returns the sub protocol passed by the client or a default value if no
-	 * sub protocol has been passed either in the header or in the URL
-	 * arguments.
-	 * 
-	 * @param dftValue
+	 * Returns the sub protocol passed by the client or a default value
+	 * if no sub protocol has been passed either in the header or in the
+	 * URL arguments.
 	 * @return Sub protocol passed by the client or default value.
 	 */
-	public String getSubProtocol(String dftValue) {
-		Map args = getArgs();
-		String subprotocol = null;
-		if (args != null) {
-			subprotocol = (String) args.get(PROT);
-		}
-		return (subprotocol != null ? subprotocol : dftValue);
+	public String getSubProtocol() {
+		return resolveSubprotocol()[0];
 	}
 
 	/**
-	 * Returns the session timeout passed by the client or a default value if no
-	 * session timeout has been passed either in the header or in the URL
-	 * arguments.
-	 * 
-	 * @param dftTimeout
+	 * Returns the subprotocol format in which messages are exchanged between client and server.
+	 * @return subprotocol format passed by the client or default value
+	 */
+	public String getFormat() {
+		return resolveSubprotocol()[1];
+	}
+
+	/**
+	 * Tries to resolve correct subprotocol & format regardless of
+	 * client version (old, new, hixie, hybi, browser, java).
+	 * TODO: deprecate this method once majority of clients switch to new 'subprotocol/format' scheme
+	 * @return array with two members: protocol and format
+	 */
+	private String[] resolveSubprotocol() {
+		String lSubProt = (String) mFields.get(WS_PROTOCOL);
+		if (lSubProt == null) {
+			lSubProt = CommonConstants.WS_SUBPROT_DEFAULT;
+		}
+		if (lSubProt.indexOf('/') != -1) {
+			// expecting 'subprotocol/format' scheme
+			return lSubProt.split("/");
+		} else {
+			String lFormat = CommonConstants.WS_FORMAT_DEFAULT;
+			if (CommonConstants.WS_SUBPROT_JSON.equals(lSubProt)) {
+				lFormat = CommonConstants.WS_FORMAT_JSON;
+			} else if (CommonConstants.WS_SUBPROT_XML.equals(lSubProt)) {
+				lFormat = CommonConstants.WS_FORMAT_XML;
+			} else if (CommonConstants.WS_SUBPROT_CSV.equals(lSubProt)) {
+				lFormat = CommonConstants.WS_FORMAT_CSV;
+			} else if (CommonConstants.WS_SUBPROT_TEXT.equals(lSubProt)) {
+				lFormat = CommonConstants.WS_FORMAT_TEXT;
+			} else if (CommonConstants.WS_SUBPROT_BINARY.equals(lSubProt)) {
+				lFormat = CommonConstants.WS_FORMAT_BINARY;
+			}
+
+			return new String[]{lSubProt, lFormat};
+		}
+	}
+
+	/**
+	 * Returns the session timeout passed by the client or a default value
+	 * if no session timeout has been passed either in the header or in the
+	 * URL arguments.
+	 * @param aDefault
 	 * @return Session timeout passed by the client or default value.
 	 */
-	public Integer getTimeout(Integer dftTimeout) {
-		Map args = getArgs();
-		Integer timeout = null;
-		if (args != null) {
+	public Integer getTimeout(Integer aDefault) {
+		Map lArgs = getArgs();
+		Integer lTimeout = null;
+		if (lArgs != null) {
 			try {
-				timeout = Integer.parseInt((String) (args.get(TIMEOUT)));
-			} catch (Exception ex) {
+				lTimeout = Integer.parseInt((String) (lArgs.get(TIMEOUT)));
+			} catch (Exception lEx) {
 			}
 		}
-		return (timeout != null ? timeout : dftTimeout);
+		return (lTimeout != null ? lTimeout : aDefault);
+	}
+
+	public int getVersion() {
+		return (Integer) mFields.get(WS_VERSION);
 	}
 }

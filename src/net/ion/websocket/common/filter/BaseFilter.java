@@ -15,9 +15,12 @@
 //	---------------------------------------------------------------------------
 package net.ion.websocket.common.filter;
 
+import net.ion.websocket.common.api.WebSocketPacket;
+
 import net.ion.websocket.common.api.WebSocketConnector;
 import net.ion.websocket.common.api.WebSocketFilter;
 import net.ion.websocket.common.api.WebSocketFilterChain;
+import net.ion.websocket.common.config.FilterConfiguration;
 import net.ion.websocket.common.kit.FilterResponse;
 
 /**
@@ -26,37 +29,61 @@ import net.ion.websocket.common.kit.FilterResponse;
  */
 public class BaseFilter implements WebSocketFilter {
 
-	private String id = null;
-	// every filter has a backward reference to its filter chain
-	private BaseFilterChain filterChain = null;
 
-	public BaseFilter(String aId) {
-		id = aId;
+	private WebSocketFilterChain filterChain = null;
+	private FilterConfiguration config = null;
+
+	public BaseFilter() {
+		this(FilterConfiguration.BLANK) ;
 	}
 
+	public BaseFilter(FilterConfiguration config) {
+		this.config = (config == null) ? FilterConfiguration.BLANK : config;
+	}
+
+	@Override
 	public String toString() {
-		return id;
+		return config.getId();
 	}
 
-	public void processPacketIn(FilterResponse response, WebSocketConnector connector) {
+	@Override
+	public void processPacketIn(FilterResponse response, WebSocketConnector connector, WebSocketPacket packet) {
 	}
 
-	public void processPacketOut(FilterResponse response, WebSocketConnector source) {
+	@Override
+	public void processPacketOut(FilterResponse response, WebSocketConnector source, WebSocketConnector target, WebSocketPacket packet) {
 	}
 
 	/**
 	 * 
-	 * @param fchain
+	 * @param filterChain
 	 */
-	public void setFilterChain(WebSocketFilterChain fchain) {
-		filterChain = (BaseFilterChain) fchain;
+	@Override
+	public void setFilterChain(WebSocketFilterChain filterChain) {
+		filterChain = filterChain;
 	}
 
 	/**
 	 * @return the filterChain
 	 */
-	public BaseFilterChain getFilterChain() {
+	@Override
+	public WebSocketFilterChain getFilterChain() {
 		return filterChain;
 	}
 
+	/**
+	 * @return the id of the filter
+	 */
+	@Override
+	public String getId() {
+		return config.getNamespace();
+	}
+
+	/**
+	 * @return the name space of the filter
+	 */
+	@Override
+	public String getNS() {
+		return config.getId();
+	}
 }

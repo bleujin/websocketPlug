@@ -15,6 +15,10 @@
 //	---------------------------------------------------------------------------
 package net.ion.websocket.common.api;
 
+import net.ion.websocket.common.api.WebSocketConnector;
+import net.ion.websocket.common.api.WebSocketFilterChain;
+import net.ion.websocket.common.api.WebSocketPacket;
+
 import net.ion.websocket.common.kit.FilterResponse;
 
 
@@ -28,18 +32,18 @@ public interface WebSocketFilter {
 	 *
 	 * @param response
 	 * @param connector
-	 * @param aPacket
+	 * @param packet
 	 */
-	void processPacketIn(FilterResponse response, WebSocketConnector connector);
+	void processPacketIn(FilterResponse response, WebSocketConnector connector, WebSocketPacket packet);
 
 	/**
 	 *
 	 * @param response
 	 * @param source
-	 * @param aTarget
-	 * @param aPacket
+	 * @param target
+	 * @param packet
 	 */
-	void processPacketOut(FilterResponse response, WebSocketConnector source);
+	void processPacketOut(FilterResponse response, WebSocketConnector source, WebSocketConnector target, WebSocketPacket packet);
 
 	/**
 	 *
@@ -51,4 +55,14 @@ public interface WebSocketFilter {
 	 * @return the filterChain
 	 */
 	public WebSocketFilterChain getFilterChain();
+
+	/**
+	 * @return the Id of the filter
+	 */
+	public String getId();
+
+	/**
+	 * @return the name space of the filter
+	 */
+	public String getNS();
 }

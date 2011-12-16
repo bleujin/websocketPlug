@@ -19,7 +19,7 @@ public class AradonConfiguration {
 		return new AradonConfiguration( PathMaker.getFilePath(baseDir, config.getString("[@config]")) , config.getInt("[@port]", 0)) ;
 	}
 	public final static AradonConfiguration test(){
-		return new AradonConfiguration("resource/config/aradon-client-config.xml", 9090) ;
+		return new AradonConfiguration("resource/config/embed-aradon-config.xml", 9090) ;
 	}
 
 	

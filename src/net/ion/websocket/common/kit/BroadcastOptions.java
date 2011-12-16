@@ -4,6 +4,7 @@ public class BroadcastOptions {
 
 	private boolean senderIncluded = false;
 	private boolean responseRequested = false;
+    private boolean mAsync = false;
 
 	private static BroadcastOptions EXCLUDE_SELF = new BroadcastOptions(false, true) ;
 	private static BroadcastOptions DEFAULT = new BroadcastOptions(true, true) ;
@@ -37,6 +38,18 @@ public class BroadcastOptions {
 	public void setResponseRequested(boolean responseRequested) {
 		this.responseRequested = responseRequested;
 	}
+    /**
+     * @return the async
+     */
+    public boolean isAsync() {
+        return mAsync;
+    }
 
+    /**
+     * @param aAsync the async to set
+     */
+    public void setAsync(boolean aAsync) {
+        mAsync = aAsync;
+    }
 
 }

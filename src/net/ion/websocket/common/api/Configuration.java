@@ -17,15 +17,17 @@ package net.ion.websocket.common.api;
 /**
  * Base interface for all the configurations of jWebSocket
  * @author puran 
- * @version $Id: Configuration.java,v 1.1 2011/06/30 04:53:52 bleujin Exp $
+ * @version $Id: Configuration.java,v 1.2 2011/12/15 06:30:21 bleujin Exp $
  */
 public interface Configuration {
-    /**
-     * @return the id 
-     */
-    String getId();
-    /**
-     * @return the name 
-     */
-    String getName();
+
+	/**
+	 * @return the id
+	 */
+	String getId();
+
+	/**
+	 * @return the name 
+	 */
+	String getName();
 }

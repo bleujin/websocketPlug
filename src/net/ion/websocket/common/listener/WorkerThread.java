@@ -16,7 +16,7 @@ public class WorkerThread extends Thread{
 	public void run(){
 		while(true){
 			try {
-				WebSocketServerEvent event = channel.takeEvent() ;
+				ServerEvent event = channel.takeEvent() ;
 				for (WebSocketServerListener listener : listeners) {
 					event.handleEvent(listener) ;
 				}

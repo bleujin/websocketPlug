@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="mycom" name="net.ion.websocket.TestAllWebSocket" tests="46" time="6.203" timestamp="2011-10-22T18:41:05">
+<testsuite errors="0" failures="0" hostname="bleujin-SV" name="net.ion.websocket.TestAllWebSocket" tests="43" time="5.857" timestamp="2011-12-16T02:27:59">
   <properties>
     <property name="java.vendor" value="Sun Microsystems Inc." />
     <property name="sun.java.launcher" value="SUN_STANDARD" />
-    <property name="eclipse.pdebuild.templates" value="/D:/eclipse341/plugins/org.eclipse.pde.build_3.4.1.R34x_v20081217/templates/" />
+    <property name="eclipse.pdebuild.templates" value="/C:/eclipse/plugins/org.eclipse.pde.build_3.5.2.R35x_20100114/templates/" />
     <property name="sun.management.compiler" value="HotSpot Client Compiler" />
-    <property name="os.name" value="Windows XP" />
-    <property name="sun.boot.class.path" value="D:\java\jdk6.27\jre\lib\resources.jar;D:\java\jdk6.27\jre\lib\rt.jar;D:\java\jdk6.27\jre\lib\sunrsasign.jar;D:\java\jdk6.27\jre\lib\jsse.jar;D:\java\jdk6.27\jre\lib\jce.jar;D:\java\jdk6.27\jre\lib\charsets.jar;D:\java\jdk6.27\jre\lib\modules\jdk.boot.jar;D:\java\jdk6.27\jre\classes" />
-    <property name="TODAY" value="October 22 2011" />
+    <property name="os.name" value="Windows 7" />
+    <property name="sun.boot.class.path" value="C:\Program Files (x86)\Java\jre6\lib\resources.jar;C:\Program Files (x86)\Java\jre6\lib\rt.jar;C:\Program Files (x86)\Java\jre6\lib\sunrsasign.jar;C:\Program Files (x86)\Java\jre6\lib\jsse.jar;C:\Program Files (x86)\Java\jre6\lib\jce.jar;C:\Program Files (x86)\Java\jre6\lib\charsets.jar;C:\Program Files (x86)\Java\jre6\classes" />
+    <property name="TODAY" value="December 16 2011" />
     <property name="build.number" value="3" />
     <property name="sun.desktop" value="windows" />
     <property name="java.vm.specification.vendor" value="Sun Microsystems Inc." />
-    <property name="ant.home" value="D:\eclipse341\plugins\org.apache.ant_1.7.0.v200803061910" />
-    <property name="java.runtime.version" value="1.6.0_27-b07" />
+    <property name="ant.home" value="C:\eclipse\plugins\org.apache.ant_1.7.1.v20090120-1145" />
+    <property name="java.runtime.version" value="1.6.0_20-b02" />
     <property name="version.number" value="0" />
-    <property name="user.name" value="Administrator" />
-    <property name="ant.file.Jar Publish" value="D:\eclipse\workspace\websocketPlug\build.xml" />
+    <property name="user.name" value="bleujin" />
+    <property name="ant.file.Jar Publish" value="C:\Users\bleujin\github\build.xml" />
     <property name="publishDir" value="./publish" />
     <property name="user.language" value="ko" />
-    <property name="sun.boot.library.path" value="D:\java\jdk6.27\jre\bin" />
+    <property name="sun.boot.library.path" value="C:\Program Files (x86)\Java\jre6\bin" />
     <property name="ant.project.name" value="Jar Publish" />
-    <property name="DSTAMP" value="20111022" />
-    <property name="java.version" value="1.6.0_27" />
+    <property name="DSTAMP" value="20111216" />
+    <property name="java.version" value="1.6.0_20" />
     <property name="user.timezone" value="" />
     <property name="sun.arch.data.model" value="32" />
-    <property name="java.endorsed.dirs" value="D:\java\jdk6.27\jre\lib\endorsed" />
+    <property name="java.endorsed.dirs" value="C:\Program Files (x86)\Java\jre6\lib\endorsed" />
     <property name="sun.cpu.isalist" value="pentium_pro+mmx pentium_pro pentium+mmx pentium i486 i386 i86" />
     <property name="sun.jnu.encoding" value="MS949" />
     <property name="file.encoding.pkg" value="sun.io" />
@@ -32,184 +32,307 @@
     <property name="java.specification.name" value="Java Platform API Specification" />
     <property name="java.class.version" value="50.0" />
     <property name="user.country" value="KR" />
-    <property name="java.home" value="D:\java\jdk6.27\jre" />
+    <property name="java.home" value="C:\Program Files (x86)\Java\jre6" />
     <property name="java.vm.info" value="mixed mode, sharing" />
-    <property name="ant.file" value="D:\eclipse\workspace\websocketPlug\build.xml" />
-    <property name="os.version" value="5.1" />
+    <property name="ant.file" value="C:\Users\bleujin\github\build.xml" />
+    <property name="os.version" value="6.1" />
     <property name="test.reports" value="./resource/report" />
     <property name="path.separator" value=";" />
-    <property name="java.vm.version" value="20.2-b06" />
+    <property name="java.vm.version" value="16.3-b01" />
     <property name="user.variant" value="" />
-    <property name="ant.library.dir" value="D:\eclipse341\plugins\org.apache.ant_1.7.0.v200803061910\lib" />
+    <property name="ant.library.dir" value="C:\eclipse\plugins\org.apache.ant_1.7.1.v20090120-1145\lib" />
     <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob" />
     <property name="sun.io.unicode.encoding" value="UnicodeLittle" />
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
-    <property name="eclipse.pdebuild.scripts" value="/D:/eclipse341/plugins/org.eclipse.pde.build_3.4.1.R34x_v20081217/scripts/" />
-    <property name="user.home" value="C:\Documents and Settings\Administrator" />
+    <property name="eclipse.pdebuild.scripts" value="/C:/eclipse/plugins/org.eclipse.pde.build_3.5.2.R35x_20100114/scripts/" />
+    <property name="user.home" value="C:\Users\bleujin" />
     <property name="java.specification.vendor" value="Sun Microsystems Inc." />
     <property name="binDir" value="./bin" />
-    <property name="java.library.path" value="D:\java\jdk6.27\jre\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;D:/java/jdk5_22/bin/../jre/bin/client;D:/java/jdk5_22/bin/../jre/bin;D:\java\jdk5_22;D:\java\jdk5_22\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\Program Files\QuickTime\QTSystem\;C:\Program Files\TortoiseSVN\bin;C:\Program Files\TortoiseGit\bin;D:\java\jdk5se_22\bin;D:\java\jdk5_22;D:\java\jdk5_22\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\Program Files\QuickTime\QTSystem\;C:\Program Files\TortoiseSVN\bin;C:\Program Files\TortoiseGit\bin;." />
+    <property name="java.library.path" value="C:\Program Files (x86)\Java\jre6\bin;.;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files (x86)/Java/jre6/bin/client;C:/Program Files (x86)/Java/jre6/bin;C:\Program Files\Common Files\Microsoft Shared\Windows Live;C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live;C:\oracle\product\10.2.0\client_1\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Common Files\Roxio Shared\DLLShared\;C:\Program Files (x86)\Common Files\Roxio Shared\10.0\DLLShared\;C:\Program Files\MySQL\MySQL Server 5.5\bin;C:\Program Files (x86)\Windows Live\Shared;C:\Program Files\TortoiseSVN\bin;C:\Program Files\TortoiseGit\bin;C:\Program Files (x86)\Git\cmd;C:\Program Files (x86)\QuickTime\QTSystem\;C:\java\jdk5_22\bin;C:\Program Files\Common Files\Microsoft Shared\Windows Live;C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live;C:\oracle\product\10.2.0\client_1\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Common Files\Roxio Shared\DLLShared\;C:\Program Files (x86)\Common Files\Roxio Shared\10.0\DLLShared\;C:\Program Files\MySQL\MySQL Server 5.5\bin;C:\Program Files (x86)\Windows Live\Shared;C:\Program Files\TortoiseSVN\bin;C:\Program Files\TortoiseGit\bin;C:\Program Files (x86)\Git\cmd;C:\Program Files (x86)\QuickTime\QTSystem\;" />
     <property name="java.vendor.url" value="http://java.sun.com/" />
     <property name="java.vm.vendor" value="Sun Microsystems Inc." />
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner net.ion.websocket.TestAllWebSocket filtertrace=true haltOnError=false haltOnFailure=true formatter=org.apache.tools.ant.taskdefs.optional.junit.SummaryJUnitResultFormatter showoutput=false outputtoformatters=true logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,D:\eclipse\workspace\websocketPlug\resource\TEST-net.ion.websocket.TestAllWebSocket.xml crashfile=D:\eclipse\workspace\websocketPlug\junitvmwatcher288623784.properties propsfile=D:\eclipse\workspace\websocketPlug\junit2016081633.properties" />
-    <property name="java.class.path" value="D:\eclipse\workspace\websocketPlug\bin;D:\eclipse\workspace\websocketPlug\libs\apache\junit.jar;D:\eclipse\workspace\websocketPlug\libs\apache_fat.jar;D:\eclipse\workspace\websocketPlug\libs\aradon_fat_0.5.jar;D:\eclipse\workspace\websocketPlug\libs\netty-3.2.5.Final.jar;D:\eclipse341\plugins\org.apache.ant_1.7.0.v200803061910\lib\ant-launcher.jar;D:\eclipse341\plugins\org.apache.ant_1.7.0.v200803061910\lib\ant.jar;D:\eclipse341\plugins\org.apache.ant_1.7.0.v200803061910\lib\ant-junit.jar" />
-    <property name="ant.version" value="Apache Ant version 1.7.0 compiled on December 13 2006" />
-    <property name="TSTAMP" value="1840" />
+    <property name="java.class.path" value="C:\Users\bleujin\github\bin;C:\Users\bleujin\github\libs\apache\junit.jar;C:\Users\bleujin\github\libs\apache_fat.jar;C:\Users\bleujin\github\libs\aradon_fat_0.5.jar;C:\Users\bleujin\github\libs\netty-3.2.5.Final.jar;C:\Users\bleujin\github;C:\Program Files (x86)\Java\jre6\lib\ext\QTJava.zip;C:\eclipse\plugins\org.apache.ant_1.7.1.v20090120-1145\lib\ant-launcher.jar;C:\eclipse\plugins\org.apache.ant_1.7.1.v20090120-1145\lib\ant.jar;C:\eclipse\plugins\org.apache.ant_1.7.1.v20090120-1145\lib\ant-junit.jar" />
+    <property name="ant.version" value="Apache Ant version 1.7.1 compiled on June 27 2008" />
+    <property name="TSTAMP" value="1127" />
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
     <property name="java.vm.specification.version" value="1.0" />
     <property name="sun.cpu.endian" value="little" />
-    <property name="sun.os.patch.level" value="Service Pack 3" />
-    <property name="eclipse.pdebuild.home" value="/D:/eclipse341/plugins/org.eclipse.pde.build_3.4.1.R34x_v20081217/./" />
-    <property name="java.io.tmpdir" value="C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\" />
+    <property name="sun.os.patch.level" value="" />
+    <property name="eclipse.pdebuild.home" value="/C:/eclipse/plugins/org.eclipse.pde.build_3.5.2.R35x_20100114/./" />
+    <property name="java.io.tmpdir" value="C:\Users\bleujin\AppData\Local\Temp\" />
     <property name="java.vendor.url.bug" value="http://java.sun.com/cgi-bin/bugreport.cgi" />
     <property name="os.arch" value="x86" />
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment" />
-    <property name="java.ext.dirs" value="D:\java\jdk6.27\jre\lib\ext;C:\WINDOWS\Sun\Java\lib\ext" />
-    <property name="user.dir" value="D:\eclipse\workspace\websocketPlug" />
+    <property name="java.ext.dirs" value="C:\Program Files (x86)\Java\jre6\lib\ext;C:\Windows\Sun\Java\lib\ext" />
+    <property name="user.dir" value="C:\Users\bleujin\github" />
     <property name="libDir" value="./libs/" />
     <property name="line.separator" value="
 " />
     <property name="java.vm.name" value="Java HotSpot(TM) Client VM" />
-    <property name="basedir" value="D:\eclipse\workspace\websocketPlug" />
+    <property name="basedir" value="C:\Users\bleujin\github" />
     <property name="baseDir" value="." />
     <property name="ant.java.version" value="1.6" />
-    <property name="TODAY_MY" value="10/22/2011 06:40" />
-    <property name="ant.core.lib" value="D:\eclipse341\plugins\org.apache.ant_1.7.0.v200803061910\lib\ant.jar" />
+    <property name="TODAY_MY" value="12/16/2011 11:27" />
+    <property name="ant.core.lib" value="C:\eclipse\plugins\org.apache.ant_1.7.1.v20090120-1145\lib\ant.jar" />
     <property name="file.encoding" value="MS949" />
     <property name="java.specification.version" value="1.6" />
   </properties>
-  <testcase classname="net.ion.websocket.client.TestSyncMockClient" name="testConnect" time="0.297" />
-  <testcase classname="net.ion.websocket.client.TestSyncMockClient" name="testDisconnect" time="0.016" />
-  <testcase classname="net.ion.websocket.client.TestSyncMockClient" name="testSendMessage" time="0.015" />
-  <testcase classname="net.ion.websocket.client.TestSyncMockClient" name="testWrongIP" time="2.0" />
-  <testcase classname="net.ion.websocket.client.TestMessagePacket" name="testInit" time="0.016" />
-  <testcase classname="net.ion.websocket.client.TestMessagePacket" name="testPath" time="0.0" />
-  <testcase classname="net.ion.websocket.client.TestMessagePacket" name="testLoad" time="0.0" />
-  <testcase classname="net.ion.websocket.client.TestMessagePacket" name="testEmpty" time="0.0" />
+  <testcase classname="net.ion.websocket.client.TestSyncMockClient" name="testConnect" time="0.234" />
+  <testcase classname="net.ion.websocket.client.TestSyncMockClient" name="testDisconnect" time="0.0090" />
+  <testcase classname="net.ion.websocket.client.TestSyncMockClient" name="testSendMessage" time="0.011" />
+  <testcase classname="net.ion.websocket.client.TestSyncMockClient" name="testWrongIP" time="2.002" />
+  <testcase classname="net.ion.websocket.client.TestMessagePacket" name="testInit" time="0.0050" />
+  <testcase classname="net.ion.websocket.client.TestMessagePacket" name="testPath" time="0.0010" />
+  <testcase classname="net.ion.websocket.client.TestMessagePacket" name="testLoad" time="0.0040" />
+  <testcase classname="net.ion.websocket.client.TestMessagePacket" name="testEmpty" time="0.0010" />
   <testcase classname="net.ion.websocket.client.TestMessagePacket" name="testHas" time="0.0" />
   <testcase classname="net.ion.websocket.client.TestMessagePacket" name="testGetDefaultString" time="0.0" />
   <testcase classname="net.ion.websocket.client.TestMessagePacket" name="testInner" time="0.0" />
-  <testcase classname="net.ion.websocket.client.TestMessagePacket" name="testAraray" time="0.0" />
-  <testcase classname="net.ion.websocket.client.TestClientListener" name="testOnMessage" time="0.078" />
-  <testcase classname="net.ion.websocket.client.TestClientListener" name="testOnClose" time="0.016" />
+  <testcase classname="net.ion.websocket.client.TestMessagePacket" name="testAraray" time="0.0010" />
+  <testcase classname="net.ion.websocket.client.TestClientListener" name="testOnMessage" time="0.062" />
+  <testcase classname="net.ion.websocket.client.TestClientListener" name="testOnClose" time="0.0080" />
   <testcase classname="net.ion.websocket.server.TestURIParser" name="testBlank" time="0.0" />
-  <testcase classname="net.ion.websocket.server.TestURIParser" name="testLimit1" time="0.0" />
+  <testcase classname="net.ion.websocket.server.TestURIParser" name="testLimit1" time="0.0010" />
   <testcase classname="net.ion.websocket.server.TestURIParser" name="testCaseSensitive" time="0.0" />
   <testcase classname="net.ion.websocket.server.TestURIParser" name="testLimit2" time="0.0" />
   <testcase classname="net.ion.websocket.server.TestURIParser" name="testLimitCase" time="0.0" />
   <testcase classname="net.ion.websocket.server.TestURIParser" name="testPattern" time="0.0" />
   <testcase classname="net.ion.websocket.server.TestURIParser" name="testOverCase" time="0.0" />
-  <testcase classname="net.ion.websocket.server.TestServerConfigParser" name="testBaseDir" time="0.14" />
-  <testcase classname="net.ion.websocket.server.TestServerConfigParser" name="testServerConfig" time="0.0" />
-  <testcase classname="net.ion.websocket.server.TestServerConfigParser" name="testEngineConfig" time="0.016" />
-  <testcase classname="net.ion.websocket.server.TestServerConfigParser" name="testContextConfig" time="0.0" />
-  <testcase classname="net.ion.websocket.server.TestServerConfigParser" name="testPluginConfig" time="0.0" />
-  <testcase classname="net.ion.websocket.server.TestServerConfigParser" name="testListenerConfig" time="0.016" />
-  <testcase classname="net.ion.websocket.server.TestContext" name="testOnStart" time="0.0" />
-  <testcase classname="net.ion.websocket.server.TestContext" name="testLoadObject" time="0.015" />
-  <testcase classname="net.ion.websocket.server.TestContext" name="testApplicationScope" time="0.016" />
-  <testcase classname="net.ion.websocket.server.TestContext" name="testRequestScope" time="0.0" />
-  <testcase classname="net.ion.websocket.server.TestDefaultServer" name="testIsStarted" time="0.0" />
+  <testcase classname="net.ion.websocket.server.TestServerConfigParser" name="testBaseDir" time="0.083" />
+  <testcase classname="net.ion.websocket.server.TestServerConfigParser" name="testServerConfig" time="0.0060" />
+  <testcase classname="net.ion.websocket.server.TestServerConfigParser" name="testEngineConfig" time="0.0060" />
+  <testcase classname="net.ion.websocket.server.TestServerConfigParser" name="testContextConfig" time="0.0060" />
+  <testcase classname="net.ion.websocket.server.TestServerConfigParser" name="testPluginConfig" time="0.0050" />
+  <testcase classname="net.ion.websocket.server.TestServerConfigParser" name="testListenerConfig" time="0.0060" />
+  <testcase classname="net.ion.websocket.server.TestContext" name="testOnStart" time="0.0050" />
+  <testcase classname="net.ion.websocket.server.TestContext" name="testLoadObject" time="0.014" />
+  <testcase classname="net.ion.websocket.server.TestContext" name="testApplicationScope" time="0.0060" />
+  <testcase classname="net.ion.websocket.server.TestContext" name="testRequestScope" time="0.0060" />
+  <testcase classname="net.ion.websocket.server.TestDefaultServer" name="testIsStarted" time="0.0020" />
   <testcase classname="net.ion.websocket.server.TestDefaultServer" name="testConnector" time="0.0" />
-  <testcase classname="net.ion.websocket.server.TestDefaultServer" name="testEngine" time="0.016" />
-  <testcase classname="net.ion.websocket.server.TestServerRunner" name="testConnectUriParamter" time="0.5" />
-  <testcase classname="net.ion.websocket.server.TestEmbedAradon" name="testConfirmAradon" time="0.265" />
-  <testcase classname="net.ion.websocket.server.TestEmbedAradon" name="testAradonContext" time="0.016" />
-  <testcase classname="net.ion.websocket.server.TestEmbedAradon" name="testMonitorLet" time="0.047" />
-  <testcase classname="net.ion.websocket.common.plugin.TestPlugIn" name="testCounterPlugIn" time="0.125" />
-  <testcase classname="net.ion.websocket.common.plugin.TestPlugIn" name="testMultiClient" time="0.265" />
-  <testcase classname="net.ion.websocket.common.plugin.TestEchoPlugIn" name="testConnected" time="0.813" />
-  <testcase classname="net.ion.websocket.common.plugin.TestEchoPlugIn" name="testServerRecive" time="0.312" />
-  <testcase classname="net.ion.websocket.common.plugin.TestBroadCastPlugIn" name="testBroadCast" time="0.016" />
-  <testcase classname="net.ion.websocket.common.plugin.TestChannelPlugIn" name="testProcess" time="0.125" />
-  <testcase classname="net.ion.websocket.common.listener.TestListener" name="testListener" time="0.516" />
-  <testcase classname="net.ion.websocket.common.listener.TestChannelListener" name="testChannelListener" time="0.515" />
-  <system-out><![CDATA[[====================, [{"body":{"greeting":"hello","room":{"roomid":42222}},"head":{"requesttime":1319308868338,"requestid":"bleujin"}}]] by net.ion.websocket.client.TestMessagePacket:testLoad[20111022-184108]
-2011-10-22 18:41:08,354 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.EchoPlugIn@2a15cd added
-[====================, [127.0.0.1:4880 (anonymous), net.ion.websocket.common.kit.RawPacket@12b7eea]] by net.ion.websocket.common.plugin.EchoPlugIn:processPacket[20111022-184108]
-[====================, [{"body":{},"head":{"command":"ping"}}]] by net.ion.websocket.client.TestClientListener$1:onMessage[20111022-184108]
-2011-10-22 18:41:08,416 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.EchoPlugIn@2a15cd added
-[====================, [./resource/config/embed-aradon-config.xml]] by net.ion.websocket.common.config.AradonConfiguration:<init>[20111022-184108]
-[====================, [./resource/config/embed-aradon-config.xml]] by net.ion.websocket.common.config.AradonConfiguration:<init>[20111022-184108]
-[====================, [./resource/config/embed-aradon-config.xml]] by net.ion.websocket.common.config.AradonConfiguration:<init>[20111022-184108]
-[====================, [./resource/config/embed-aradon-config.xml]] by net.ion.websocket.common.config.AradonConfiguration:<init>[20111022-184108]
-[====================, [./resource/config/embed-aradon-config.xml]] by net.ion.websocket.common.config.AradonConfiguration:<init>[20111022-184108]
-[====================, [./resource/config/embed-aradon-config.xml]] by net.ion.websocket.common.config.AradonConfiguration:<init>[20111022-184108]
-[====================, [./null]] by net.ion.websocket.common.config.AradonConfiguration:<init>[20111022-184108]
-2011-10-22 18:41:08,619 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.AllBroadCastPlugIn@64ea66 added
-2011-10-22 18:41:08,619 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.LogPlugIn@158f9d3 added
-[====================, [./null]] by net.ion.websocket.common.config.AradonConfiguration:<init>[20111022-184108]
-2011-10-22 18:41:08,635 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.AllBroadCastPlugIn@e6f7d2 added
-2011-10-22 18:41:08,635 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.LogPlugIn@19836ed added
-[====================, [./null]] by net.ion.websocket.common.config.AradonConfiguration:<init>[20111022-184108]
-2011-10-22 18:41:08,635 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.AllBroadCastPlugIn@da4b71 added
-2011-10-22 18:41:08,635 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.LogPlugIn@18f1d7e added
-[====================, [./resource/config/embed-aradon-config.xml]] by net.ion.websocket.common.config.AradonConfiguration:<init>[20111022-184109]
-2011-10-22 18:41:09,166 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.AllBroadCastPlugIn@1833eca added
-2011-10-22 18:41:09,166 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.LogPlugIn@18f5824 added
-[    Application[aradon], let.contact.email : bleujin@i-on.net] by net.ion.radon.core.config.AttributeUtil:setStringAttribute[20111022-184109]
-[    Application[aradon], let.contact.help.doc : /help/doc] by net.ion.radon.core.config.AttributeUtil:setStringAttribute[20111022-184109]
-[SECTION :  loaded] by net.ion.radon.core.Aradon:setSection[20111022-184109]
-[ROOT loaded] by net.ion.radon.core.Aradon:initConfig[20111022-184109]
-[Bye....... Aradon] by net.ion.radon.core.Aradon:slayReleasable[20111022-184109]
-[End World.........] by net.ion.radon.core.Aradon:slayReleasable[20111022-184109]
-[====================, [./resource/config/embed-aradon-config.xml]] by net.ion.websocket.common.config.AradonConfiguration:<init>[20111022-184109]
-2011-10-22 18:41:09,416 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.AllBroadCastPlugIn@238a47 added
-2011-10-22 18:41:09,416 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.LogPlugIn@14b5f4a added
-[    Application[aradon], let.contact.email : bleujin@i-on.net] by net.ion.radon.core.config.AttributeUtil:setStringAttribute[20111022-184109]
-[    Application[aradon], let.contact.help.doc : /help/doc] by net.ion.radon.core.config.AttributeUtil:setStringAttribute[20111022-184109]
-[SECTION :  loaded] by net.ion.radon.core.Aradon:setSection[20111022-184109]
-[ROOT loaded] by net.ion.radon.core.Aradon:initConfig[20111022-184109]
-[Bye....... Aradon] by net.ion.radon.core.Aradon:slayReleasable[20111022-184109]
-[End World.........] by net.ion.radon.core.Aradon:slayReleasable[20111022-184109]
-[====================, [./resource/config/embed-aradon-config.xml]] by net.ion.websocket.common.config.AradonConfiguration:<init>[20111022-184109]
-2011-10-22 18:41:09,432 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.AllBroadCastPlugIn@9505f added
-2011-10-22 18:41:09,432 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.LogPlugIn@17ba38f added
-[    Application[aradon], let.contact.email : bleujin@i-on.net] by net.ion.radon.core.config.AttributeUtil:setStringAttribute[20111022-184109]
-[    Application[aradon], let.contact.help.doc : /help/doc] by net.ion.radon.core.config.AttributeUtil:setStringAttribute[20111022-184109]
-[SECTION :  loaded] by net.ion.radon.core.Aradon:setSection[20111022-184109]
-[ROOT loaded] by net.ion.radon.core.Aradon:initConfig[20111022-184109]
-[Bye....... Aradon] by net.ion.radon.core.Aradon:slayReleasable[20111022-184109]
-[End World.........] by net.ion.radon.core.Aradon:slayReleasable[20111022-184109]
-2011-10-22 18:41:09,494 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.CounterPlugIn@61a907 added
-2011-10-22 18:41:09,604 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.CounterPlugIn@a3d3b added
-2011-10-22 18:41:09,869 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.EchoPlugIn@1fe571f added
-[{}] by net.ion.websocket.common.plugin.TestEchoPlugIn:testConnected[20111022-184110]
-[====================, [127.0.0.1:1044 (anonymous), net.ion.websocket.common.kit.RawPacket@19e215b]] by net.ion.websocket.common.plugin.EchoPlugIn:processPacket[20111022-184110]
-[====================, [127.0.0.1:1044 (anonymous), net.ion.websocket.common.kit.RawPacket@1ecfe07]] by net.ion.websocket.common.plugin.EchoPlugIn:processPacket[20111022-184110]
-[[{"body":{},"head":{"command":"ping"}}]] by net.ion.websocket.common.plugin.TestEchoPlugIn:testConnected[20111022-184110]
-2011-10-22 18:41:10,682 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.EchoPlugIn@1d6747b added
-[====================, [127.0.0.1:1053 (anonymous), net.ion.websocket.common.kit.RawPacket@e183e9]] by net.ion.websocket.common.plugin.EchoPlugIn:processPacket[20111022-184110]
-2011-10-22 18:41:10,994 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.AllBroadCastPlugIn@db23f1 added
-2011-10-22 18:41:11,026 INFO  - BasePlugInChain: net.ion.websocket.common.plugin.ChannelPlugIn@e34726 added
+  <testcase classname="net.ion.websocket.server.TestDefaultServer" name="testEngine" time="0.0030" />
+  <testcase classname="net.ion.websocket.server.TestServerRunner" name="testConnectUriParamter" time="0.708" />
+  <testcase classname="net.ion.websocket.common.plugin.TestPlugIn" name="testCounterPlugIn" time="0.108" />
+  <testcase classname="net.ion.websocket.common.plugin.TestPlugIn" name="testMultiClient" time="0.256" />
+  <testcase classname="net.ion.websocket.common.plugin.TestEchoPlugIn" name="testConnected" time="0.715" />
+  <testcase classname="net.ion.websocket.common.plugin.TestEchoPlugIn" name="testServerRecive" time="0.324" />
+  <testcase classname="net.ion.websocket.common.plugin.TestBroadCastPlugIn" name="testBroadCast" time="0.031" />
+  <testcase classname="net.ion.websocket.common.plugin.TestChannelPlugIn" name="testProcess" time="0.113" />
+  <testcase classname="net.ion.websocket.common.listener.TestListener" name="testListener" time="0.517" />
+  <testcase classname="net.ion.websocket.common.listener.TestChannelListener" name="testChannelListener" time="0.516" />
+  <system-out><![CDATA[2011-12-16 11:27:59,679 INFO  - NettyEngine: Netty engine 'netty9000' started.
+2011-12-16 11:27:59,745 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:27:59,748 DEBUG - NettyEngineHandler: arg0: timeout=3600000
+2011-12-16 11:27:59,749 DEBUG - NettyEngine: Stopping Netty engine 'netty9000'...
+2011-12-16 11:27:59,752 DEBUG - NettyConnector: Starting Netty connector...
+2011-12-16 11:27:59,753 INFO  - NettyConnector: Started Netty connector on port57296.
+2011-12-16 11:27:59,754 DEBUG - NettyEngineHandler: Channel is disconnected
+2011-12-16 11:27:59,761 INFO  - NettyEngine: Netty engine 'netty9000' started.
+2011-12-16 11:27:59,765 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:27:59,765 DEBUG - NettyEngineHandler: arg0: timeout=3600000
+2011-12-16 11:27:59,765 DEBUG - NettyConnector: Starting Netty connector...
+2011-12-16 11:27:59,766 INFO  - NettyConnector: Started Netty connector on port57305.
+2011-12-16 11:27:59,766 DEBUG - NettyEngine: Stopping Netty engine 'netty9000'...
+2011-12-16 11:27:59,766 DEBUG - NettyConnector: Stopping Netty connector (SHUTDOWN).....
+2011-12-16 11:27:59,766 DEBUG - NettyEngineHandler: Channel is disconnected
+2011-12-16 11:27:59,766 INFO  - NettyConnector: Stopped Netty connector (SHUTDOWN) on port 57305
+2011-12-16 11:27:59,771 INFO  - NettyEngine: Netty engine 'netty9000' started.
+2011-12-16 11:27:59,774 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:27:59,775 DEBUG - NettyEngineHandler: arg0: timeout=3600000
+2011-12-16 11:27:59,775 DEBUG - NettyConnector: Starting Netty connector...
+2011-12-16 11:27:59,775 INFO  - NettyConnector: Started Netty connector on port57314.
+2011-12-16 11:27:59,777 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:27:59,777 DEBUG - NettyEngine: Stopping Netty engine 'netty9000'...
+2011-12-16 11:27:59,777 DEBUG - NettyConnector: Stopping Netty connector (SHUTDOWN).....
+2011-12-16 11:27:59,778 DEBUG - NettyEngineHandler: Channel is disconnected
+2011-12-16 11:27:59,778 INFO  - NettyConnector: Stopped Netty connector (SHUTDOWN) on port 57314
+[====================, [{"body":{"greeting":"hello","room":{"roomid":42222}},"head":{"requesttime":1324002481791,"requestid":"bleujin"}}]] by net.ion.websocket.client.TestMessagePacket:testLoad[20111216-112801]
+2011-12-16 11:28:01,805 INFO  - NettyEngine: Netty engine 'netty9000' started.
+2011-12-16 11:28:01,809 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:01,810 DEBUG - NettyEngineHandler: arg0: timeout=3600000
+2011-12-16 11:28:01,810 DEBUG - NettyConnector: Starting Netty connector...
+2011-12-16 11:28:01,810 INFO  - NettyConnector: Started Netty connector on port57326.
+2011-12-16 11:28:01,811 DEBUG - NettyEngineHandler: message received in the engine handler
+[====================, [{"body":{},"head":{"command":"ping"}}]] by net.ion.websocket.client.TestClientListener$1:onMessage[20111216-112801]
+2011-12-16 11:28:01,861 DEBUG - NettyEngine: Stopping Netty engine 'netty9000'...
+2011-12-16 11:28:01,861 DEBUG - NettyEngineHandler: Channel is disconnected
+2011-12-16 11:28:01,861 DEBUG - NettyConnector: Stopping Netty connector (SHUTDOWN).....
+2011-12-16 11:28:01,861 INFO  - NettyConnector: Stopped Netty connector (SHUTDOWN) on port 57326
+2011-12-16 11:28:01,865 INFO  - NettyEngine: Netty engine 'netty9000' started.
+2011-12-16 11:28:01,868 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:01,869 DEBUG - NettyEngineHandler: arg0: timeout=3600000
+2011-12-16 11:28:01,869 DEBUG - NettyConnector: Starting Netty connector...
+2011-12-16 11:28:01,869 INFO  - NettyConnector: Started Netty connector on port57335.
+2011-12-16 11:28:01,870 DEBUG - NettyEngine: Stopping Netty engine 'netty9000'...
+2011-12-16 11:28:01,870 DEBUG - NettyEngineHandler: Channel is disconnected
+2011-12-16 11:28:01,870 DEBUG - NettyConnector: Stopping Netty connector (SHUTDOWN).....
+2011-12-16 11:28:01,871 INFO  - NettyConnector: Stopped Netty connector (SHUTDOWN) on port 57335
+[====================, [./resource/config/embed-aradon-config.xml]] by net.ion.websocket.common.config.AradonConfiguration:<init>[20111216-112801]
+[====================, [./resource/config/embed-aradon-config.xml]] by net.ion.websocket.common.config.AradonConfiguration:<init>[20111216-112801]
+[====================, [./resource/config/embed-aradon-config.xml]] by net.ion.websocket.common.config.AradonConfiguration:<init>[20111216-112801]
+[====================, [./resource/config/embed-aradon-config.xml]] by net.ion.websocket.common.config.AradonConfiguration:<init>[20111216-112801]
+[====================, [./resource/config/embed-aradon-config.xml]] by net.ion.websocket.common.config.AradonConfiguration:<init>[20111216-112801]
+[====================, [./resource/config/embed-aradon-config.xml]] by net.ion.websocket.common.config.AradonConfiguration:<init>[20111216-112801]
+2011-12-16 11:28:01,999 INFO  - NettyEngine: Netty engine 'netty9000' started.
+2011-12-16 11:28:01,999 DEBUG - NettyEngine: Stopping Netty engine 'netty9000'...
+[====================, [./null]] by net.ion.websocket.common.config.AradonConfiguration:<init>[20111216-112802]
+[====================, [./null]] by net.ion.websocket.common.config.AradonConfiguration:<init>[20111216-112802]
+[====================, [./null]] by net.ion.websocket.common.config.AradonConfiguration:<init>[20111216-112802]
+2011-12-16 11:28:02,032 INFO  - NettyEngine: Netty engine 'netty9000' started.
+2011-12-16 11:28:02,032 DEBUG - NettyEngine: Stopping Netty engine 'netty9000'...
+2011-12-16 11:28:02,036 INFO  - NettyEngine: Netty engine 'netty9000' started.
+2011-12-16 11:28:02,036 DEBUG - NettyEngine: Stopping Netty engine 'netty9000'...
+2011-12-16 11:28:02,039 INFO  - NettyEngine: Netty engine 'netty9000' started.
+2011-12-16 11:28:02,043 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:02,043 DEBUG - NettyConnector: Starting Netty connector...
+2011-12-16 11:28:02,044 INFO  - NettyConnector: Started Netty connector on port57350.
+2011-12-16 11:28:02,244 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:02,745 DEBUG - NettyEngine: Stopping Netty engine 'netty9000'...
+2011-12-16 11:28:02,745 DEBUG - NettyConnector: Stopping Netty connector (SHUTDOWN).....
+2011-12-16 11:28:02,745 DEBUG - NettyEngineHandler: Channel is disconnected
+2011-12-16 11:28:02,745 INFO  - NettyConnector: Stopped Netty connector (SHUTDOWN) on port 57350
+2011-12-16 11:28:02,750 INFO  - NettyEngine: Netty engine 'netty9000' started.
+2011-12-16 11:28:02,753 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:02,754 DEBUG - NettyEngineHandler: arg0: timeout=3600000
+2011-12-16 11:28:02,754 DEBUG - NettyConnector: Starting Netty connector...
+2011-12-16 11:28:02,754 INFO  - NettyConnector: Started Netty connector on port57359.
+2011-12-16 11:28:02,754 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:02,755 DEBUG - NettyEngineHandler: Channel is disconnected
+2011-12-16 11:28:02,854 DEBUG - NettyEngine: Stopping Netty engine 'netty9000'...
+2011-12-16 11:28:02,861 INFO  - NettyEngine: Netty engine 'netty9000' started.
+2011-12-16 11:28:02,897 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:02,898 DEBUG - NettyEngineHandler: arg0: timeout=3600000
+2011-12-16 11:28:02,899 DEBUG - NettyConnector: Starting Netty connector...
+2011-12-16 11:28:02,899 INFO  - NettyConnector: Started Netty connector on port57370.
+2011-12-16 11:28:02,900 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:02,900 DEBUG - NettyEngineHandler: Channel is disconnected
+2011-12-16 11:28:02,903 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:02,903 DEBUG - NettyEngineHandler: arg0: timeout=3600000
+2011-12-16 11:28:02,903 DEBUG - NettyConnector: Starting Netty connector...
+2011-12-16 11:28:02,903 INFO  - NettyConnector: Started Netty connector on port57380.
+2011-12-16 11:28:02,903 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:02,904 DEBUG - NettyEngineHandler: Channel is disconnected
+2011-12-16 11:28:02,905 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:02,905 DEBUG - NettyEngineHandler: arg0: timeout=3600000
+2011-12-16 11:28:02,905 DEBUG - NettyConnector: Starting Netty connector...
+2011-12-16 11:28:02,905 INFO  - NettyConnector: Started Netty connector on port57387.
+2011-12-16 11:28:02,906 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:02,906 DEBUG - NettyEngineHandler: Channel is disconnected
+2011-12-16 11:28:02,906 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:02,906 DEBUG - NettyEngineHandler: arg0: timeout=3600000
+2011-12-16 11:28:02,906 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:02,906 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:02,907 DEBUG - NettyConnector: Starting Netty connector...
+2011-12-16 11:28:02,907 DEBUG - NettyEngineHandler: arg0: timeout=3600000
+2011-12-16 11:28:02,907 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:02,907 INFO  - NettyConnector: Started Netty connector on port57390.
+2011-12-16 11:28:02,907 DEBUG - NettyConnector: Starting Netty connector...
+2011-12-16 11:28:02,908 INFO  - NettyConnector: Started Netty connector on port57373.
+2011-12-16 11:28:02,908 DEBUG - NettyEngineHandler: arg0: timeout=3600000
+2011-12-16 11:28:02,908 DEBUG - NettyConnector: Starting Netty connector...
+2011-12-16 11:28:02,908 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:02,909 INFO  - NettyConnector: Started Netty connector on port57394.
+2011-12-16 11:28:02,909 DEBUG - NettyEngineHandler: Channel is disconnected
+2011-12-16 11:28:02,909 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:02,908 DEBUG - NettyEngineHandler: arg0: timeout=3600000
+2011-12-16 11:28:02,909 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:02,909 DEBUG - NettyConnector: Starting Netty connector...
+2011-12-16 11:28:02,910 INFO  - NettyConnector: Started Netty connector on port57420.
+2011-12-16 11:28:02,908 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:02,910 DEBUG - NettyEngineHandler: arg0: timeout=3600000
+2011-12-16 11:28:02,909 DEBUG - NettyEngineHandler: Channel is disconnected
+2011-12-16 11:28:02,910 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:02,910 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:02,910 DEBUG - NettyConnector: Starting Netty connector...
+2011-12-16 11:28:02,910 DEBUG - NettyEngineHandler: Channel is disconnected
+2011-12-16 11:28:02,911 DEBUG - NettyEngineHandler: arg0: timeout=3600000
+2011-12-16 11:28:02,911 INFO  - NettyConnector: Started Netty connector on port57424.
+2011-12-16 11:28:02,911 DEBUG - NettyConnector: Starting Netty connector...
+2011-12-16 11:28:02,911 INFO  - NettyConnector: Started Netty connector on port57406.
+2011-12-16 11:28:02,910 DEBUG - NettyEngineHandler: arg0: timeout=3600000
+2011-12-16 11:28:02,911 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:02,911 DEBUG - NettyConnector: Starting Netty connector...
+2011-12-16 11:28:02,911 INFO  - NettyConnector: Started Netty connector on port57368.
+2011-12-16 11:28:02,911 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:02,912 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:02,911 DEBUG - NettyEngineHandler: Channel is disconnected
+2011-12-16 11:28:02,912 DEBUG - NettyEngineHandler: Channel is disconnected
+2011-12-16 11:28:02,912 DEBUG - NettyEngineHandler: Channel is disconnected
+2011-12-16 11:28:02,912 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:02,913 DEBUG - NettyEngineHandler: Channel is disconnected
+2011-12-16 11:28:03,111 DEBUG - NettyEngine: Stopping Netty engine 'netty9000'...
+2011-12-16 11:28:03,118 INFO  - NettyEngine: Netty engine 'netty9000' started.
+2011-12-16 11:28:03,126 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:03,126 DEBUG - NettyConnector: Starting Netty connector...
+2011-12-16 11:28:03,127 INFO  - NettyConnector: Started Netty connector on port57436.
+[{"greeting":"hi"}] by net.ion.websocket.common.plugin.TestEchoPlugIn:testConnected[20111216-112803]
+2011-12-16 11:28:03,628 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:03,629 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:03,728 DEBUG - NettyEngineHandler: Channel is disconnected
+2011-12-16 11:28:03,828 DEBUG - NettyEngine: Stopping Netty engine 'netty9000'...
+[[{"body":{},"head":{"command":"ping"}}]] by net.ion.websocket.common.plugin.TestEchoPlugIn:testConnected[20111216-112803]
+2011-12-16 11:28:03,835 INFO  - NettyEngine: Netty engine 'netty9000' started.
+2011-12-16 11:28:03,848 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:03,850 DEBUG - NettyEngineHandler: arg0: timeout=3600000
+2011-12-16 11:28:03,850 DEBUG - NettyConnector: Starting Netty connector...
+2011-12-16 11:28:03,850 INFO  - NettyConnector: Started Netty connector on port57445.
+2011-12-16 11:28:03,851 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:04,151 DEBUG - NettyEngine: Stopping Netty engine 'netty9000'...
+2011-12-16 11:28:04,151 DEBUG - NettyEngineHandler: Channel is disconnected
+2011-12-16 11:28:04,151 DEBUG - NettyConnector: Stopping Netty connector (SHUTDOWN).....
+2011-12-16 11:28:04,152 INFO  - NettyConnector: Stopped Netty connector (SHUTDOWN) on port 57445
+2011-12-16 11:28:04,161 INFO  - NettyEngine: Netty engine 'netty9000' started.
+2011-12-16 11:28:04,171 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:04,172 DEBUG - NettyConnector: Starting Netty connector...
+2011-12-16 11:28:04,172 INFO  - NettyConnector: Started Netty connector on port57454.
+2011-12-16 11:28:04,181 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:04,182 DEBUG - NettyConnector: Starting Netty connector...
+2011-12-16 11:28:04,183 INFO  - NettyConnector: Started Netty connector on port57461.
+2011-12-16 11:28:04,183 DEBUG - NettyEngineHandler: message received in the engine handler
+[====================, [{"body":{"greeting":"Hi"},"head":{"sender":"bleu"}}]] by net.ion.websocket.common.plugin.AllBroadCastPlugIn:processPacket[20111216-112804]
+2011-12-16 11:28:04,185 DEBUG - NettyEngineHandler: Channel is disconnected
+2011-12-16 11:28:04,185 DEBUG - NettyEngine: Stopping Netty engine 'netty9000'...
+2011-12-16 11:28:04,186 DEBUG - NettyConnector: Stopping Netty connector (SHUTDOWN).....
+2011-12-16 11:28:04,186 INFO  - NettyConnector: Stopped Netty connector (SHUTDOWN) on port 57461
+2011-12-16 11:28:04,186 DEBUG - NettyEngineHandler: Channel is disconnected
+2011-12-16 11:28:04,193 INFO  - NettyEngine: Netty engine 'netty9000' started.
+2011-12-16 11:28:04,199 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:04,200 DEBUG - NettyConnector: Starting Netty connector...
+2011-12-16 11:28:04,200 INFO  - NettyConnector: Started Netty connector on port57470.
+2011-12-16 11:28:04,205 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:04,300 DEBUG - NettyEngine: Stopping Netty engine 'netty9000'...
+2011-12-16 11:28:04,300 DEBUG - NettyEngineHandler: Channel is disconnected
+2011-12-16 11:28:04,301 DEBUG - NettyConnector: Stopping Netty connector (SHUTDOWN).....
+2011-12-16 11:28:04,301 INFO  - NettyConnector: Stopped Netty connector (SHUTDOWN) on port 57470
+2011-12-16 11:28:04,310 INFO  - NettyEngine: Netty engine 'netty9000' started.
+2011-12-16 11:28:04,318 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:04,319 DEBUG - NettyEngineHandler: arg0: timeout=3600000
+2011-12-16 11:28:04,319 DEBUG - NettyConnector: Starting Netty connector...
+2011-12-16 11:28:04,319 INFO  - NettyConnector: Started Netty connector on port57479.
+2011-12-16 11:28:04,320 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:04,320 DEBUG - NettyEngineHandler: Channel is disconnected
+2011-12-16 11:28:04,820 DEBUG - NettyEngine: Stopping Netty engine 'netty9000'...
+2011-12-16 11:28:04,828 INFO  - NettyEngine: Netty engine 'netty9000' started.
+2011-12-16 11:28:04,836 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:04,837 DEBUG - NettyEngineHandler: arg0: timeout=3600000
+2011-12-16 11:28:04,837 DEBUG - NettyConnector: Starting Netty connector...
+2011-12-16 11:28:04,837 INFO  - NettyConnector: Started Netty connector on port57491.
+2011-12-16 11:28:04,841 DEBUG - NettyEngineHandler: message received in the engine handler
+2011-12-16 11:28:04,842 DEBUG - NettyEngineHandler: Channel is disconnected
+2011-12-16 11:28:05,338 DEBUG - NettyEngine: Stopping Netty engine 'netty9000'...
 ]]></system-out>
-  <system-err><![CDATA[2011. 10. 22 오후 6:41:05 java.util.jar.Attributes read
+  <system-err><![CDATA[2011. 12. 16 오전 11:27:59 java.util.jar.Attributes read
 경고: Duplicate name in Manifest: Specification-Title.
 Ensure that the manifest does not have duplicate entries, and
 that blank lines separate individual sections in both your
 manifest and in the META-INF/MANIFEST.MF entry in the jar file.
-2011. 10. 22 오후 6:41:06 java.util.jar.Attributes read
+2011. 12. 16 오전 11:27:59 java.util.jar.Attributes read
 경고: Duplicate name in Manifest: Specification-Version.
 Ensure that the manifest does not have duplicate entries, and
 that blank lines separate individual sections in both your
 manifest and in the META-INF/MANIFEST.MF entry in the jar file.
-2011. 10. 22 오후 6:41:06 java.util.jar.Attributes read
-경고: Duplicate name in Manifest: Specification-Vendor.
-Ensure that the manifest does not have duplicate entries, and
-that blank lines separate individual sections in both your
-manifest and in the META-INF/MANIFEST.MF entry in the jar file.
-2011. 10. 22 오후 6:41:06 java.util.jar.Attributes read
-경고: Duplicate name in Manifest: Specification-Title.
-Ensure that the manifest does not have duplicate entries, and
-that blank lines separate individual sections in both your
-manifest and in the META-INF/MANIFEST.MF entry in the jar file.
-2011. 10. 22 오후 6:41:06 java.util.jar.Attributes read
-경고: Duplicate name in Manifest: Specification-Version.
-Ensure that the manifest does not have duplicate entries, and
-that blank lines separate individual sections in both your
-manifest and in the META-INF/MANIFEST.MF entry in the jar file.
-2011. 10. 22 오후 6:41:06 java.util.jar.Attributes read
+2011. 12. 16 오전 11:27:59 java.util.jar.Attributes read
 경고: Duplicate name in Manifest: Specification-Vendor.
 Ensure that the manifest does not have duplicate entries, and
 that blank lines separate individual sections in both your
@@ -217,25 +340,5 @@ manifest and in the META-INF/MANIFEST.MF entry in the jar file.
 log4j:WARN No appenders could be found for logger (org.apache.commons.configuration.ConfigurationUtils).
 log4j:WARN Please initialize the log4j system properly.
 log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
-[Warn, plugin not exists] by net.ion.radon.core.ClassAppender:appendPath[20111022-184109]
-[Warn, lib not exists] by net.ion.radon.core.ClassAppender:appendPath[20111022-184109]
-SLF4J: The requested version 1.5.10 by your slf4j binding is not compatible with [1.5.5, 1.5.6]
-SLF4J: See http://www.slf4j.org/codes.html#version_mismatch for further details.
-jetty-7.x.y-SNAPSHOT
-Started SelectChannelConnector@0.0.0.0:18787
-aradon server started : 18787
-aradon server stoped
-[Warn, plugin not exists] by net.ion.radon.core.ClassAppender:appendPath[20111022-184109]
-[Warn, lib not exists] by net.ion.radon.core.ClassAppender:appendPath[20111022-184109]
-jetty-7.x.y-SNAPSHOT
-aradon server stoped
-Started SelectChannelConnector@0.0.0.0:18787
-aradon server started : 18787
-[Warn, plugin not exists] by net.ion.radon.core.ClassAppender:appendPath[20111022-184109]
-[Warn, lib not exists] by net.ion.radon.core.ClassAppender:appendPath[20111022-184109]
-jetty-7.x.y-SNAPSHOT
-Started SelectChannelConnector@0.0.0.0:18787
-aradon server started : 18787
-aradon server stoped
 ]]></system-err>
 </testsuite>

@@ -21,7 +21,14 @@ public class TestEchoPlugIn extends TestBaseWebSocket{
 		c.sendMessage(MessagePacket.PING) ;
 		
 		
-		c.await(300) ;
+		synchronized (this) {
+			wait(100) ;
+		}
+		c.disconnect() ;
+		synchronized (this) {
+			wait(100) ;
+		}
+		
 		server.stopServer() ;
 		Debug.debug(c.getLastPacket()) ;
 	}

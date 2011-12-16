@@ -16,6 +16,9 @@
 package net.ion.websocket.common.api;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
+
+import net.ion.websocket.common.kit.WebSocketFrameType;
 
 /**
  * Specifies the API for low level data packets which are interchanged between
@@ -25,85 +28,199 @@ import java.io.UnsupportedEncodingException;
  * @author aschulze
  */
 public interface WebSocketPacket {
-
+	
 	public final static WebSocketPacket BLANK = new WebSocketPacket(){
 
-
-		public void setByteArray(byte[] barrays) {
-		}
-		public void setString(String message) {
-		}
-		public void setString(String message, String encoding) throws UnsupportedEncodingException {
-		}
-		public void setUTF8(String message) {
-		}
-		public void setASCII(String message) {
-		}
-		public byte[] getByteArray() {
-			return new byte[0];
-		}
-		public String getString() {
-			return "";
-		}
-		public String getString(String encoding) throws UnsupportedEncodingException {
-			return "";
-		}
-		public String getUTF8() {
-			return "";
-		}
+		@Override
 		public String getASCII() {
 			return "";
 		}
-		public int getFrameType() {
-			return 0;
+
+		@Override
+		public byte[] getByteArray() {
+			return new byte[0];
 		}
-		public void setFrameType(int frametype) {
+
+		@Override
+		public Date getCreationDate() {
+			return new Date();
+		}
+
+		@Override
+		public WebSocketFrameType getFrameType() {
+			return WebSocketFrameType.INVALID;
+		}
+
+		@Override
+		public String getString() {
+			return "";
+		}
+
+		@Override
+		public String getString(String enc) throws UnsupportedEncodingException {
+			return "";
+		}
+
+		@Override
+		public String getUTF8() {
+			return "";
+		}
+
+		@Override
+		public void initFragmented(int total) {
+			
+		}
+
+		@Override
+		public boolean isComplete() {
+			return true;
+		}
+
+		@Override
+		public boolean isFragmented() {
+			return false;
+		}
+
+		@Override
+		public boolean isTimedOut() {
+			return false;
+		}
+
+		@Override
+		public void packFragments() {
+		}
+
+		@Override
+		public void setASCII(String str) {
+		}
+
+		@Override
+		public void setByteArray(byte[] barray) {
+		}
+
+		@Override
+		public void setCreationDate(Date date) {
+		}
+
+		@Override
+		public void setFragment(String str, int idx) {
+		}
+
+		@Override
+		public void setFrameType(WebSocketFrameType frameType) {
+		}
+
+		@Override
+		public void setString(String str) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void setString(String str, String enc) throws UnsupportedEncodingException {
+		}
+
+		@Override
+		public void setTimeout(long milliseconds) {
+		}
+
+		@Override
+		public void setUTF8(String str) {
 		}
 	} ;
+
 	/**
 	 * Sets the value of the data packet to the given array of bytes.
-	 * 
-	 * @param barrays
+	 * @param aByteArray
 	 */
-	void setByteArray(byte[] barrays);
+	void setByteArray(byte[] aByteArray);
 
 	/**
-	 * Sets the value of the data packet to the given string by using default
-	 * encoding.
 	 * 
-	 * @param message
+	 * @return
 	 */
-	void setString(String message);
+	boolean isFragmented();
 
 	/**
-	 * Sets the value of the data packet to the given string by using the passed
-	 * encoding.
 	 * 
-	 * @param message
+	 * @return
+	 */
+	boolean isComplete();
+
+	/**
+	 *
+	 * @param aString
+	 * @param aStart
+	 */
+	void setFragment(String aString, int aIdx);
+
+	/**
+	 *
+	 */
+	void packFragments();
+
+	/**
+	 * 
+	 * @param date
+	 */
+	void setCreationDate(Date date);
+
+	/**
+	 * 
+	 * @return
+	 */
+	Date getCreationDate();
+
+	/**
+	 * 
+	 * @param milliseconds
+	 */
+	void setTimeout(long milliseconds);
+
+	/**
+	 *
+	 * @return
+	 */
+	boolean isTimedOut();
+
+	/**
+	 *
+	 * @param total
+	 */
+	void initFragmented(int total);
+
+	/**
+	 * Sets the value of the data packet to the given string by using
+	 * default encoding.
+	 * @param string
+	 */
+	void setString(String string);
+
+	/**
+	 * Sets the value of the data packet to the given string by using
+	 * the passed encoding.
+	 * @param string
 	 * @param encoding
 	 * @throws UnsupportedEncodingException
 	 */
-	void setString(String message, String encoding) throws UnsupportedEncodingException;
+	void setString(String string, String encoding) throws UnsupportedEncodingException;
 
 	/**
-	 * Sets the value of the data packet to the given string by using UTF-8
-	 * encoding.
-	 * 
-	 * @param message
+	 * Sets the value of the data packet to the given string by using
+	 * UTF-8 encoding.
+	 * @param string
 	 */
-	void setUTF8(String message);
+	void setUTF8(String string);
 
 	/**
-	 * Sets the value of the data packet to the given string by using 7 bit
-	 * US-ASCII encoding.
-	 * 
-	 * @param message
+	 * Sets the value of the data packet to the given string by using
+	 * 7 bit US-ASCII encoding.
+	 * @param string
 	 */
-	void setASCII(String message);
+	void setASCII(String string);
 
 	/**
 	 * Returns the content of the data packet as an array of bytes.
-	 * 
 	 * @return Data packet as array of bytes.
 	 */
 	byte[] getByteArray();
@@ -111,7 +228,6 @@ public interface WebSocketPacket {
 	/**
 	 * Returns the content of the data packet as a string using default
 	 * encoding.
-	 * 
 	 * @return Raw Data packet as string with default encoding.
 	 */
 	String getString();
@@ -119,7 +235,6 @@ public interface WebSocketPacket {
 	/**
 	 * Returns the content of the data packet as a string using the passed
 	 * encoding.
-	 * 
 	 * @param encoding
 	 * @return String using the passed encoding.
 	 * @throws UnsupportedEncodingException
@@ -127,31 +242,28 @@ public interface WebSocketPacket {
 	String getString(String encoding) throws UnsupportedEncodingException;
 
 	/**
-	 * Interprets the data packet as a UTF8 string and returns the string in
-	 * UTF-8 encoding. If an exception occurs "null" is returned.
-	 * 
+	 * Interprets the data packet as a UTF8 string and returns the string
+	 * in UTF-8 encoding. If an exception occurs "null" is returned.
 	 * @return Data packet as UTF-8 string or {@code null} if not convertible.
 	 */
 	String getUTF8();
 
 	/**
-	 * Interprets the data packet as a US-ASCII string and returns the string in
-	 * US-ASCII encoding. If an exception occurs "null" is returned.
-	 * 
-	 * @return Data packet as US-ASCII string or {@code null} if not
-	 *         convertible.
+	 * Interprets the data packet as a US-ASCII string and returns the string
+	 * in US-ASCII encoding. If an exception occurs "null" is returned.
+	 * @return Data packet as US-ASCII string or {@code null} if not convertible.
 	 */
 	String getASCII();
 
 	/**
-	 * 
+	 *
 	 * @return
 	 */
-	int getFrameType();
+	WebSocketFrameType getFrameType();
 
 	/**
-	 * 
-	 * @param frametype
+	 *
+	 * @param frameType
 	 */
-	void setFrameType(int frametype);
+	void setFrameType(WebSocketFrameType frameType);
 }

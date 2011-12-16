@@ -1,6 +1,5 @@
 //	---------------------------------------------------------------------------
 //	jWebSocket - XML Token Processor
-
 //	Copyright (c) 2010 Alexander Schulze, Innotrade GmbH
 //	---------------------------------------------------------------------------
 //	This program is free software; you can redistribute it and/or modify it
@@ -20,7 +19,7 @@ import java.util.Collection;
 
 import net.ion.websocket.common.api.WebSocketPacket;
 import net.ion.websocket.common.token.Token;
-
+import net.ion.websocket.common.token.TokenFactory;
 
 /**
  * converts XML formatted data packets into tokens and vice versa.
@@ -37,23 +36,23 @@ public class XMLProcessor {
      */
     public static Token packetToToken(WebSocketPacket aDataPacket) {
         // todo: implement!
-        Token lArgs = new Token();
+        Token lArgs = TokenFactory.createToken();
         return lArgs;
     }
 
-    private static String stringToXML(String aString) {
+    private static String stringToXML(String string) {
         // todo: implement!
         String lRes = null;
         return lRes;
     }
 
-    private static String listToXML(Collection<Object> aCollection) {
+    private static String listToXML(Collection<Object> collection) {
         // todo: implement!
         String lRes = null;
         return lRes;
     }
 
-    private static String objectToXML(Object aObj) {
+    private static String objectToXML(Object obj) {
         // todo: implement!
         String lRes = null;
         return lRes;
@@ -61,10 +60,10 @@ public class XMLProcessor {
 
     /**
      * converts a token into a XML formatted data packet.
-     * @param aToken
+     * @param token
      * @return
      */
-    public static WebSocketPacket tokenToPacket(Token aToken) {
+    public static WebSocketPacket tokenToPacket(Token token) {
         // todo: implement!
         return null;
     }

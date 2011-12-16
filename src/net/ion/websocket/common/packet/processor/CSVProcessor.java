@@ -22,6 +22,7 @@ import java.util.Iterator;
 import net.ion.websocket.common.api.WebSocketPacket;
 import net.ion.websocket.common.kit.RawPacket;
 import net.ion.websocket.common.token.Token;
+import net.ion.websocket.common.token.TokenFactory;
 
 /**
  * converts CSV formatted data packets into tokens and vice versa.
@@ -30,102 +31,97 @@ import net.ion.websocket.common.token.Token;
  */
 public class CSVProcessor {
 
-	// TODO: Logging cannot be used in common module because not supported on
-	// all clients
+	// TODO: Logging cannot be used in common module because not supported on all clients
 	// private static Logger log = Logging.getLogger(CSVProcessor.class);
 	/**
 	 * converts a CSV formatted data packet into a token.
 	 * 
-	 * @param aDataPacket
+	 * @param dataPacket
 	 * @return
 	 */
-	public static Token packetToToken(WebSocketPacket aDataPacket) {
-		Token lToken = new Token();
+	public static Token packetToToken(WebSocketPacket dataPacket) {
+		Token token = TokenFactory.createToken();
 		try {
-			String aData = aDataPacket.getString("UTF-8");
-			String[] lItems = aData.split(",");
-			for (int i = 0; i < lItems.length; i++) {
-				String[] lKeyVal = lItems[i].split("=", 2);
-				if (lKeyVal.length == 2) {
-					String lVal = lKeyVal[1];
-					if (lVal.length() <= 0) {
-						lToken.put(lKeyVal[0], null);
-					} else if (lVal.startsWith("\"") && lVal.endsWith("\"")) {
+			String data = dataPacket.getString("UTF-8");
+			String[] items = data.split(",");
+			for (int i = 0; i < items.length; i++) {
+				String[] keyVal = items[i].split("=", 2);
+				if (keyVal.length == 2) {
+					String val = keyVal[1];
+					if (val.length() <= 0) {
+						token.setValidated(keyVal[0], null);
+					} else if (val.startsWith("\"") && val.endsWith("\"")) {
 						// unescape commata by \x2C
-						lVal = lVal.replace("\\x2C", ",");
+						val = val.replace("\\x2C", ",");
 						// unescape quotes by \x22
-						lVal = lVal.replace("\\x22", "\"");
-						lToken.put(lKeyVal[0], lVal.substring(1, lVal.length() - 1));
+						val = val.replace("\\x22", "\"");
+						token.setValidated(keyVal[0], val.substring(1, val.length() - 1));
 					} else {
-						lToken.put(lKeyVal[0], lVal);
+						token.setValidated(keyVal[0], val);
 					}
 				}
 			}
-		} catch (UnsupportedEncodingException ex) {
-			// TODO: process exception
-			// log.error(ex.getClass().getSimpleName() + ": " +
-			// ex.getMessage());
+		} catch (UnsupportedEncodingException ignore) {
+			ignore.printStackTrace() ;
 		}
-		return lToken;
+		return token;
 	}
 
-	private static String stringToCSV(String aString) {
+	private static String stringToCSV(String string) {
 		// escape commata by \x2C
-		aString = aString.replace(",", "\\x2C");
+		string = string.replace(",", "\\x2C");
 		// escape quotes by \x22
-		aString = aString.replace("\"", "\\x22");
-		return ("\"" + aString + "\"");
+		string = string.replace("\"", "\\x22");
+		return ("\"" + string + "\"");
 	}
 
-	private static String collectionToCSV(Collection<Object> aCollection) {
-		String lRes = "";
-		for (Object lItem : aCollection) {
-			String llRes = objectToCSV(lItem);
-			lRes += llRes + "|";
+	private static String collectionToCSV(Collection<Object> collection) {
+		String result = "";
+		for (Object item : collection) {
+			String res = objectToCSV(item);
+			result += res + "|";
 		}
-		if (lRes.length() > 1) {
-			lRes = lRes.substring(0, lRes.length() - 1);
+		if (result.length() > 1) {
+			result = result.substring(0, result.length() - 1);
 		}
-		lRes = "[" + lRes + "]";
-		return lRes;
+		result = "[" + result + "]";
+		return result;
 	}
 
-	private static String objectToCSV(Object aObj) {
-		String lRes;
-		if (aObj == null) {
-			lRes = "null";
-		} else if (aObj instanceof String) {
-			lRes = stringToCSV((String) aObj);
-		} else if (aObj instanceof Collection) {
-			lRes = collectionToCSV((Collection<Object>) aObj);
+	private static String objectToCSV(Object obj) {
+		String result;
+		if (obj == null) {
+			result = "null";
+		} else if (obj instanceof String) {
+			result = stringToCSV((String) obj);
+		} else if (obj instanceof Collection) {
+			result = collectionToCSV((Collection<Object>) obj);
 		} else {
-			lRes = "\"" + aObj.toString() + "\"";
+			result = "\"" + obj.toString() + "\"";
 		}
-		return lRes;
+		return result;
 	}
 
 	/**
 	 * converts a token into a CSV formatted data packet.
 	 * 
-	 * @param aToken
+	 * @param token
 	 * @return
 	 */
-	public static WebSocketPacket tokenToPacket(Token aToken) {
-		String lData = "";
-		Iterator<String> lIterator = aToken.getKeys();
-		while (lIterator.hasNext()) {
-			String lKey = lIterator.next();
-			Object lVal = aToken.get(lKey);
-			lData += lKey + "=" + objectToCSV(lVal) + (lIterator.hasNext() ? "," : "");
+	public static WebSocketPacket tokenToPacket(Token token) {
+		String data = "";
+		Iterator<String> iter = token.getKeyIterator();
+		while (iter.hasNext()) {
+			String key = iter.next();
+			Object value = token.getString(key);
+			data += key + "=" + objectToCSV(value) + (iter.hasNext() ? "," : "");
 		}
-		WebSocketPacket lPacket = null;
+		WebSocketPacket packet = null;
 		try {
-			lPacket = new RawPacket(lData, "UTF-8");
-		} catch (UnsupportedEncodingException ex) {
-			// TODO: process exception
-			// log.error(ex.getClass().getSimpleName() + ": " +
-			// ex.getMessage());
+			packet = new RawPacket(data, "UTF-8");
+		} catch (UnsupportedEncodingException ignore) {
+			ignore.printStackTrace() ;
 		}
-		return lPacket;
+		return packet;
 	}
 }

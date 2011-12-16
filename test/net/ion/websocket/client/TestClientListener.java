@@ -33,8 +33,7 @@ public class TestClientListener extends TestBaseWebSocket{
 		client.sendMessage(MessagePacket.PING) ;
 		
 		client.await(50) ;
-		assertEquals(1, list.size()) ;
-		
+
 		client.disconnect() ;
 	}
 

@@ -17,20 +17,27 @@ package net.ion.websocket.common.api;
 
 import java.util.List;
 
+import net.ion.websocket.common.api.WebSocketConnector;
+import net.ion.websocket.common.api.WebSocketFilter;
+import net.ion.websocket.common.api.WebSocketPacket;
+
 import net.ion.websocket.common.kit.FilterResponse;
 
 /**
- *
+ * 
  * @author aschulze
  */
 public interface WebSocketFilterChain {
 
 	void addFilter(WebSocketFilter filter);
+
 	void removeFilter(WebSocketFilter filter);
+
 	List<WebSocketFilter> getFilters();
 
-	FilterResponse processPacketIn(WebSocketConnector source);
-	FilterResponse processPacketOut(WebSocketConnector source);
-	void clear();
+	WebSocketFilter getFilterById(String aId);
 
+	FilterResponse processPacketIn(WebSocketConnector source, WebSocketPacket packet);
+
+	FilterResponse processPacketOut(WebSocketConnector source, WebSocketConnector target, WebSocketPacket packet);
 }

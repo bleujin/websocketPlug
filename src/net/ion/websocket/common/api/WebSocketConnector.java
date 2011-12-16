@@ -17,6 +17,10 @@ package net.ion.websocket.common.api;
 
 import java.net.InetAddress;
 
+import net.ion.websocket.common.api.WebSocketEngine;
+import net.ion.websocket.common.api.WebSocketPacket;
+import net.ion.websocket.common.async.IOFuture;
+
 import net.ion.websocket.common.kit.CloseReason;
 import net.ion.websocket.common.kit.RequestHeader;
 import net.ion.websocket.common.kit.WebSocketSession;
@@ -58,18 +62,27 @@ public interface WebSocketConnector {
 	 * Processes an incoming datapacket from a WebSocket client. Usually the
 	 * data packet is not processed in any way but only passed up to the
 	 * {@code processPacket} method of the overlying engine.
-	 * @param packet raw web socket data packet
+	 * @param dataPacket raw web socket data packet
 	 */
-	void processPacket(WebSocketPacket packet);
+	void processPacket(WebSocketPacket dataPacket);
 
 	/**
 	 * Sends a datapacket to a WebSocket client. Here the packet is finally
 	 * passed to client via the web socket connection.
-	 * @param userId 
-	 * @param webSocketServer 
-	 * @param packet raw web socket data packet
+	 * @param dataPacket raw web socket data packet
 	 */
-	void sendPacket(WebSocketPacket packet);
+	void sendPacket(WebSocketPacket dataPacket);
+
+	/**
+	 * Sends a datapacket to a WebSocket client asynchronously. This method immediately returns
+	 * the future object to the caller so that it can proceed with the processing
+	 * and not wait for the response.
+	 * @param dataPacket raw web socket data packet
+	 * @return the {@link IOFuture} which will be notified when the
+	 *         write request succeeds or fails
+	 * null if there's any problem with the send operation.
+	 */
+	IOFuture sendPacketAsync(WebSocketPacket dataPacket);
 
 	/**
 	 * Returns the request header from the client during the connection
@@ -197,17 +210,107 @@ public interface WebSocketConnector {
 	/*
 	 * Returns the session for the websocket connection.
 	 */
+	/**
+	 *
+	 * @return
+	 */
 	WebSocketSession getSession();
 
+	/**
+	 *
+	 * @return
+	 */
 	String getUsername();
 
+	/**
+	 *
+	 * @param username
+	 */
 	void setUsername(String username);
 
+	/**
+	 *
+	 */
 	void removeUsername();
 
+	/**
+	 *
+	 * @return
+	 */
+	String getSubprot();
+
+	/**
+	 *
+	 * @param subprot
+	 */
+	void setSubprot(String subprot);
+
+	/**
+	 *
+	 * @return
+	 */
+	int getVersion();
+
+	/**
+	 *
+	 * @param version 
+	 */
+	void setVersion(int version);
+
+	/**
+	 *
+	 */
+	void removeSubprot();
+
+	/**
+	 * returns if the connector is connected to a local TCP port or
+	 * if it is a connection on a remote (cluster) node.
+	 * @return
+	 */
+	boolean isLocal();
+
+	/**
+	 *
+	 * @return
+	 */
 	String getNodeId();
 
+	/**
+	 *
+	 * @param nodeId
+	 */
 	void setNodeId(String nodeId);
 
+	/**
+	 *
+	 */
 	void removeNodeId();
+
+	/**
+	 *
+	 * 
+	 * @return 
+	 */
+	boolean isSSL();
+
+	/**
+	 *
+	 * 
+	 * @param isSSL 
+	 */
+	void setSSL(boolean isSSL);
+	
+
+	/**
+	 * 
+	 * @return
+	 */
+	boolean isHixie();
+
+	/**
+	 * 
+	 * @return
+	 */
+	boolean isHybi();
+	
 }

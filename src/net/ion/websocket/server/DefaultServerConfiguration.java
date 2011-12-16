@@ -1,6 +1,6 @@
 package net.ion.websocket.server;
 
-import net.ion.websocket.common.api.ServerConfiguration;
+import net.ion.websocket.common.config.ServerConfiguration;
 
 public 
 class DefaultServerConfiguration implements ServerConfiguration {

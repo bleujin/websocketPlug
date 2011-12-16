@@ -18,6 +18,11 @@ package net.ion.websocket.common.connector;
 import java.net.InetAddress;
 import java.util.Map;
 
+import net.ion.websocket.common.async.IOFuture;
+import net.ion.websocket.common.config.CommonConstants;
+import net.ion.websocket.common.connector.BaseConnector;
+import net.ion.websocket.common.kit.WebSocketProtocolAbstraction;
+
 import javolution.util.FastMap;
 import net.ion.websocket.common.api.ObjectId;
 import net.ion.websocket.common.api.WebSocketConnector;
@@ -35,184 +40,273 @@ import net.ion.websocket.common.kit.WebSocketSession;
 public class BaseConnector implements WebSocketConnector {
 
 	/**
-	 * Default name for shared custom variable <tt>username</tt>.
+	 * Default reserved name for shared custom variable <tt>username</tt>.
 	 */
 	public final static String VAR_USERNAME = "$username";
-	public final static String VAR_REQUEST_URI = "$request_uri";
+	/**
+	 * Default reserved name for shared custom variable <tt>subprot</tt>.
+	 */
+	public final static String VAR_SUBPROT = "$subprot";
+	
+	public final static String VAR_REQUEST_URI = "$request_uri" ;
+	
+	/**
+	 * Default reserved name for shared custom variable <tt>version</tt>.
+	 */
+	public final static String VAR_VERSION = "$version";
 	/**
 	 * Default name for shared custom variable <tt>nodeid</tt>.
 	 */
 	public final static String VAR_NODEID = "$nodeid";
+	/**
+	 * Is connector using SSL encryption?
+	 */
+	private boolean mIsSSL = false;
+	/**
+	 * the WebSocket protocol version
+	 */
+	private int mVersion = CommonConstants.WS_VERSION_DEFAULT;
+	/**
+	 * Backward reference to the engine of this connector.
+	 */
 	private WebSocketEngine engine = null;
+	/**
+	 * Backup of the original request header and it's fields.
+	 * TODO: maybe obsolete for the future
+	 */
 	private RequestHeader header = null;
-	private final WebSocketSession session = new WebSocketSession();
+	/**
+	 * Session object for the WebSocket connection.
+	 */
+	private final WebSocketSession mSession = new WebSocketSession();
+	/**
+	 * Shared Variables container for this connector.
+	 */
 	private final Map<String, Object> customVars = new FastMap<String, Object>();
 
 	/**
-	 * 
-	 * @param aEngine
+	 *
+	 * @param engine
 	 */
-	public BaseConnector(WebSocketEngine aEngine) {
-		engine = aEngine;
+	public BaseConnector(WebSocketEngine engine) {
+		this.engine = engine;
 	}
 
+	@Override
 	public void startConnector() {
-		if (engine != null) {
-			engine.connectorStarted(this);
-		}
+		engine.connectorStarted(this);
 	}
 
-	public void stopConnector(CloseReason aCloseReason) {
-		if (engine != null) {
-			engine.connectorStopped(this, aCloseReason);
-		}
+	@Override
+	public void stopConnector(CloseReason creason) {
+		engine.connectorStopped(this, creason);
 	}
 
-	public void processPacket(WebSocketPacket aDataPacket) {
-		if (engine != null) {
-			engine.processPacket(this, aDataPacket);
-		}
+	@Override
+	public void processPacket(WebSocketPacket packet) {
+		engine.processPacket(this, packet);
 	}
 
-	public void sendPacket(WebSocketPacket aDataPacket) {
+	@Override
+	public void sendPacket(WebSocketPacket packet) {
 	}
 
+	@Override
+	public IOFuture sendPacketAsync(WebSocketPacket packet) {
+		return null;
+	}
+
+	@Override
 	public WebSocketEngine getEngine() {
 		return engine;
 	}
 
+	@Override
 	public RequestHeader getHeader() {
 		return header;
 	}
 
 	/**
 	 * @param header
-	 *            the header to set
+	 * the header to set
 	 */
+	@Override
 	public void setHeader(RequestHeader header) {
-		// TODO: the sub protocol should be a connector variable! not part of the header!
+		// TODO: the sub protocol should be a connector variable! not part of
+		// the header!
 		this.header = header;
-
-		// TODO: this can be improved, maybe distinguish between header and URL args!
-		Map lArgs = header.getArgs();
-		String lNodeId = (String) lArgs.get("unid");
-		if (lNodeId != null) {
-			setNodeId(lNodeId);
-			lArgs.remove("unid");
+		// TODO: this can be improved, maybe distinguish between header and URL
+		// args!
+		Map args = header.getArgs();
+		if (args != null) {
+			String nodeId = (String) args.get("unid");
+			if (nodeId != null) {
+				setNodeId(nodeId);
+				args.remove("unid");
+			}
 		}
 	}
 
-	public Object getVar(String aKey) {
-		return customVars.get(aKey);
+	@Override
+	public Object getVar(String key) {
+		return customVars.get(key);
 	}
 
-	public void setVar(String aKey, Object aValue) {
-		customVars.put(aKey, aValue);
+	@Override
+	public void setVar(String aKey, Object value) {
+		customVars.put(aKey, value);
 	}
 
-	public Boolean getBoolean(String aKey) {
-		return (Boolean) getVar(aKey);
+	@Override
+	public Boolean getBoolean(String key) {
+		return (Boolean) getVar(key);
 	}
 
-	public boolean getBool(String aKey) {
-		Boolean lBool = getBoolean(aKey);
+	@Override
+	public boolean getBool(String key) {
+		Boolean lBool = getBoolean(key);
 		return (lBool != null && lBool);
 	}
 
-	public void setBoolean(String aKey, Boolean aValue) {
-		setVar(aKey, aValue);
+	@Override
+	public void setBoolean(String key, Boolean value) {
+		setVar(key, value);
 	}
 
-	public String getString(String aKey) {
-		return (String) getVar(aKey);
+	@Override
+	public String getString(String key) {
+		return (String) getVar(key);
 	}
 
-	public void setString(String aKey, String aValue) {
-		setVar(aKey, aValue);
+	@Override
+	public void setString(String key, String value) {
+		setVar(key, value);
 	}
 
-	public Integer getInteger(String aKey) {
-		return (Integer) getVar(aKey);
+	@Override
+	public Integer getInteger(String key) {
+		return (Integer) getVar(key);
 	}
 
-	public void setInteger(String aKey, Integer aValue) {
-		setVar(aKey, aValue);
+	@Override
+	public void setInteger(String key, Integer value) {
+		setVar(key, value);
 	}
 
-	public void removeVar(String aKey) {
-		customVars.remove(aKey);
+	@Override
+	public void removeVar(String key) {
+		customVars.remove(key);
 	}
 
+	@Override
 	public String generateUID() {
-		return new ObjectId().toString();
+		return null;
 	}
 
+	@Override
 	public int getRemotePort() {
 		return -1;
 	}
 
+	@Override
 	public InetAddress getRemoteHost() {
 		return null;
 	}
 
+	@Override
 	public String getId() {
-		return String.valueOf(getRemotePort());
+		String lNodeId = "" ;
+		return ((lNodeId != null && lNodeId.length() > 0) ? lNodeId + "." : "")
+				+ String.valueOf(getRemotePort());
 	}
 
-	/*
-	 * Returns the session for the websocket connection.
-	 * 
-	 * @return
-	 */
+	@Override
 	public WebSocketSession getSession() {
-		return session;
+		return mSession;
 	}
 
 	// some convenience methods to easier process username (login-status)
 	// and configured unique node id for clusters (independent from tcp port)
-	/**
-	 * 
-	 * @return
-	 */
+	@Override
 	public String getUsername() {
 		return getString(BaseConnector.VAR_USERNAME);
 	}
 
-	/**
-	 * 
-	 * @param aUsername
-	 */
+	@Override
 	public void setUsername(String aUsername) {
 		setString(BaseConnector.VAR_USERNAME, aUsername);
 	}
 
-	/**
-	 *
-	 */
+	@Override
 	public void removeUsername() {
 		removeVar(BaseConnector.VAR_USERNAME);
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
+	// some convenience methods to easier process subprot (login-status)
+	// and configured unique node id for clusters (independent from tcp port)
+	@Override
+	public String getSubprot() {
+		return getString(BaseConnector.VAR_SUBPROT);
+	}
+
+	@Override
+	public void setSubprot(String aSubprot) {
+		setString(BaseConnector.VAR_SUBPROT, aSubprot);
+	}
+
+	@Override
+	public int getVersion() {
+		return mVersion;
+	}
+
+	@Override
+	public void setVersion(int aVersion) {
+		mVersion = aVersion;
+	}
+
+	@Override
+	public void removeSubprot() {
+		removeVar(BaseConnector.VAR_SUBPROT);
+	}
+
+	@Override
+	public boolean isLocal() {
+		// TODO: This has to be updated for the cluster approach
+		return true;
+	}
+
+	@Override
 	public String getNodeId() {
 		return getString(BaseConnector.VAR_NODEID);
 	}
 
-	/**
-	 * 
-	 * @param aNodeId
-	 */
+	@Override
 	public void setNodeId(String aNodeId) {
 		setString(BaseConnector.VAR_NODEID, aNodeId);
 	}
 
-	/**
-	 *
-	 */
+	@Override
 	public void removeNodeId() {
 		removeVar(BaseConnector.VAR_NODEID);
+	}
+
+	@Override
+	public boolean isSSL() {
+		return mIsSSL;
+	}
+
+	@Override
+	public void setSSL(boolean isSSL) {
+		mIsSSL = isSSL;
+	}
+
+	@Override
+	public boolean isHixie() {
+		return WebSocketProtocolAbstraction.isHixieVersion(getVersion());
+	}
+
+	@Override
+	public boolean isHybi() {
+		return WebSocketProtocolAbstraction.isHybiVersion(getVersion());
 	}
 }

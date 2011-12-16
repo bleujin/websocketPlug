@@ -4,11 +4,11 @@ import java.util.List;
 
 import junit.framework.TestCase;
 import net.ion.radon.core.config.XMLConfig;
-import net.ion.websocket.common.api.EngineConfiguration;
-import net.ion.websocket.common.api.ServerConfiguration;
+import net.ion.websocket.common.config.EngineConfiguration;
 import net.ion.websocket.common.config.ListenerInfo;
 import net.ion.websocket.common.config.PlugInInfo;
 import net.ion.websocket.common.config.ServerConfigParser;
+import net.ion.websocket.common.config.ServerConfiguration;
 import net.ion.websocket.server.context.ServiceContext;
 
 public class TestServerConfigParser extends TestCase{
@@ -53,9 +53,8 @@ public class TestServerConfigParser extends TestCase{
 	public void testPluginConfig() throws Exception {
 		List<PlugInInfo> plugins = parser.getPlugins() ;
 		
-		assertEquals(2, plugins.size()) ;
+		assertEquals(1, plugins.size()) ;
 		assertEquals("broad", plugins.get(0).getName()) ;
-		assertEquals("log", plugins.get(1).getName()) ;
 	}
 	
 	public void testListenerConfig() throws Exception {

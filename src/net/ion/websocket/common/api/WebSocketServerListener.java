@@ -14,6 +14,8 @@
 //	---------------------------------------------------------------------------
 package net.ion.websocket.common.api;
 
+import net.ion.websocket.common.api.WebSocketPacket;
+
 import net.ion.websocket.common.kit.WebSocketServerEvent;
 
 
@@ -34,9 +36,9 @@ public interface WebSocketServerListener {
 	 * The event provides getter for the server and the connector to send
 	 * responses to back the client.
 	 * @param aEvent
-	 * @param aPacket
+	 * @param packet
 	 */
-	public void processPacket(WebSocketServerEvent event);
+	public void processPacket(WebSocketServerEvent event, WebSocketPacket packet);
 
 	/**
 	 * This method is invoked when a client was disconnected from the server.

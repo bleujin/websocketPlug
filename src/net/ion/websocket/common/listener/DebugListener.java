@@ -3,6 +3,7 @@ package net.ion.websocket.common.listener;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import net.ion.framework.util.Debug;
+import net.ion.websocket.common.api.WebSocketPacket;
 import net.ion.websocket.common.api.WebSocketServerListener;
 import net.ion.websocket.common.kit.WebSocketServerEvent;
 
@@ -19,9 +20,9 @@ public class DebugListener implements WebSocketServerListener {
 		Debug.line(getClass().getCanonicalName(), "process Opened", event);
 	}
 
-	public void processPacket(WebSocketServerEvent event) {
+	public void processPacket(WebSocketServerEvent event, WebSocketPacket packet) {
 		count.incrementAndGet() ;
-		Debug.line(getClass().getCanonicalName(), "process Packet", event, event.getPacket());
+		Debug.line(getClass().getCanonicalName(), "process Packet", event, packet);
 	}
 
 	public int getCount() {

@@ -1,5 +1,6 @@
 package net.ion.websocket.common.plugin;
 
+import net.ion.framework.util.Debug;
 import net.ion.websocket.common.api.WebSocketConnector;
 import net.ion.websocket.common.api.WebSocketPacket;
 import net.ion.websocket.common.kit.CloseReason;
@@ -26,6 +27,7 @@ public class AllBroadCastPlugIn extends BasePlugIn {
 	public void processPacket(PlugInResponse response, WebSocketConnector connector, WebSocketPacket packet) {
 		MessagePacket message = MessagePacket.load(packet.getUTF8()).toRoot().inner("head").put("sender", connector.getString("userId"));
 		broadCast(message.forSend());
+		Debug.line(message.getFullString()) ;
 	}
 
 	

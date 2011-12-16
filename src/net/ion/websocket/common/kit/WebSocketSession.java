@@ -4,10 +4,8 @@
  */
 package net.ion.websocket.common.kit;
 
-import net.ion.websocket.common.api.ObjectId;
-
 /**
- * 
+ *
  * @author aschulze
  */
 public class WebSocketSession {
@@ -15,11 +13,10 @@ public class WebSocketSession {
 	private String sessionId = null;
 
 	public WebSocketSession() {
-		this(new ObjectId().toString()) ;
 	}
 
-	public WebSocketSession(String sessionId) {
-		this.sessionId = sessionId;
+	public WebSocketSession(String aSessionId) {
+		sessionId = aSessionId;
 	}
 
 	/**

@@ -7,7 +7,7 @@ import net.ion.radon.Options;
 import net.ion.radon.core.Aradon;
 import net.ion.radon.core.config.XMLConfig;
 import net.ion.websocket.aradon.EmbedAradonServer;
-import net.ion.websocket.common.api.EngineConfiguration;
+import net.ion.websocket.common.config.EngineConfiguration;
 import net.ion.websocket.common.config.ListenerInfo;
 import net.ion.websocket.common.config.PlugInInfo;
 import net.ion.websocket.common.config.ServerConfigParser;

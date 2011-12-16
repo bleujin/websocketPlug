@@ -8,8 +8,6 @@ import net.ion.framework.util.InstanceCreationException;
 import net.ion.framework.util.ListUtil;
 import net.ion.framework.util.StringUtil;
 import net.ion.radon.core.config.XMLConfig;
-import net.ion.websocket.common.api.EngineConfiguration;
-import net.ion.websocket.common.api.ServerConfiguration;
 import net.ion.websocket.server.context.ContextLoader;
 import net.ion.websocket.server.context.ServiceContext;
 
@@ -137,7 +135,7 @@ class DefaultServerConfig implements ServerConfiguration {
 	}
 
 	public String getName() {
-		return config.getString("[@name]", "SererName");
+		return config.getString("[@name]", "ServerName");
 	}
 
 	public String getURIPath() {
@@ -174,12 +172,12 @@ class DefaultEngineConfig implements EngineConfiguration {
 		return port;
 	}
 	
-	void setPort(int port){
+	public void setPort(int port){
 		this.port = port ;
 	}
 
 	public int getTimeout() {
-		return config.getInt("[@timeout]", 120000);
+		return config.getInt("[@timeout]", CommonConstants.DEFAULT_TIMEOUT);
 	}
 
 	public String getId() {
@@ -188,6 +186,31 @@ class DefaultEngineConfig implements EngineConfiguration {
 
 	public String getName() {
 		return config.getString("name", "Netty");
+	}
+
+	@Override
+	public String getContext() {
+		return CommonConstants.WEBSOCKET_DEF_CONTEXT;
+	}
+
+	@Override
+	public String getKeyStore() {
+		return config.getString("keystore", ServerConstants.WEBSOCKET_KEYSTORE);
+	}
+
+	@Override
+	public String getKeyStorePassword() {
+		return config.getString("keypwd", ServerConstants.WEBSOCKET_KS_DEF_PWD);
+	}
+
+	@Override
+	public int getSSLPort() {
+		return config.getInt("[@sslport]", CommonConstants.DEFAULT_SSLPORT);
+	}
+
+	@Override
+	public String getServlet() {
+		return CommonConstants.WEBSOCKET_DEF_SERVLET;
 	}
 	
 }

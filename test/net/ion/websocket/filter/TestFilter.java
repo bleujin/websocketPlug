@@ -4,6 +4,7 @@ import net.ion.framework.util.Debug;
 import net.ion.websocket.TestBaseWebSocket;
 import net.ion.websocket.client.SyncMockClient;
 import net.ion.websocket.common.api.WebSocketConnector;
+import net.ion.websocket.common.api.WebSocketPacket;
 import net.ion.websocket.common.filter.BaseFilter;
 import net.ion.websocket.common.kit.CloseReason;
 import net.ion.websocket.common.kit.FilterResponse;
@@ -61,16 +62,16 @@ public class TestFilter extends TestBaseWebSocket {
 class RevokeFilter extends BaseFilter {
 
 	public RevokeFilter() {
-		super(RevokeFilter.class.getCanonicalName());
+		super();
 	}
 	@Override
-	public void processPacketIn(FilterResponse response, WebSocketConnector connector) {
+	public void processPacketIn(FilterResponse response, WebSocketConnector connector, WebSocketPacket aPacket) {
 		connector.stopConnector(CloseReason.SERVER) ;
 		response.rejectMessage("revoked.") ;
 	}
 
 	@Override
-	public void processPacketOut(FilterResponse response, WebSocketConnector source) {
+	public void processPacketOut(FilterResponse response, WebSocketConnector source, WebSocketConnector aTarget, WebSocketPacket aPacket) {
 		Debug.debug("out..", response, source);
 	}
 }
@@ -80,17 +81,17 @@ class CountFilter extends BaseFilter {
 	int count = 0;
 
 	public CountFilter() {
-		super(CountFilter.class.getCanonicalName());
+		super();
 	}
 
 	@Override
-	public void processPacketIn(FilterResponse response, WebSocketConnector connector) {
+	public void processPacketIn(FilterResponse response, WebSocketConnector connector, WebSocketPacket aPacket) {
 		Debug.debug("in..", response, connector);
 		count++;
 	}
 
 	@Override
-	public void processPacketOut(FilterResponse response, WebSocketConnector source) {
+	public void processPacketOut(FilterResponse response, WebSocketConnector source, WebSocketConnector aTarget, WebSocketPacket aPacket) {
 		Debug.debug("out..", response, source);
 		count++;
 	}

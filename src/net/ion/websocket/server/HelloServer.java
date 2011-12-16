@@ -5,7 +5,6 @@ import java.net.URI;
 import net.ion.framework.util.InfinityThread;
 import net.ion.websocket.common.PacketConstant;
 import net.ion.websocket.common.plugin.AllBroadCastPlugIn;
-import net.ion.websocket.common.plugin.LogPlugIn;
 import net.ion.websocket.server.engine.netty.NettyEngine;
 
 public class HelloServer implements PacketConstant {
@@ -16,7 +15,6 @@ public class HelloServer implements PacketConstant {
 		((DefaultServerConfiguration)server.getConfiguration()).testURIPath("/{userId}/{sessionId}/{params}") ;  // only test 
 		
 		server.getPlugInChain().addPlugIn(new AllBroadCastPlugIn());
-		server.getPlugInChain().addPlugIn(new LogPlugIn()) ;
 		server.startServer();
 //		server.getPlugInChain().addPlugIn(new SystemPlugIn());
 

@@ -15,11 +15,10 @@
 //	---------------------------------------------------------------------------
 package net.ion.websocket.common.kit;
 
-
 /**
  * Exception class to represent JWebSocketServer related exception
  * @author Puran Singh
- * @version $Id: WebSocketException.java,v 1.1 2011/06/30 04:53:53 bleujin Exp $
+ * @version $Id: WebSocketException.java,v 1.2 2011/12/15 06:30:18 bleujin Exp $
  *
  */
 public class WebSocketException extends Exception {

@@ -17,6 +17,8 @@ package net.ion.websocket.common.plugin;
 
 import java.util.Map;
 
+import org.json.JSONObject;
+
 import javolution.util.FastMap;
 import net.ion.websocket.common.api.WebSocketConnector;
 import net.ion.websocket.common.api.WebSocketEngine;
@@ -24,6 +26,7 @@ import net.ion.websocket.common.api.WebSocketPacket;
 import net.ion.websocket.common.api.WebSocketPlugIn;
 import net.ion.websocket.common.api.WebSocketPlugInChain;
 import net.ion.websocket.common.api.WebSocketServer;
+import net.ion.websocket.common.config.PluginConfiguration;
 import net.ion.websocket.common.kit.CloseReason;
 import net.ion.websocket.common.kit.PlugInResponse;
 
@@ -33,31 +36,90 @@ import net.ion.websocket.common.kit.PlugInResponse;
  */
 public abstract class BasePlugIn implements WebSocketPlugIn {
 
-	// TODO: a plug-in should have a name and an id to be uniquely identified in the chain!
-	private WebSocketPlugInChain chain = null;
 
-	private Map<String, ? super Object> settings = new FastMap<String, Object>();
+	private WebSocketPlugInChain plugChain = null;
+	private Map<String, Object> settings = new FastMap<String, Object>();
+	private PluginConfiguration pconfig;
 
-	public void engineStarted(WebSocketEngine engine) {}
+	/**
+	 * Constructor
+	 *
+	 * @param aConfiguration
+	 *          the plugin configuration
+	 */
+	public BasePlugIn() {
+		this(PluginConfiguration.BLANK) ;
+	}
+	
+	public BasePlugIn(PluginConfiguration pconfig) {
+		this.pconfig = pconfig;
+		if (pconfig != null) {
+			addAllSettings(pconfig.getSettings());
+		}
+	}
 
-	public void engineStopped(WebSocketEngine engine) {}
+	/**
+	 * {@inheritDoc}
+	 */
+	/*
+	@Override
+	public void setPluginConfiguration(PluginConfiguration aConfiguration) {
+	this.mConfiguration = aConfiguration;
+	}
+	 */
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public PluginConfiguration getPluginConfiguration() {
+		return pconfig;
+	}
 
-	public void connectorStarted(WebSocketConnector conn) {}
+	@Override
+	public void engineStarted(WebSocketEngine engine){}
 
-	public void connectorStopped(WebSocketConnector conn, CloseReason creason) {}
+	@Override
+	public void engineStopped(WebSocketEngine engine){}
 
-	public abstract void processPacket(PlugInResponse response, WebSocketConnector conn, WebSocketPacket packet);
+	/**
+	 *
+	 * @param connector
+	 */
+	@Override
+	public void connectorStarted(WebSocketConnector connector){}
 
+	/**
+	 *
+	 * @param aResponse
+	 * @param aConnector
+	 * @param aDataPacket
+	 */
+	@Override
+	public abstract void processPacket(PlugInResponse aResponse, WebSocketConnector aConnector, WebSocketPacket aDataPacket);
 
-	public void setPlugInChain(WebSocketPlugInChain pchain) {
-		this.chain = pchain;
+	/**
+	 *
+	 * @param connector
+	 * @param creason
+	 */
+	@Override
+	public void connectorStopped(WebSocketConnector connector, CloseReason creason){}
+
+	/**
+	 *
+	 * @param plugInChain
+	 */
+	@Override
+	public void setPlugInChain(WebSocketPlugInChain plugInChain) {
+		plugChain = plugInChain;
 	}
 
 	/**
 	 * @return the plugInChain
 	 */
+	@Override
 	public WebSocketPlugInChain getPlugInChain() {
-		return chain;
+		return plugChain;
 	}
 
 	/**
@@ -65,38 +127,71 @@ public abstract class BasePlugIn implements WebSocketPlugIn {
 	 * @return
 	 */
 	public WebSocketServer getServer() {
-		WebSocketServer server = null;
-		if (chain != null) {
-			server = chain.getServer();
+		WebSocketServer lServer = null;
+		if (plugChain != null) {
+			lServer = plugChain.getServer();
 		}
-		return server;
+		return lServer;
 	}
 
 	/**
 	 * Convenience method, just a wrapper for token server method
-	 * <tt>getConnector</tt> to simplify token plug-in code.
-	 * @param aId
+	 * <tt>getUsername</tt> to simplify token plug-in code.
+	 *
+	 * @param connector
 	 * @return
 	 */
-	public WebSocketConnector getConnector(String aId) {
-		return (aId != null ? getServer().getConnector(aId) : null);
+	public String getUsername(WebSocketConnector connector) {
+		return connector.getUsername();
 	}
 
 	/**
 	 * Convenience method, just a wrapper for token server method
-	 * <tt>getServer().getAllConnectors().size()</tt> to simplify token
-	 * plug-in code.
+	 * <tt>setUsername</tt> to simplify token plug-in code.
+	 *
+	 * @param connector
+	 * @param userName
+	 */
+	public void setUsername(WebSocketConnector connector, String userName) {
+		connector.setUsername(userName);
+	}
+
+
+
+	/**
+	 * Convenience method, just a wrapper for token server method
+	 * <tt>getServer().getAllConnectors().size()</tt> to simplify token plug-in
+	 * code.
+	 *
 	 * @return
 	 */
 	public int getConnectorCount() {
 		return getServer().getAllConnectors().length ;
 	}
 
+	/**
+	 *
+	 * @param key
+	 * @param value
+	 */
+	@Override
+	public void addString(String key, String value) {
+		settings.put(key, value);
+	}
+
+	/**
+	 * @param settings
+	 */
+	// @Override
+	private void addAllSettings(Map<String, Object> settings) {
+		settings.putAll(settings);
+	}
 
 	/**
 	 *
 	 * @param key
 	 */
+	@Override
 	public void removeSetting(String key) {
 		if (key != null) {
 			settings.remove(key);
@@ -106,25 +201,81 @@ public abstract class BasePlugIn implements WebSocketPlugIn {
 	/**
 	 *
 	 */
+	@Override
 	public void clearSettings() {
 		settings.clear();
 	}
 
-	public String getAsString(String key, String dftValue) {
-		String result = getAttribute(key, String.class);
-		return (result != null ? result : dftValue);
-	}
-
-	
-	public <T> T getAttribute(String id, Class<T> clz) {
-		Object value = settings.get(id);
-		if (value != null && clz.isInstance(value)) {
-			return clz.cast(value);
+	/**
+	 *
+	 * @param key
+	 * @param defaultVal
+	 * @return
+	 */
+	@Override
+	public String getString(String key, String defaultVal) {
+		Object value = settings.get(key);
+		String res = null;
+		if (value != null && value instanceof String) {
+			res = (String) value;
 		}
-		return null ;
+		return (res != null ? res : defaultVal);
 	}
 
-	public <T> void putAttribute(String id, Object obj) {
-		settings.put(id, obj);
+	/**
+	 *
+	 * @param key
+	 * @return
+	 */
+	@Override
+	public String getString(String key) {
+		return (key != null ? getString(key, null) : null);
+	}
+
+	/**
+	 *
+	 * @param key
+	 * @param defaultVal
+	 * @return
+	 */
+	@Override
+	public JSONObject getJSON(String key, JSONObject defaultVal) {
+		Object lValue = settings.get(key);
+		JSONObject lRes = null;
+		if (lValue != null && lValue instanceof JSONObject) {
+			lRes = (JSONObject) lValue;
+		}
+		return (lRes != null ? lRes : defaultVal);
+	}
+
+	/**
+	 *
+	 * @param key
+	 * @return
+	 */
+	@Override
+	public JSONObject getJSON(String key) {
+		return (key != null ? getJSON(key, null) : null);
+	}
+
+	@Override
+	public Map<String, Object> getSettings() {
+		return settings;
+	}
+
+	/**
+	 * @return the id of the plug-in
+	 */
+	@Override
+	public String getId() {
+		return pconfig.getId();
+	}
+
+	/**
+	 * @return the name of the plug-in
+	 */
+	@Override
+	public String getName() {
+		return pconfig.getName();
 	}
 }

@@ -15,13 +15,22 @@
 //	---------------------------------------------------------------------------
 package net.ion.websocket.common.api;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import net.ion.websocket.common.api.WebSocketConnector;
+import net.ion.websocket.common.api.WebSocketPacket;
+import net.ion.websocket.common.async.IOFuture;
+import net.ion.websocket.common.config.ServerConfiguration;
 
 import net.ion.websocket.common.kit.BroadcastOptions;
 import net.ion.websocket.common.kit.CloseReason;
 import net.ion.websocket.common.kit.WebSocketException;
+import net.ion.websocket.common.server.IConnectorManager;
 import net.ion.websocket.plugin.IMessagePacket;
+import net.ion.websocket.server.ConnectorManager;
 import net.ion.websocket.server.context.ServiceContext;
 
 /**
@@ -33,7 +42,7 @@ import net.ion.websocket.server.context.ServiceContext;
  * plug-ins based on the token server.
  * 
  * @author aschulze
- * @version $Id: WebSocketServer.java,v 1.10 2011/08/17 11:06:09 bleujin Exp $
+ * @version $Id: WebSocketServer.java,v 1.12 2011/12/15 06:30:21 bleujin Exp $
  */
 public interface WebSocketServer {
 
@@ -65,7 +74,7 @@ public interface WebSocketServer {
 	 * @param engine
 	 *            to be added to the server.
 	 */
-	void addEngine(WebSocketEngine engine);
+	void setEngine(WebSocketEngine engine);
 
 	
 	ServerConfiguration getConfiguration()  ;
@@ -120,6 +129,8 @@ public interface WebSocketServer {
 	 * @param packet
 	 */
 	void sendPacket(WebSocketConnector connector, WebSocketPacket packet);
+
+	IOFuture sendPacketAsync(WebSocketConnector aConnector, WebSocketPacket aDataPacket);
 
 	/**
 	 * Broadcasts a datapacket to all connectors.
@@ -179,7 +190,7 @@ public interface WebSocketServer {
 	
 	WebSocketConnector getConnector(String id);
 
-	Map<String, WebSocketConnector> getConnectors(WebSocketEngine engine);
+	IConnectorManager getConnectors();
 
 	WebSocketConnector[] getAllConnectors() ;
 
@@ -196,4 +207,5 @@ public interface WebSocketServer {
 	WebSocketConnector findConnector(Selector selector);
 	
 	List<WebSocketConnector> findConnectors(Selector selector) ;
+
 }

@@ -16,8 +16,10 @@
 package net.ion.websocket.common.filter;
 
 import java.util.List;
+import java.util.Map;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
 import net.ion.websocket.common.api.WebSocketConnector;
 import net.ion.websocket.common.api.WebSocketFilter;
 import net.ion.websocket.common.api.WebSocketFilterChain;
@@ -26,6 +28,8 @@ import net.ion.websocket.common.kit.FilterResponse;
 import net.ion.websocket.common.logging.Logging;
 
 import org.apache.log4j.Logger;
+import net.ion.websocket.common.api.WebSocketPacket;
+import net.ion.websocket.common.filter.BaseFilterChain;
 
 /**
  * 
@@ -33,16 +37,16 @@ import org.apache.log4j.Logger;
  */
 public class BaseFilterChain implements WebSocketFilterChain {
 
-	private static Logger log = Logging.getLogger(BaseFilterChain.class);
-	private List<WebSocketFilter> filters = new FastList<WebSocketFilter>();
+	private static Logger logger = Logging.getLogger(BaseFilterChain.class);
+	private Map<String, WebSocketFilter> filterMap = new FastMap<String, WebSocketFilter>();
 	private WebSocketServer server = null;
 
 	/**
-	 * 
+	 *
 	 * @param server
 	 */
 	public BaseFilterChain(WebSocketServer server) {
-		this.server = server;
+		server = server;
 	}
 
 	/**
@@ -52,47 +56,53 @@ public class BaseFilterChain implements WebSocketFilterChain {
 		return server;
 	}
 
+	@Override
 	public void addFilter(WebSocketFilter filter) {
-		filters.add(filter);
+		filterMap.put(filter.getId(), filter);
 		filter.setFilterChain(this);
 	}
 
+	@Override
 	public void removeFilter(WebSocketFilter filter) {
-		filters.remove(filter);
+		filterMap.remove(filter.getId());
 		filter.setFilterChain(null);
 	}
 
 	/**
-	 * 
+	 *
 	 * @return
 	 */
+	@Override
 	public List<WebSocketFilter> getFilters() {
-		return filters;
+		return new FastList<WebSocketFilter>(filterMap.values());
 	}
 
-	public FilterResponse processPacketIn(WebSocketConnector connector) {
+	@Override
+	public WebSocketFilter getFilterById(String aId) {
+		return filterMap.get(aId);
+	}
+
+	@Override
+	public FilterResponse processPacketIn(WebSocketConnector connector, WebSocketPacket packet) {
+		FilterResponse lResponse = new FilterResponse();
+		for (WebSocketFilter lFilter : filterMap.values()) {
+			lFilter.processPacketIn(lResponse, connector, packet);
+			if (lResponse.isRejected()) {
+				break;
+			}
+		}
+		return lResponse;
+	}
+
+	@Override
+	public FilterResponse processPacketOut(WebSocketConnector source, WebSocketConnector target, WebSocketPacket packet) {
 		FilterResponse response = new FilterResponse();
-		for (WebSocketFilter filter : filters) {
-			filter.processPacketIn(response, connector);
+		for (WebSocketFilter filter : filterMap.values()) {
+			filter.processPacketOut(response, source, target, packet);
 			if (response.isRejected()) {
 				break;
 			}
 		}
 		return response;
-	}
-
-	public FilterResponse processPacketOut(WebSocketConnector source) {
-		FilterResponse response = new FilterResponse();
-		for (WebSocketFilter filter : filters) {
-			filter.processPacketOut(response, source);
-			if (response.isRejected()) {
-				break;
-			}
-		}
-		return response;
-	}
-
-	public void clear() {
-		filters.clear();
 	}
 }

@@ -28,7 +28,7 @@ public class TestAradonServer extends TestBaseWebSocket{
 		server.getContext().putAttribute("aradon.monitor", mr) ;
 		server.getPlugInChain().addPlugIn(new AllBroadCastPlugIn()); 
 		
-		new net.ion.radon.InfinityThread().startNJoin() ;
+		//new net.ion.radon.InfinityThread().startNJoin() ;
 	}
 	
 }

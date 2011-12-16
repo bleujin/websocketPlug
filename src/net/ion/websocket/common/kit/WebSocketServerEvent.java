@@ -17,10 +17,6 @@ package net.ion.websocket.common.kit;
 import net.ion.websocket.common.api.WebSocketConnector;
 import net.ion.websocket.common.api.WebSocketPacket;
 import net.ion.websocket.common.api.WebSocketServer;
-import net.ion.websocket.common.api.WebSocketServerListener;
-import net.ion.websocket.common.listener.WhenEvent;
-import net.ion.websocket.common.server.BaseServer;
-
 
 /**
  *
@@ -28,80 +24,52 @@ import net.ion.websocket.common.server.BaseServer;
  */
 public class WebSocketServerEvent {
 
-	private final WebSocketConnector source ;
-	private final PlugInResponse response ;
-	private final WebSocketServer server ;
-	private final WebSocketPacket packet ;
-	private WhenEvent when;
+	private WebSocketServer mServer = null;
+	private WebSocketConnector mConnector = null;
 
-	private WebSocketServerEvent(WebSocketConnector source, PlugInResponse response, WebSocketServer server) {
-		this(source, response, server, WebSocketPacket.BLANK) ;
-	}
-	
-	private WebSocketServerEvent(WebSocketConnector source, PlugInResponse response, WebSocketServer server, WebSocketPacket packet) {
-		this.source = source;
-		this.response = response ;
-		this.server = server;
-		this.packet = packet ;
-		this.when = WhenEvent.UNKNOWN ;
+	/**
+	 *
+	 * @param aConnector
+	 * @param aServer
+	 */
+	public WebSocketServerEvent(WebSocketConnector aConnector, WebSocketServer aServer) {
+		mConnector = aConnector;
+		mServer = aServer;
 	}
 
-	public static WebSocketServerEvent create(WebSocketConnector connector, PlugInResponse response, WebSocketServer server) {
-		return new WebSocketServerEvent(connector, response, server);
-	}
-	
-	public static WebSocketServerEvent create(WebSocketConnector connector, BaseServer server) {
-		return create(connector, PlugInResponse.BLANK, server);
-	}
-
-	public static WebSocketServerEvent create(WebSocketConnector connector, PlugInResponse response, WebSocketServer server, WebSocketPacket packet) {
-		return new WebSocketServerEvent(connector, response, server, packet);
-	}
-
-	public WebSocketServerEvent setWhenEventType(WhenEvent when){
-		this.when = when ;
-		return this ;
-	}
-
+	/**
+	 * @return the sessionId
+	 */
 	public String getSessionId() {
-		return source.getSession().getSessionId();
+		return mConnector.getSession().getSessionId();
 	}
 
 	/**
 	 * @return the session
 	 */
 	public WebSocketSession getSession() {
-		return source.getSession();
+		return mConnector.getSession();
 	}
 
 	/**
 	 * @return the server
 	 */
 	public WebSocketServer getServer() {
-		return server;
+		return mServer;
 	}
 
 	/**
 	 * @return the connector
 	 */
-	public WebSocketConnector getSourceConnector() {
-		return source;
+	public WebSocketConnector getConnector() {
+		return mConnector;
 	}
 
 	/**
 	 *
-	 * @param packet
+	 * @param aPacket
 	 */
-	public WebSocketPacket getPacket() {
-		return packet;
+	public void sendPacket(WebSocketPacket aPacket) {
+		mServer.sendPacket(mConnector, aPacket);
 	}
-
-	public WhenEvent getWhen() {
-		return when ;
-	}
-
-	public void handleEvent(WebSocketServerListener handler) {
-		getWhen().handle(handler, this) ;
-	}
-
 }

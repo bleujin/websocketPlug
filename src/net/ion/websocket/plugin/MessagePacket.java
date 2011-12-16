@@ -1,7 +1,5 @@
 package net.ion.websocket.plugin;
 
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 import java.util.List;
 
 import net.ion.framework.util.ListUtil;
@@ -37,7 +35,7 @@ public class MessagePacket implements IMessagePacket {
 		try {
 			return new MessagePacket(ValueObject.load(message));
 		} catch (JSONException e) {
-			throw new WebSocketRuntimeException(e.getMessage());
+			throw new WebSocketRuntimeException(e.getMessage() + " : " + message);
 		}
 	}
 
@@ -114,7 +112,9 @@ public class MessagePacket implements IMessagePacket {
 	}
 
 	public String getFullString() {
-		return toRoot().vo.getString();
+		String result = toRoot().vo.getString();
+		toRoot() ;
+		return result;
 	}
 
 	public boolean has(String path) {
@@ -128,6 +128,14 @@ public class MessagePacket implements IMessagePacket {
 		} catch (JSONException e) {
 			throw new WebSocketRuntimeException(e.getMessage());
 		}
+	}
+	public MessagePacket array(String key, Object[] values) {
+		try {
+			vo.array(key, values);
+		} catch (JSONException e) {
+			throw new WebSocketRuntimeException(e.getMessage());
+		}
+		return this ;
 	}
 
 	public MessagePacket append(String key, Object value) {
@@ -148,11 +156,7 @@ public class MessagePacket implements IMessagePacket {
 	}
 
 	public WebSocketPacket forSend() throws WebSocketRuntimeException {
-		try {
-			return new RawPacket(toRoot().getFullString());
-		} catch (UnsupportedEncodingException e) {
-			return new RawPacket(toRoot().getFullString().getBytes(Charset.forName("UTF-8")));
-		}
+		return new RawPacket(toRoot().getFullString());
 	}
 
 	public String toString() {
@@ -227,6 +231,10 @@ public class MessagePacket implements IMessagePacket {
 			json.put(toKeyId(key), value);
 		}
 
+		public void array(String key, Object[] values) throws JSONException{
+			json.put(key, ListUtil.toList(values)) ;
+		}
+		
 		public void append(String key, Object value) throws JSONException {
 			json.accumulate(key, value);
 		}
@@ -256,5 +264,6 @@ public class MessagePacket implements IMessagePacket {
 		}
 
 	}
+
 
 }

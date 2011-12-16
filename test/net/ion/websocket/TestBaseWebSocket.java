@@ -7,8 +7,8 @@ import java.security.InvalidKeyException;
 import junit.framework.TestCase;
 import net.ion.websocket.client.SyncMockClient;
 import net.ion.websocket.common.PacketConstant;
-import net.ion.websocket.common.api.ServerConfiguration;
 import net.ion.websocket.common.api.WebSocketPlugIn;
+import net.ion.websocket.common.config.ServerConfiguration;
 import net.ion.websocket.server.DefaultServer;
 import net.ion.websocket.server.context.ServiceContext;
 import net.ion.websocket.server.engine.netty.NettyEngine;
@@ -19,7 +19,7 @@ public class TestBaseWebSocket extends TestCase implements PacketConstant {
 	protected WebSocketPlugIn plugin;
 
 	public static ServerConfiguration TEST_CONFIG = new ServerConfiguration() {
-
+		
 		public String getName() {
 			return "0";
 		}

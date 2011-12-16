@@ -6,20 +6,20 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import javolution.util.FastList;
-import net.ion.websocket.common.api.EngineConfiguration;
 import net.ion.websocket.common.api.WebSocketConnector;
 import net.ion.websocket.common.config.CommonConstants;
+import net.ion.websocket.common.config.EngineConfiguration;
+import net.ion.websocket.common.config.ServerConstants;
 import net.ion.websocket.common.engine.BaseEngine;
 import net.ion.websocket.common.kit.CloseReason;
 import net.ion.websocket.common.kit.WebSocketException;
 import net.ion.websocket.common.logging.Logging;
 import net.ion.websocket.server.NettyEnginePipeLineFactory;
+import net.ion.websocket.server.engine.EngineConfig;
 
 import org.apache.log4j.Logger;
 import org.jboss.netty.bootstrap.ServerBootstrap;
 import org.jboss.netty.channel.Channel;
-import org.jboss.netty.channel.ChannelFuture;
-import org.jboss.netty.channel.ChannelFutureListener;
 import org.jboss.netty.channel.group.ChannelGroup;
 import org.jboss.netty.channel.group.ChannelGroupFuture;
 import org.jboss.netty.channel.group.DefaultChannelGroup;
@@ -43,11 +43,11 @@ public class NettyEngine extends BaseEngine {
 	}
 	
 	public final static NettyEngine test(){
-		return new NettyEngine(new MyEngineConfiguration()) ;
+		return new NettyEngine(EngineConfig.test(9000)) ;
 	}
 	
 	public final static NettyEngine test(int port){
-		return new NettyEngine(new MyEngineConfiguration(port)) ;
+		return new NettyEngine(EngineConfig.test(port)) ;
 	}
 	
 
@@ -67,6 +67,7 @@ public class NettyEngine extends BaseEngine {
 			channel.getConfig().setConnectTimeoutMillis(getConfiguration().getTimeout());
 		}
 
+
 		// fire the engine start event
 		engineStarted();
 
@@ -74,6 +75,9 @@ public class NettyEngine extends BaseEngine {
 
 		isRunning = true;
 
+		if (log.isInfoEnabled()) {
+			log.info("Netty engine '" + getId() + "' started.");
+		}
 	}
 
 	/**
@@ -81,29 +85,32 @@ public class NettyEngine extends BaseEngine {
 	 */
 	@Override
 	public void stopEngine(CloseReason creason) throws WebSocketException {
+		log.debug("Stopping Netty engine '" + getId() + "'...");
+		for (WebSocketConnector conn : getConnectors().getAllConnectors()) {
+			conn.stopConnector(CloseReason.SHUTDOWN) ;
+		}
+		
 		isRunning = false;
 
+		
 		super.stopEngine(creason);
 		engineStopped();
 
-		// Added by
+		// Added by Alex 2010-08-09
 		if (channel != null) {
-			channel.close()
-			.addListener(new ChannelFutureListener() {
-				public void operationComplete(ChannelFuture future) throws Exception {
-					channel.getFactory().releaseExternalResources();
-				}
-			});
+			channel.close();
+			channel.getFactory().releaseExternalResources(); // Moved from last line to here by Alex 2010-11-23 to prevent exceptions
 		}
 		ChannelGroupFuture future = allChannels.close();
-		future.awaitUninterruptibly(3, TimeUnit.SECONDS);
-
-		if (channel != null) channel.getFactory().releaseExternalResources();
+		future.awaitUninterruptibly(2, TimeUnit.SECONDS);
+		
+		// if (channel != null) channel.getFactory().releaseExternalResources();
 	}
 
 	@Override
 	public void connectorStarted(WebSocketConnector connector) {
 		super.connectorStarted(connector);
+
 	}
 
 	@Override
@@ -118,51 +125,6 @@ public class NettyEngine extends BaseEngine {
 		} else {
 			return false;
 		}
-	}
-
-}
-
-class MyEngineConfiguration implements EngineConfiguration {
-
-	private int port ;
-	private String id ;
-	
-	MyEngineConfiguration(){
-		this(9000) ;
-	}
-	MyEngineConfiguration(int port){
-		this.port = port ;
-		this.id = "netty" + port ;
-	}
-	
-	public List<String> getDomains() {
-		List<String> domains = new FastList<String>();
-		domains.add("localhost");
-		return domains;
-	}
-
-	public String getJar() {
-		return null;
-	}
-
-	public int getMaxFramesize() {
-		return CommonConstants.DEFAULT_MAX_FRAME_SIZE;
-	}
-
-	public int getPort() {
-		return port;
-	}
-
-	public int getTimeout() {
-		return CommonConstants.DEFAULT_TIMEOUT;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public String getName() {
-		return "Netty";
 	}
 
 }

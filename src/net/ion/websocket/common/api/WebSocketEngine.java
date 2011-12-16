@@ -15,6 +15,13 @@
 //	---------------------------------------------------------------------------
 package net.ion.websocket.common.api;
 
+import java.util.Map;
+
+import net.ion.websocket.common.api.WebSocketConnector;
+import net.ion.websocket.common.api.WebSocketPacket;
+import net.ion.websocket.common.api.WebSocketServer;
+import net.ion.websocket.common.config.EngineConfiguration;
+
 import net.ion.websocket.common.kit.CloseReason;
 import net.ion.websocket.common.kit.WebSocketException;
 
@@ -30,6 +37,7 @@ import net.ion.websocket.common.kit.WebSocketException;
  * @version $Id: WebSocketEngine.java 2010-03-03
  */
 public interface WebSocketEngine {
+
 
 	/**
 	 * Returns the unique id of the engine. Because the jWebSocket model
@@ -164,45 +172,6 @@ public interface WebSocketEngine {
 	 * @param server
 	 */
 	void removeServer(WebSocketServer server);
-
-	/**
-	 * This method might be removed in future, instead use <tt>getConfiguration()</tt>
-	 * to get the engine configuration.
-	 *
-	 * Returns the default session timeout for this engine. The session timeout
-	 * is applied if no specific session timeout per connector is passed.
-	 * Basically each connector can optionally use his own session timeout.
-	 *
-	 * @return int The default session timeout in milliseconds.
-	 */
-	@Deprecated
-	int getSessionTimeout();
-
-	/**
-	 * This method might be removed in future, instead use <tt>getConfiguration()</tt>
-	 * to get the engine configuration.
-	 *
-	 * Sets the default session timeout for this engine. The session timeout
-	 * is applied if no specific session timeout per connector is passed.
-	 * Basically each connector can optionally use his own session timeout.
-	 *
-	 * @param aSessionTimeout The default session timeout in milliseconds.
-	 */
-	@Deprecated
-	void setSessionTimeout(int aSessionTimeout);
-
-	/**
-	 * This method might be removed in future, instead use <tt>getConfiguration()</tt>
-	 * to get the engine configuration.
-	 *
-	 * Returns the maximum frame size in bytes, If the client
-	 * sends a frame size larger than this maximum value, the socket connection
-	 * will be closed.
-	 *
-	 * @return the max frame size value
-	 */
-	@Deprecated
-	int getMaxFrameSize();
 
 	/**
 	 * Returns the configuration for the engine.

@@ -32,12 +32,6 @@
 			</configured-object>
 		</plugin>
 
-		<plugin name="log">
-			<description />
-			<configured-object>
-				<class-name>net.ion.websocket.common.plugin.LogPlugIn</class-name>
-			</configured-object>
-		</plugin>
 	</plugins>
 
 

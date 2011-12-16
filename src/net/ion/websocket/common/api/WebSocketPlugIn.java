@@ -15,6 +15,15 @@
 //	---------------------------------------------------------------------------
 package net.ion.websocket.common.api;
 
+import java.util.Map;
+
+import org.json.JSONObject;
+import net.ion.websocket.common.api.WebSocketConnector;
+import net.ion.websocket.common.api.WebSocketEngine;
+import net.ion.websocket.common.api.WebSocketPacket;
+import net.ion.websocket.common.api.WebSocketPlugInChain;
+import net.ion.websocket.common.config.PluginConfiguration;
+
 import net.ion.websocket.common.kit.CloseReason;
 import net.ion.websocket.common.kit.PlugInResponse;
 
@@ -24,16 +33,28 @@ import net.ion.websocket.common.kit.PlugInResponse;
  */
 public interface WebSocketPlugIn {
 
-	// TODO: a plug-in should have a name and an id to be uniquely identified in the chain!
+	/**
+	 * returns the id of the plug-in.
+	 * @return
+	 */
+	String getId();
+
+	/**
+	 * returns the name of the plug-in.
+	 * @return
+	 */
+	String getName();
 
 	/**
 	 * is called by the server when the engine has been started.
+	 *
 	 * @param engine
 	 */
 	void engineStarted(WebSocketEngine engine);
 
 	/**
 	 * is called by the server when the engine has been stopped.
+	 *
 	 * @param engine
 	 */
 	void engineStopped(WebSocketEngine engine);
@@ -48,9 +69,9 @@ public interface WebSocketPlugIn {
 	 *
 	 * @param response
 	 * @param connector
-	 * @param packet
+	 * @param dataPacket
 	 */
-	void processPacket(PlugInResponse response, WebSocketConnector connector, WebSocketPacket packet);
+	void processPacket(PlugInResponse response, WebSocketConnector connector, WebSocketPacket dataPacket);
 
 	/**
 	 *
@@ -61,17 +82,43 @@ public interface WebSocketPlugIn {
 
 	/**
 	 *
-	 * @param pluginChain
+	 * @param plugChain
 	 */
-	void setPlugInChain(WebSocketPlugInChain pluginChain);
+	void setPlugInChain(WebSocketPlugInChain plugChain);
 
 	/**
 	 * @return the plugInChain
 	 */
 	WebSocketPlugInChain getPlugInChain();
 
+	/**
+	 * Set the plugin configuration
+	 *
+	 * @param configuration
+	 *          the plugin configuration object to set
+	 */
+	// void setPluginConfiguration(PluginConfiguration configuration);
+	/**
+	 * Returns the plugin configuration object based on the configuration file
+	 * values
+	 *
+	 * @return the plugin configuration object
+	 */
+	PluginConfiguration getPluginConfiguration();
 
+	/**
+	 *
+	 * @param key
+	 * @param value
+	 */
+	void addString(String key, String value);
 
+	/**
+	 *
+	 *
+	 * @param aSettings
+	 */
+	// void addAllSettings(Map<String, String> aSettings);
 	/**
 	 *
 	 * @param key
@@ -83,9 +130,39 @@ public interface WebSocketPlugIn {
 	 */
 	void clearSettings();
 
-	public <T> T getAttribute(String id, Class<T> clz)  ;
+	/**
+	 *
+	 * @param key
+	 * @param defaultVal
+	 * @return
+	 */
+	String getString(String key, String defaultVal);
 
-	public <T> void putAttribute(String id, Object obj) ;
+	/**
+	 *
+	 * @param key
+	 * @return
+	 */
+	String getString(String key);
 
-	WebSocketServer getServer();
+	/**
+	 *
+	 * @param key
+	 * @param defaultVal
+	 * @return
+	 */
+	JSONObject getJSON(String key, JSONObject defaultVal);
+
+	/**
+	 *
+	 * @param key
+	 * @return
+	 */
+	JSONObject getJSON(String key);
+
+	/**
+	 *
+	 * @return
+	 */
+	Map<String, Object> getSettings();
 }

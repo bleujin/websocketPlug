@@ -15,14 +15,20 @@
 //	---------------------------------------------------------------------------
 package net.ion.websocket.common.engine;
 
-import net.ion.websocket.common.api.EngineConfiguration;
+import java.util.Map;
+
+import javolution.util.FastMap;
+
 import net.ion.websocket.common.api.WebSocketConnector;
 import net.ion.websocket.common.api.WebSocketEngine;
 import net.ion.websocket.common.api.WebSocketPacket;
 import net.ion.websocket.common.api.WebSocketServer;
 import net.ion.websocket.common.config.CommonConstants;
+import net.ion.websocket.common.config.EngineConfiguration;
 import net.ion.websocket.common.kit.CloseReason;
 import net.ion.websocket.common.kit.WebSocketException;
+import net.ion.websocket.common.server.IConnectorManager;
+import net.ion.websocket.server.ConnectorManager;
 
 /**
  * Provides the basic implementation of the jWebSocket engines. The {@code BaseEngine} is supposed to be used as ancestor for the engine implementations like e.g. the {@code TCPEngine} or the {@code NettyEngine}.
@@ -48,7 +54,7 @@ public class BaseEngine implements WebSocketEngine {
 	public void stopEngine(CloseReason creason) throws WebSocketException {
 		try {
 			// stop all connectors of this engine
-			for (WebSocketConnector conn : server.getConnectors(this).values()) {
+			for (WebSocketConnector conn : getConnectors().getAllConnectors()) {
 				conn.stopConnector(creason);
 			}
 		} catch (Exception ex) {
@@ -91,7 +97,7 @@ public class BaseEngine implements WebSocketEngine {
 	}
 
 	public void broadcastPacket(WebSocketConnector source, WebSocketPacket packet) {
-		for (WebSocketConnector connector : server.getConnectors(this).values()) {
+		for (WebSocketConnector connector : getConnectors().getAllConnectors()) {
 			connector.sendPacket(packet);
 		}
 	}
@@ -109,7 +115,7 @@ public class BaseEngine implements WebSocketEngine {
 	}
 
 	public WebSocketConnector getConnectorByRemotePort(int remotePort) {
-		for (WebSocketConnector connector : server.getConnectors(this).values()) {
+		for (WebSocketConnector connector : server.getConnectors().getAllConnectors()) {
 			if (connector.getRemotePort() == remotePort) {
 				return connector;
 			}
@@ -138,5 +144,9 @@ public class BaseEngine implements WebSocketEngine {
 
 	public EngineConfiguration getConfiguration() {
 		return econfig;
+	}
+	
+	public IConnectorManager getConnectors(){
+		return server.getConnectors() ;
 	}
 }

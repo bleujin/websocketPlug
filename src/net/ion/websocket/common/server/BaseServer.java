@@ -21,11 +21,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.ion.websocket.common.async.IOFuture;
+
 import javolution.util.FastList;
+import javolution.util.FastMap;
+import net.ion.framework.util.Debug;
 import net.ion.framework.util.ListUtil;
 import net.ion.framework.util.MapUtil;
 import net.ion.websocket.common.api.Selector;
-import net.ion.websocket.common.api.ServerConfiguration;
 import net.ion.websocket.common.api.WebSocketConnector;
 import net.ion.websocket.common.api.WebSocketEngine;
 import net.ion.websocket.common.api.WebSocketFilterChain;
@@ -33,6 +36,7 @@ import net.ion.websocket.common.api.WebSocketPacket;
 import net.ion.websocket.common.api.WebSocketPlugInChain;
 import net.ion.websocket.common.api.WebSocketServer;
 import net.ion.websocket.common.api.WebSocketServerListener;
+import net.ion.websocket.common.config.ServerConfiguration;
 import net.ion.websocket.common.connector.BaseConnector;
 import net.ion.websocket.common.filter.BaseFilterChain;
 import net.ion.websocket.common.kit.BroadcastOptions;
@@ -41,34 +45,30 @@ import net.ion.websocket.common.kit.WebSocketException;
 import net.ion.websocket.common.kit.WebSocketServerEvent;
 import net.ion.websocket.common.plugin.BasePlugInChain;
 import net.ion.websocket.plugin.IMessagePacket;
+import net.ion.websocket.server.ConnectorManager;
 import net.ion.websocket.server.context.ServiceContext;
 
 /**
- * The implementation of the basic websocket server. A server is the central
- * instance which either processes incoming data from the engines directly or
- * routes it to the chain of plug-ins. Each server maintains a FastMap of
- * underlying engines. An application can instantiate multiple servers to
- * process different kinds of data packets.
+ * The implementation of the basic websocket server. A server is the central instance which either processes incoming data from the engines directly or routes it to the chain of plug-ins. Each server maintains a FastMap of underlying engines. An application can instantiate multiple servers to process different kinds of data packets.
  * 
  * @author aschulze
  */
 public abstract class BaseServer implements WebSocketServer {
 
-	private WebSocketEngine engine ;
+	private WebSocketEngine engine;
 	private List<WebSocketServerListener> listeners = new FastList<WebSocketServerListener>();
-	private final ServerConfiguration config ;
-	private WebSocketPlugInChain plugChain;
-	private WebSocketFilterChain filterChain;
-	private final Connectors connectors = new Connectors();
+	private final ServerConfiguration config;
+	protected WebSocketPlugInChain plugChain;
+	protected WebSocketFilterChain filterChain;
 	private ServiceContext context;
-	
+
 	protected BaseServer(ServerConfiguration config) {
-		this(ServiceContext.createRoot(), config) ;
+		this(ServiceContext.createRoot(), config);
 	}
 
 	protected BaseServer(ServiceContext context, ServerConfiguration config) {
-		this.context = context ;
-		this.config = config ;
+		this.context = context;
+		this.config = config;
 	}
 
 	protected void init(BasePlugInChain plugChain, BaseFilterChain filterChain) {
@@ -76,9 +76,9 @@ public abstract class BaseServer implements WebSocketServer {
 		this.filterChain = filterChain;
 	}
 
-	public void addEngine(WebSocketEngine engine) {
+	public void setEngine(WebSocketEngine engine) {
 		this.engine = engine;
-		engine.setServer(this);
+		this.engine.setServer(this);
 	}
 
 	/**
@@ -95,7 +95,7 @@ public abstract class BaseServer implements WebSocketServer {
 
 	public void stopServer() throws WebSocketException {
 		// this method is supposed to be overwritten by descending classes.
-		
+
 	}
 
 	public void engineStarted(WebSocketEngine engine) {
@@ -114,7 +114,7 @@ public abstract class BaseServer implements WebSocketServer {
 		// this method is supposed to be overwritten by descending classes.
 		// e.g. to notify the overlying appplications or plug-ins
 		// about the connectorStarted event
-		WebSocketServerEvent event = WebSocketServerEvent.create(connector, this);
+		WebSocketServerEvent event = new WebSocketServerEvent(connector, this);
 		for (WebSocketServerListener listener : listeners) {
 			listener.processOpened(event);
 		}
@@ -124,7 +124,7 @@ public abstract class BaseServer implements WebSocketServer {
 		// this method is supposed to be overwritten by descending classes.
 		// e.g. to notify the overlying appplications or plug-ins
 		// about the connectorStopped event
-		WebSocketServerEvent event = WebSocketServerEvent.create(connector, this);
+		WebSocketServerEvent event = new WebSocketServerEvent(connector, this);
 		for (WebSocketServerListener listener : listeners) {
 			listener.processClosed(event);
 		}
@@ -138,11 +138,21 @@ public abstract class BaseServer implements WebSocketServer {
 		// send a data packet to the passed connector
 		connector.sendPacket(packet);
 	}
-
+	
+    @Override
+    public IOFuture sendPacketAsync(WebSocketConnector aConnector, WebSocketPacket aDataPacket) {
+        // send a data packet to the passed connector
+        return aConnector.sendPacketAsync(aDataPacket);
+    }
+    
 	public void broadcastPacket(WebSocketConnector source, WebSocketPacket packet, BroadcastOptions option) {
 		for (WebSocketConnector connector : getAllConnectors()) {
 			if (!source.equals(connector) || option.isSenderIncluded()) {
-				sendPacket(connector, packet);
+				if (option.isAsync()) {
+					sendPacketAsync(connector, packet);
+				} else {
+					sendPacket(connector, packet);
+				}
 			}
 		}
 	}
@@ -151,53 +161,69 @@ public abstract class BaseServer implements WebSocketServer {
 		return engine;
 	}
 
-
 	public WebSocketConnector getConnector(final String aId) {
-		return findConnector(new Selector(){
+		return findConnector(new Selector() {
 			public boolean isTrueCondition(WebSocketConnector connector) {
 				return aId.equals(connector.getId());
 			}
-		}) ;
+		});
 	}
 
 	public WebSocketConnector findConnector(Selector selector) {
 		for (WebSocketConnector connector : getAllConnectors()) {
-			if (selector.isTrueCondition(connector)){
-				return connector ;
+			if (selector.isTrueCondition(connector)) {
+				return connector;
 			}
 		}
 		return null;
 	}
 
 	public List<WebSocketConnector> findConnectors(Selector selector) {
-		List<WebSocketConnector> result = ListUtil.newList() ;
+		List<WebSocketConnector> result = ListUtil.newList();
 		for (WebSocketConnector connector : getAllConnectors()) {
-			if (selector.isTrueCondition(connector)){
-				result.add(connector) ;
+			if (selector.isTrueCondition(connector)) {
+				result.add(connector);
 			}
 		}
 		return Collections.unmodifiableList(result);
 	}
 
-
-	public WebSocketConnector getConnector(WebSocketEngine engine, String aId) {
-		for (WebSocketConnector conn : getAllConnectors()) {
-			if (conn.getEngine() == engine && aId.equals(conn.getId()) ) {
-				return conn ;
+	public Map<String, WebSocketConnector> selectConnectors(Map<String, Object> aFilter) {
+		Map<String, WebSocketConnector> lClients = new FastMap<String, WebSocketConnector>().shared();
+		for (WebSocketConnector lConnector : getConnectors().getAllConnectors()) {
+			boolean lMatch = true;
+			for (String lKey : aFilter.keySet()) {
+				Object lVarVal = lConnector.getVar(lKey);
+				lMatch = (lVarVal != null);
+				if (lMatch) {
+					Object lFilterVal = aFilter.get(lKey);
+					if (lVarVal instanceof String && lFilterVal instanceof String) {
+						lMatch = ((String) lVarVal).matches((String) lFilterVal);
+					} else if (lVarVal instanceof Boolean) {
+						lMatch = ((Boolean) lVarVal).equals((Boolean) lFilterVal);
+					} else {
+						lMatch = lVarVal.equals(lFilterVal);
+					}
+					if (!lMatch) {
+						break;
+					}
+				}
+			}
+			if (lMatch) {
+				lClients.put(lConnector.getId(), lConnector);
 			}
 		}
-		return null ;
+		// return (FastMap)(lClients.unmodifiable());
+		return lClients;
 	}
 
 	public String getId() {
 		return config.getId();
 	}
-	
-	public ServerConfiguration getConfiguration() {
-		return config ;
-	}
-	
 
+	public ServerConfiguration getConfiguration() {
+		return config;
+	}
 
 	public WebSocketPlugInChain getPlugInChain() {
 		return plugChain;
@@ -222,74 +248,22 @@ public abstract class BaseServer implements WebSocketServer {
 		return Collections.unmodifiableList(listeners);
 	}
 
-	/**
-	 * 
-	 * @param connector
-	 * @return
-	 */
-	public String getUsername(WebSocketConnector connector) {
-		return connector.getString(BaseConnector.VAR_USERNAME);
-	}
-
-	/**
-	 * 
-	 * @param connector
-	 * @param username
-	 */
-	public void setUsername(WebSocketConnector connector, String username) {
-		connector.setString(BaseConnector.VAR_USERNAME, username);
-	}
-
-	/**
-	 * 
-	 * @param connector
-	 */
-	public void removeUsername(WebSocketConnector connector) {
-		connector.removeVar(BaseConnector.VAR_USERNAME);
-	}
-
-	/**
-	 * 
-	 * @param connector
-	 * @return
-	 */
-	public String getNodeId(WebSocketConnector connector) {
-		return connector.getString(BaseConnector.VAR_NODEID);
-	}
-
-	/**
-	 * 
-	 * @param connector
-	 * @param nodeId
-	 */
-	public void setNodeId(WebSocketConnector connector, String nodeId) {
-		connector.setString(BaseConnector.VAR_NODEID, nodeId);
-	}
-
 	public WebSocketConnector[] getAllConnectors() {
-		return connectors.values().toArray(new WebSocketConnector[0]);
-	}
-
-	public Map<String, WebSocketConnector> getConnectors(WebSocketEngine engine) {
-		Map<String, WebSocketConnector> result = MapUtil.newMap() ;
-		for (WebSocketConnector conn : connectors.values()) {
-			if (conn.getEngine() == engine) result.put(conn.getId(), conn) ;
-		}
-		return Collections.unmodifiableMap(result) ;
+		return getConnectors().getAllConnectors();
 	}
 
 	public void removeConnector(WebSocketConnector connector) {
-		connectors.remove(connector) ;
-		//connector.stopConnector(CloseReason.SERVER) ;
+		getConnectors().remove(connector);
+		// connector.stopConnector(CloseReason.SERVER) ;
 	}
 
 	public void addConnector(WebSocketConnector connector) {
-		connectors.add(connector) ;
+		getConnectors().add(connector);
 	}
 
 	public void sendPacket(Selector selector, IMessagePacket packet) {
 		for (WebSocketConnector conn : findConnectors(selector)) {
-			this.sendPacket(conn, packet.forSend()) ;
+			this.sendPacket(conn, packet.forSend());
 		}
 	}
 
@@ -303,28 +277,6 @@ public abstract class BaseServer implements WebSocketServer {
 		return this.context;
 	}
 
-	
-	private static class Connectors {
-		private final Map<String, WebSocketConnector> connById = Collections.synchronizedMap(new HashMap<String, WebSocketConnector>()) ; // MapUtil.newMap();
-		private final Map<String, WebSocketConnector> connByUserName = Collections.synchronizedMap(new HashMap<String, WebSocketConnector>()) ; // MapUtil.newMap() ;
-		private void add(WebSocketConnector connector){
-			connById.put(connector.getId(), connector);
-			connByUserName.put(connector.getUsername(), connector) ;
-		}
-		
-		public Collection<WebSocketConnector> values() {
-			return connById.values();
-		}
+	public abstract IConnectorManager getConnectors();
 
-		private WebSocketConnector getById(String id){
-			return connById.get(id) ;
-		}
-		private WebSocketConnector getByUserName(String userName){
-			return connByUserName.get(userName) ;
-		}
-		private void remove(WebSocketConnector connector){
-			connById.remove(connector.getId()) ;
-			connByUserName.remove(connector.getUsername()) ;
-		}
-	}
 }

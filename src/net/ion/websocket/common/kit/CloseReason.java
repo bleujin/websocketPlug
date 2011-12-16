@@ -36,6 +36,8 @@ public enum CloseReason {
 	/**
 	 * The server was shut down.
 	 */
-	SHUTDOWN
+	SHUTDOWN,
+	
+	NOT_AUTH
 
 }
