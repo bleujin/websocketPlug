@@ -1,41 +1,130 @@
 <?xml version="1.0"  encoding="UTF-8"?>
 
-
 <root>
+	<engine id="toon0" name="ToonZero" port="8787"  uripath="/{$serviceName}/{$userId}/{$authId}"/>
+
+	<section name="session">
+		<path name="login">
+			<urls>/login/{topicId}</urls>
+			<desciption>publish server address</desciption>
+			<handler class="net.ion.toon.aradon.LoginLet" />
+		</path>
+	</section>
+
+	<section name="aradon">
+		<path name="default">
+			<context>
+				<attribute id="net.ion.toon.aradon.IndexHtmlLet">./resource/config/embed-index.html</attribute>
+			</context>
+			<urls>/</urls>
+			<description>Default</description>
+			<handler class="net.ion.toon.aradon.IndexHtmlLet" scope="request" />
+		</path>
 
 
-	<server id="chatserver0" name="Server" uripath="/{userId}/{sessionId}/{params}" />
+		<path name="monitor">
+			<urls>/monitor, /monitor/{userId}</urls>
+			<description>Default</description>
+			<handler class="net.ion.toon.aradon.SampleMonitorLet" scope="request" />
+		</path>
+		
+		<path name="suicide">
+			<urls>/shutdown</urls>
+			<prefilter class="net.ion.toon.aradon.RefererAllowFilter" />
+			<handler class="net.ion.toon.aradon.SuicideLet" scope="request" />
+		</path>
+	
+		<path name="servers">
+			<urls>/servers</urls>
+			<desciption></desciption>
+			<handler class="net.ion.toon.aradon.ServersLet" />
+		</path>
+	
+		<path name="client">
+			<context>
+				<attribute id="net.ion.toon.aradon.ClientLet">./resource/toonweb/chat.tpl</attribute>
+			</context>
+			<urls>/client/{userId}</urls>
+			<desciption></desciption>
+			<handler class="net.ion.toon.aradon.ClientLet" />
+		</path>
 
-	<aradon config="resource/config/embed-aradon-config.xml"/>
+		<path name="event">
+			<context>
+				<attribute id="net.ion.toon.aradon.EventLet">./resource/toonweb/event.tpl</attribute>
+			</context>
+			<urls>/event/{userId}</urls>
+			<desciption></desciption>
+			<handler class="net.ion.toon.aradon.EventLet" />
+		</path>
 
-	<engine id="netty0" name="Netty" port="8787" class="net.ion.websocket.server.engine.netty.NettyEngine">
-		<domain>localhost</domain>
-		<max-frame-size>16384</max-frame-size>
-	</engine>
 
+		<path name="trace">
+			<urls>/trace/{userId}</urls>
+			<desciption></desciption>
+			<handler class="net.ion.toon.aradon.TraceLet" />
+		</path>
+	
+	</section>
 
 	<context>
+		<attribute id="let.contact.email">bleujin@i-on.net</attribute>
+		<attribute id="let.contact.help.doc">/help/doc</attribute>
 		<attribute id="my.server.dev">bleujin@i-on.net</attribute>
 
+
 	</context>
+
+	<server-config id="jupiter">
+		<!-- System.setProperty("java.util.logging.config.file", "./resource/config/myLogging.properties") ; -->
+		<log-config-file>./resource/config/log4j.properties</log-config-file>
+	</server-config>
 
 	<filters>
 	</filters>
 
+	<plugin includepath="./plugin/;" />
 
 	<plugins>
+		<plugin name="session">
+			<description>set userbean</description>
+			<configured-object>
+				<class-name>net.ion.chat.impl.plugin.SessionAuthPlugIn</class-name>
+			</configured-object>
+		</plugin>
 		
-		<plugin name="broad">
+		<plugin name="topic">
 			<description />
 			<configured-object>
-				<class-name>net.ion.websocket.common.plugin.AllBroadCastPlugIn</class-name>
+				<class-name>net.ion.chat.impl.plugin.TopicStorePlugIn</class-name>
 			</configured-object>
 		</plugin>
 
-		<plugin name="log">
+		<plugin name="heartbeat">
 			<description />
 			<configured-object>
-				<class-name>net.ion.websocket.common.plugin.LogPlugIn</class-name>
+				<class-name>net.ion.chat.impl.plugin.HeartBeatPlugIn</class-name>
+			</configured-object>
+		</plugin>
+
+		<plugin name="timeout">
+			<description />
+			<configured-object>
+				<class-name>net.ion.chat.impl.plugin.SessionTimeOutPlugIn</class-name>
+			</configured-object>
+		</plugin>
+
+		<plugin name="userconnect">
+			<description />
+			<configured-object>
+				<class-name>net.ion.chat.notifier.ion.UserConnectPlugIn</class-name>
+			</configured-object>
+		</plugin>
+		
+		<plugin name="aradoncommand">
+			<description />
+			<configured-object>
+				<class-name>net.ion.chat.impl.plugin.AradonCommandPlugIn</class-name>
 			</configured-object>
 		</plugin>
 	</plugins>
@@ -43,35 +132,10 @@
 
 	<listeners>
 		<listener name="debug">
-				<description />
-				<configured-object>
-					<class-name>net.ion.websocket.common.listener.ChannelListener</class-name>
-					<constructor>
-					<constructor-param>
-						<description>async listener</description>
-						<type>net.ion.websocket.common.api.WebSocketServerListener</type>
-						<value><configured-object>
-								<class-name>net.ion.websocket.common.listener.DebugListener</class-name>
-							   </configured-object>	
-						</value>
-					</constructor-param>
-					<!-- 
-					<constructor-param>
-						<description>async listener</description>
-						<type>net.ion.websocket.common.api.WebSocketServerListener</type>
-						<value><configured-object>
-								<class-name>net.ion.websocket.common.listener.DebugListener</class-name>
-							   </configured-object>	
-						</value>
-					</constructor-param>
-				 	-->
-					<constructor-param>
-						<description>maxium queue size</description>
-						<type>int</type>
-						<value>2000</value>
-					</constructor-param>
-				</constructor>
-				</configured-object>
+			<description />
+			<configured-object>
+				<class-name>net.ion.chat.impl.listener.DebugListener</class-name>
+			</configured-object>	
 		</listener>
 	</listeners>
 

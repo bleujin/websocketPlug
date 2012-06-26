@@ -26,20 +26,11 @@
 
 			var chatMsg = {head:{}, body:{}} ;
 			var input = document.getElementById("input") ;
-			chatMsg.head.sender = '$config.sender$' ;
 			chatMsg.head.request = new Date().getUTCMilliseconds() + '' ;
-			chatMsg.head.topicid = '$config.topicId$' ;
-			chatMsg.head.receiver = '$config.receiver$' ;
-			chatMsg.head.created = new Date().getUTCMilliseconds() ;
-			chatMsg.head.msgid = new Date().getUTCMilliseconds() ;
-
+			chatMsg.head.topicid = "$config.topicId$" ;
+			chatMsg.head.userId = '$config.sender$' ;
 			
 			chatMsg.body.message = input.value ;
-			chatMsg.body.name = '$config.sender$' ;
-			chatMsg.body.nickname = '$config.sender$' ;
-			chatMsg.body.background = '' ;
-			chatMsg.body.expression = '' ;
-			chatMsg.body.additional = '' ;
 			
 			this.getWebSocket().send(this.jsonToString(chatMsg));
 			this.output('Send : ' + input.value, 'send') ;
@@ -117,7 +108,7 @@
 		<table width=580 align=center><tr><td><div id="outputDiv" style="overflow:scroll; width:580; height:380"></div></td></tr></table>
 		</td></tr>
 	<tr><td height=120 background="/toonweb/img/bottom_bg.png" valign="center">
-		<table width='95%' align=center><tr><td><textarea id="input" cols="60" rows="3" style="width:100%"></textarea></td><td align=right><input type=image src="/toonweb/img/send_bt.png" onclick="webClient.chat(); return false;"/></td></tr></table>
+		<table width='95%' align="center"><tr><td width="100%"><textarea id="input" cols=60 rows=3 style="width:100%"></textarea></td><td align=right><input type=image src="/toonweb/img/send_bt.png" onclick="webClient.chat(); return false;"/></td></tr></table>
 	</td></tr>
 </form>
 </table>

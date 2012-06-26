@@ -74,6 +74,10 @@ public class UserConnector implements IUserConnector {
 		return getString(ChatConstants.VAR_USERID);
 	}
 
+	public String getTopicId() {
+		return getString(ChatConstants.VAR_TOPICID);
+	}
+
 	public long getAuthId() {
 		return Long.parseLong(getString(ChatConstants.VAR_AUTHID));
 	}

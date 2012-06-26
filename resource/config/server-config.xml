@@ -1,76 +1,37 @@
 <?xml version="1.0"  encoding="UTF-8"?>
 
-
 <root>
-
-	<engine id="toon0" name="ToonZero" port="8787"  uripath="/{$serviceName}/{$userId}/{$authId}"/>
-
-	<section name="session">
-		<path name="login">
-			<prefilter class="net.ion.radon.core.security.RDBChallengeAuthenticator">
-				<configured-object>
-					<class-name>net.ion.radon.core.security.RDBChallengeAuthenticator</class-name>
-					<constructor>
-						<constructor-param>
-							<description>realm id</description>
-							<type>java.lang.String</type>
-							<value>secure</value>
-						</constructor-param>
-						<constructor-param>
-							<description>dc context id</description>
-							<type>java.lang.String</type>
-							<value>net.ion.framework.db.IDBController</value>
-						</constructor-param>
-						<constructor-param>
-							<description>query</description>
-							<type>java.lang.String</type>
-							<value>select pwd password from tt_user where login_id = :userid</value>
-						</constructor-param>
-					</constructor>
-				</configured-object>
-			</prefilter>
-			<urls>/login/{topicId}</urls>
-			<desciption>publish server address</desciption>
-			<handler class="net.ion.toon.aradon.LoginLet" />
-		</path>
-	</section>
+	<engine id="toon0" name="ToonZero" port="8787"  uripath="/{$serviceName}/{$topicId}/{$userId}/{$authId}"/>
 
 	<section name="aradon">
 		<path name="default">
 			<context>
-				<attribute id="net.ion.toon.aradon.IndexHtmlLet">./resource/config/embed-index.html</attribute>
+				<attribute id="net.ion.chat.aradon.IndexHtmlLet">./resource/config/embed-index.html</attribute>
 			</context>
 			<urls>/</urls>
 			<description>Default</description>
-			<handler class="net.ion.toon.aradon.IndexHtmlLet" scope="request" />
+			<handler class="net.ion.chat.aradon.IndexHtmlLet" scope="request" />
 		</path>
-
 
 		<path name="monitor">
 			<urls>/monitor, /monitor/{userId}</urls>
 			<description>Default</description>
-			<handler class="net.ion.toon.aradon.SampleMonitorLet" scope="request" />
+			<handler class="net.ion.chat.aradon.SampleMonitorLet" scope="request" />
 		</path>
 		
 		<path name="suicide">
 			<urls>/shutdown</urls>
-			<prefilter class="net.ion.toon.aradon.RefererAllowFilter" />
-			<handler class="net.ion.toon.aradon.SuicideLet" scope="request" />
-		</path>
-	
-		<path name="servers">
-			<urls>/servers</urls>
-			<desciption></desciption>
-			<handler class="net.ion.toon.aradon.ServersLet" />
+			<prefilter class="net.ion.chat.aradon.RefererAllowFilter" />
+			<handler class="net.ion.chat.aradon.SuicideLet" scope="request" />
 		</path>
 	
 		<path name="client">
 			<context>
-				<attribute id="net.ion.toon.aradon.ClientLet">./resource/toonweb/chat.tpl</attribute>
+				<attribute id="net.ion.chat.aradon.ClientLet">./resource/toonweb/chat.tpl</attribute>
 			</context>
-			<urls>/client/{userId}</urls>
+			<urls>/client/{topicId}/{userId}</urls>
 			<desciption></desciption>
-			<handler class="net.ion.toon.aradon.ClientLet" />
+			<handler class="net.ion.chat.aradon.ClientLet" />
 		</path>
 
 		<path name="event">
@@ -79,153 +40,23 @@
 			</context>
 			<urls>/event/{userId}</urls>
 			<desciption></desciption>
-			<handler class="net.ion.toon.aradon.EventLet" />
+			<handler class="net.ion.chat.aradon.EventLet" />
 		</path>
 
 
 		<path name="trace">
 			<urls>/trace/{userId}</urls>
 			<desciption></desciption>
-			<handler class="net.ion.toon.aradon.TraceLet" />
+			<handler class="net.ion.chat.aradon.TraceLet" />
 		</path>
 	
 	</section>
 
 	<context>
-		<attribute id="let.contact.email">bleujin@i-on.net</attribute>
+		<attribute id="let.contact.email">bleujin@gmail.com</attribute>
 		<attribute id="let.contact.help.doc">/help/doc</attribute>
-		<attribute id="my.server.dev">bleujin@i-on.net</attribute>
+		<attribute id="my.server.dev">bleujin@gmail.com</attribute>
 
- 		<configured-object id="net.ion.toon.notifier.ion.IExecutor" scope="application">
- 			<class-name>net.ion.toon.notifier.ion.IExecutor</class-name>
- 			<constructor>
-				<constructor-param>
-					<description>executor thread count[if count lte 2 then use cache thread]</description>
-					<type>int</type>
-					<value>0</value>
-				</constructor-param>
-				<constructor-param>
-					<description>schedule executor thread count</description>
-					<type>int</type>
-					<value>5</value>
-				</constructor-param>
-			</constructor>
- 		</configured-object>
- 		
-
-		<connection id="net.ion.framework.db.IDBController">
-			<database-controller>
-			<controller-name>toonOracle</controller-name>
-	        <database-manager>
-	            <description>Oracle database manager</description>
-	            <configured-object>
-	                <class-name>net.ion.framework.db.manager.OraclePoolDBManager</class-name>
-	                <constructor>
-	                    <constructor-param>
-	                        <description>jdbc URL</description>
-	                        <type>java.lang.String</type>
-	                        <value>jdbc:oracle:thin:@61.250.201.76:1521:TOONTALK</value>
-	                    </constructor-param>
-	                    <constructor-param>
-	                        <description>User</description>
-	                        <type>java.lang.String</type>
-	                        <value>toonchat</value>
-	                    </constructor-param>
-	                    <constructor-param>
-	                        <description>Passwd</description>
-	                        <type>java.lang.String</type>
-	                        <value>toon0711</value>
-	                    </constructor-param>
-	                </constructor>
-	            </configured-object>
-	
-	        </database-manager>
-	        <limited-rows>10000</limited-rows>
-	        <extra-servant>
-	            <configured-object>
-	                <class-name>net.ion.framework.db.servant.StdOutServant</class-name>
-	                <constructor>
-	                    <constructor-param>
-	                        <description>show std out (userProcedure : 1, userCommand : 2, userProcedureBatch : 4, userProcedures : 8 )</description>
-	                        <type>int</type>
-	                        <value>15</value>
-	                    </constructor-param>
-	                </constructor>
-	            </configured-object>
-	        </extra-servant>
-    		</database-controller>
-		</connection>
-
-		<configured-object id="net.ion.radon.repository.RepositoryCentral" scope="application">
-		<class-name>net.ion.radon.repository.RepositoryCentral</class-name>
-			<constructor>
-				<constructor-param>
-					<description>mongo address</description>
-					<type>java.lang.String</type>
-					<value>61.250.201.78</value>
-				</constructor-param>
-				<constructor-param>
-					<description>mongo port</description>
-					<type>int</type>
-					<value>27017</value>
-				</constructor-param>
-				<constructor-param>
-					<description>default mongo dbname</description>
-					<type>java.lang.String</type>
-					<value>toontest</value>
-				</constructor-param>
-			</constructor>
-		</configured-object>
-		
-		<configured-object id="net.ion.toon.install.RegisterCerti" scope="application">
-			<class-name>net.ion.toon.install.RegisterCerti</class-name>
-			<constructor>
-				<constructor-param>
-					<description>host</description>
-					<type>java.lang.String</type>
-					<value>https://tipns.appservice.i-on.net/</value>
-				</constructor-param>
-				<constructor-param>
-					<description>certi file path</description>
-					<type>java.lang.String</type>
-					<value>./resource/jssecacerts.conf</value>
-				</constructor-param>
-			</constructor>
-		</configured-object>
-		
-		<configured-object id="net.ion.toon.notifier.IPusher" scope="application">
-			<class-name>net.ion.toon.notifier.ion.TipNSPusher</class-name>
-			<constructor>
-				<constructor-param>
-					<description>host</description>
-					<type>java.lang.String</type>
-					<value>https://www.toonstory.net</value>
-				</constructor-param>
-				<constructor-param>
-					<description>path</description>
-					<type>java.lang.String</type>
-					<value>/ipns/BL.jsp</value>
-				</constructor-param>
-				<constructor-param>
-					<description>id</description>
-					<type>java.lang.String</type>
-					<value>ipns</value>
-				</constructor-param>
-				<constructor-param>
-					<description>pwd</description>
-					<type>java.lang.String</type>
-					<value>test1234</value>
-				</constructor-param>
-				</constructor>
-		</configured-object> 
- 		
- 		<configured-object id="net.ion.toon.notifier.SchedulePushServer" scope="application">
- 		<class-name>net.ion.toon.notifier.SchedulePushServer</class-name>
- 		</configured-object>
-
- 		<configured-object id="net.ion.toon.aradon.context.HeartBeatServer" scope="application">
- 		<class-name>net.ion.toon.aradon.context.HeartBeatServer</class-name>
- 		</configured-object>
 
 	</context>
 
@@ -240,55 +71,20 @@
 	<plugin includepath="./plugin/;" />
 
 	<plugins>
-		
-		<!-- plugin name="echo">
-			<description>for test</description>
-			<configured-object>
-				<class-name>net.ion.toon.impl.plugin.EchoPlugIn</class-name>
-			</configured-object>
-		</plugin-->
-		
 		<plugin name="session">
 			<description>set userbean</description>
 			<configured-object>
-				<class-name>net.ion.toon.impl.plugin.SessionAuthPlugIn</class-name>
+				<class-name>net.ion.chat.impl.plugin.SessionAuthPlugIn</class-name>
 			</configured-object>
 		</plugin>
 		
-		<plugin name="topic">
-			<description />
+		<plugin name="chat">
+			<description>broadcast per room</description>
 			<configured-object>
-				<class-name>net.ion.toon.impl.plugin.TopicStorePlugIn</class-name>
-			</configured-object>
-		</plugin>
-
-		<plugin name="heartbeat">
-			<description />
-			<configured-object>
-				<class-name>net.ion.toon.impl.plugin.HeartBeatPlugIn</class-name>
-			</configured-object>
-		</plugin>
-
-		<plugin name="timeout">
-			<description />
-			<configured-object>
-				<class-name>net.ion.toon.impl.plugin.SessionTimeOutPlugIn</class-name>
-			</configured-object>
-		</plugin>
-
-		<plugin name="userconnect">
-			<description />
-			<configured-object>
-				<class-name>net.ion.toon.notifier.ion.UserConnectPlugIn</class-name>
+				<class-name>net.ion.chat.impl.plugin.RoomBroadCastPlugIn</class-name>
 			</configured-object>
 		</plugin>
 		
-		<plugin name="aradoncommand">
-			<description />
-			<configured-object>
-				<class-name>net.ion.toon.impl.plugin.AradonCommandPlugIn</class-name>
-			</configured-object>
-		</plugin>
 	</plugins>
 
 
@@ -296,7 +92,7 @@
 		<listener name="debug">
 			<description />
 			<configured-object>
-				<class-name>net.ion.toon.impl.listener.DebugListener</class-name>
+				<class-name>net.ion.chat.impl.listener.DebugListener</class-name>
 			</configured-object>	
 		</listener>
 	</listeners>

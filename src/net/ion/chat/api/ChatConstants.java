@@ -6,6 +6,7 @@ public interface ChatConstants {
 	public final static String VAR_AUTHID = "$authId";
 	public final static String VAR_USERNAME = "$userName";
 	public final static String VAR_USERID = "$userId";
+	public final static String VAR_TOPICID = "$topicId";
 	public final static String VAR_SERVICE_NAME = "$serviceName" ;
 	public static final String VAR_SESSIONID = "$sessionId";
 	

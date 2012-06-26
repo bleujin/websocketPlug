@@ -26,6 +26,8 @@ public interface IUserConnector {
 
 	public String getUserId() ;
 
+	public String getTopicId() ;
+
 	public long getAuthId() ;
 
 	public Object getUsername() ;
