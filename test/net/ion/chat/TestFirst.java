@@ -8,7 +8,7 @@ import junit.framework.TestCase;
 public class TestFirst extends TestCase{
 
 	
-	public void xtestRun() throws Exception {
+	public void testRun() throws Exception {
 		ChatEngine engine = ChatEngine.createWithServerConfig() ;
 		
 		ChatServer cs = ChatServer.create(engine) ;
