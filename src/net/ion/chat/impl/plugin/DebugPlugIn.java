@@ -19,7 +19,7 @@ public class DebugPlugIn extends BasePlugIn {
 //			idx++;
 //		}
 
-		Debug.line('+', packet.getFullString());
+		Debug.debug('+', packet.getFullString());
 	}
 
 }
