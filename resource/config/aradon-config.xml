@@ -1,0 +1,132 @@
+<?xml version="1.0"  encoding="UTF-8"?>
+
+<root>
+	<plugin>
+		<id>net.bleujin.sample.chat</id>
+		<version>0.8</version>
+		<name>Sample Chat Plugin</name>
+		<description></description>
+		<provider>
+			<homepage>http://www.i-on.net</homepage>
+			<developer>bleujin</developer>
+			<email>bleujin@i-on.net</email>
+		</provider>
+		<license>LGPL</license>
+	</plugin>
+	
+	<section name="aradon">
+		<path name="default">
+			<context>
+				<attribute id="net.ion.nchat.aradon.IndexHtmlLet">./resource/toonweb/embed-index.html</attribute>
+			</context>
+			<urls>/</urls>
+			<description>Default</description>
+			<handler class="net.ion.nchat.aradon.IndexHtmlLet" scope="request" />
+		</path>
+
+		<path name="monitor">
+			<urls>/monitor, /monitor/{userId}</urls>
+			<description>Default</description>
+			<handler class="net.ion.nchat.aradon.SampleMonitorLet" scope="request" />
+		</path>
+		
+		<path name="suicide">
+			<urls>/shutdown</urls>
+			<prefilter class="net.ion.nchat.aradon.RefererAllowFilter" />
+			<handler class="net.ion.nchat.aradon.SuicideLet" scope="request" />
+		</path>
+
+	</section>
+	
+	
+	<section name="rest">
+		<path name="client">
+			<context>
+				<attribute id="net.ion.chat.aradon.ClientLet">./resource/toonweb/chat.tpl</attribute>
+			</context>
+			<urls>/client/{topicId}/{userId}</urls>
+			<desciption></desciption>
+			<handler class="net.ion.nchat.rest.ClientLet" />
+		</path>
+
+		<path name="event">
+			<context>
+				<attribute id="net.ion.toon.aradon.EventLet">./resource/toonweb/event.tpl</attribute>
+			</context>
+			<urls>/event/{topicId}</urls>
+			<desciption></desciption>
+			<handler class="net.ion.nchat.rest.EventLet" />
+		</path>
+	</section>
+	
+	<section name="toonweb">
+		<path name="resource">
+			<urls matchMode="STARTWITH">/</urls>
+			<handler class="net.ion.nchat.rest.ResourceLet" />
+		</path>
+	</section>
+
+	<section name="async">
+		<epath name="trace">
+			<urls>/event/{topicId}</urls>
+			<description>sample</description>
+			<handler class="net.ion.nchat.async.SampleEventSource" />
+		</epath>
+	
+		<wspath name="chat">
+			<urls>/chat/{topicId}/{userId}</urls>
+			<description>sample</description>
+			<handler class="net.ion.nchat.async.SampleChatHandler" />
+		</wspath>
+	</section>
+
+	<context>
+		<attribute id="let.contact.email">bleujin@gmail.com</attribute>
+		<attribute id="let.contact.help.doc">/help/doc</attribute>
+		<attribute id="my.server.dev">bleujin@gmail.com</attribute>
+		
+		<configured-object id="net.ion.framework.schedule.IExecutor" scope="application">
+ 			<class-name>net.ion.framework.schedule.IExecutor</class-name>
+ 			<constructor>
+				<constructor-param>
+					<description>executor thread count[if count lte 2 then use cache thread]</description>
+					<type>int</type>
+					<value>0</value>
+				</constructor-param>
+				<constructor-param>
+					<description>schedule executor thread count</description>
+					<type>int</type>
+					<value>5</value>
+				</constructor-param>
+			</constructor>
+ 		</configured-object>
+ 		
+ 		<configured-object id="net.ion.nchat.context.ChatCraken" scope="application">
+ 			<class-name>net.ion.nchat.context.ChatCraken</class-name>
+ 			<constructor>
+				<constructor-param>
+					<description>clusterName</description>
+					<type>java.lang.String</type>
+					<value>0</value>
+				</constructor-param>
+				<constructor-param>
+					<description>cluster config file</description>
+					<type>java.lang.String</type>
+					<value>resource/config/jgroups-udp.xml</value>
+				</constructor-param>
+			</constructor>
+ 			
+ 		</configured-object>
+	</context>
+
+	<server-config id="jupiter">
+		<log-config-file>./resource/config/log4j.properties</log-config-file>
+		<connector-config port="8787">
+			<parameter name="myParam" description="parameter description" >5</parameter>
+		</connector-config>
+	</server-config>
+
+	<plugin includepath="./plugin/;" />
+
+
+</root>

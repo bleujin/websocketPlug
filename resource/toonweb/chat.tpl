@@ -27,8 +27,8 @@
 			var chatMsg = {head:{}, body:{}} ;
 			var input = document.getElementById("input") ;
 			chatMsg.head.request = new Date().getUTCMilliseconds() + '' ;
-			chatMsg.head.topicid = "$config.topicId$" ;
-			chatMsg.head.userId = '$config.sender$' ;
+			// chatMsg.head.topicid = "$config.topicId$" ;
+			// chatMsg.head.userId = '$config.sender$' ;
 			
 			chatMsg.body.message = input.value ;
 			
@@ -78,11 +78,17 @@
 	  	} ;
    		ws.onmessage = function(e){
    			var msg = eval('(' + e.data + ')') ;
+   			console.log(e.data) ;
+   			var msgText = (msg.body != null) ? msg.body.message : '' ;
 			if (msg.head != null && msg.head.command == 'ping'){
-				ws.send('{head:{command:"ping"}, body:{}}'); // reply
+				ws.send('{head:{command:"ping"}, body:{sender:"$config.sender$"}}'); // reply
+			} else if (msg.head != null && msg.head.aradon == 'reply') {
+				webClient.output("received from " + ((msg.head != null) ? msg.head.sender : '') + " : " + msgText, 'received'); // e.data contains received string.
+				ws.send(e.data) ;
 			} else {
-	        	webClient.output("received: " + e.data, 'received'); // e.data contains received string.
+				webClient.output("received from " + ((msg.head != null) ? msg.head.sender : '') + " : " + msgText, 'received'); // e.data contains received string.
 			}
+
    		} ;
    		
    		ws.onclose = function(){

@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry combineaccessrules="false" kind="src" path="/Aradon"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="test"/>
-	<classpathentry kind="lib" path="libs/aradon_0.7.jar"/>
-	<classpathentry kind="lib" path="libs/apache_extend_fat.jar"/>
 	<classpathentry kind="lib" path="libs/rest_fat.jar"/>
 	<classpathentry kind="lib" path="libs/iframework_2.3.jar"/>
-	<classpathentry kind="lib" path="libs/antlr-3.4-complete.jar"/>
-	<classpathentry kind="lib" path="libs/netty-3.2.7.Final.jar"/>
+	<classpathentry kind="lib" path="libs/aradon_0.8.jar"/>
+	<classpathentry kind="lib" path="libs/ant.jar"/>
+	<classpathentry kind="lib" path="libs/org.simpleframework.jar"/>
+	<classpathentry kind="lib" path="libs/jci_fat.jar"/>
+	<classpathentry kind="lib" path="libs/mylib/antlr-3.4-complete.jar"/>
+	<classpathentry kind="lib" path="libs/mylib/infinispan_fat.jar"/>
+	<classpathentry kind="lib" path="libs/mylib/stringtemplate-3.2.1.jar"/>
+	<classpathentry kind="lib" path="libs/netty-3.4.6.Final.jar"/>
+	<classpathentry kind="lib" path="libs/apache_extend_fat.jar"/>
+	<classpathentry kind="lib" path="libs/mylib/craken_0.1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk5_22"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk6_27"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
