@@ -1,4 +1,4 @@
-amazonClient
+Aradon sample 
 ============
 
 aradon websocket sample
@@ -10,5 +10,7 @@ aradon websocket sample
 
 5. browse 
 	http://ipaddress:9000/rest/client/1234/jin
+	
  	http://ipaddress:9000/rest/client/1234/hero
+ 	
  	http://ipaddress:9000/rest/event/1234 
