@@ -1,13 +1,17 @@
 package net.ion.nchat;
 
 import java.awt.Desktop;
+import java.io.InputStream;
 import java.net.URI;
+import java.net.URL;
 
 import org.restlet.Response;
 import org.restlet.data.Method;
 
 import net.ion.framework.util.Debug;
+import net.ion.framework.util.IOUtil;
 import net.ion.framework.util.InfinityThread;
+import net.ion.framework.util.StringUtil;
 import net.ion.nradon.Radon;
 import net.ion.nradon.RadonServer;
 import net.ion.radon.Options;
@@ -54,5 +58,11 @@ public class TestService extends TestCase {
 		new InfinityThread().startNJoin() ;
 	}
 
+	public void testFindMyrIp() throws Exception {
+		InputStream in = new URL("http://ip-echo.appspot.com/").openStream() ;
+		Debug.line(StringUtil.trim(IOUtil.toString(in))) ;
+		in.close() ;
+		
+	}
 	
 }
