@@ -85,6 +85,17 @@
 		<attribute id="let.contact.help.doc">/help/doc</attribute>
 		<attribute id="my.server.dev">bleujin@gmail.com</attribute>
 		
+		<configured-object id="net.ion.nchat.util.FileFinder" scope="application">
+			<class-name>net.ion.nchat.util.FileFinder</class-name>
+			<constructor>
+				<constructor-param>
+					<description>plugin Id</description>
+					<type>java.lang.String</type>
+					<value>net.bleujin.sample.chat</value>
+				</constructor-param>
+			</constructor>
+ 		</configured-object>
+ 		
 		<configured-object id="net.ion.framework.schedule.IExecutor" scope="application">
  			<class-name>net.ion.framework.schedule.IExecutor</class-name>
  			<constructor>

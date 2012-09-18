@@ -14,6 +14,7 @@ import net.ion.framework.parse.gson.JsonObject;
 import net.ion.framework.util.IOUtil;
 import net.ion.framework.util.MapUtil;
 import net.ion.framework.util.ObjectUtil;
+import net.ion.nchat.util.FileFinder;
 import net.ion.radon.core.config.AradonConstant;
 import net.ion.radon.core.let.AbstractServerResource;
 
@@ -38,10 +39,12 @@ public class ClientLet extends AbstractServerResource {
 		JsonObject winfo = getTargetWebsocketServer(topicId, userId, userIp);
 
 		// net.ion.toon.aradon.ClientLet
-		String fileName = getContext().getAttributeObject(ClientLet.class.getCanonicalName(), "./resource/toonweb/chat.tpl", String.class);
-		File tplFile = new File(fileName);
+		String tplFileName = getContext().getAttributeObject(ClientLet.class.getCanonicalName(), "resource/toonweb/chat.tpl", String.class);
+		FileFinder ff = getContext().getAttributeObject(FileFinder.class.getCanonicalName(), FileFinder.class) ;
+		
+		File tplFile = ff.findFile(getMySectionService(), tplFileName);
 		if (!tplFile.exists())
-			throw new ResourceException(Status.CLIENT_ERROR_NOT_FOUND, "not found template file : " + fileName);
+			throw new ResourceException(Status.CLIENT_ERROR_NOT_FOUND, "not found template file : " + tplFileName);
 
 		StringTemplate st = new StringTemplate(IOUtil.toString(new FileInputStream(tplFile)));
 		Map<String, String> configMap = MapUtil.newMap();

@@ -16,7 +16,7 @@ public class SampleMonitorLet extends DefaultLet {
 
 	@Override
 	protected Representation myGet() throws Exception {
-		
+
 		WSPathService wspath =  getSectionService().getAradon().getChildService("async").wspath("chat") ;
 		SampleChatHandler handler = (SampleChatHandler)wspath.websocketResource();
 		

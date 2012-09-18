@@ -3,6 +3,7 @@ package net.ion.nchat.aradon;
 import java.io.File;
 import java.io.IOException;
 
+import net.ion.nchat.util.FileFinder;
 import net.ion.radon.core.let.AbstractServerResource;
 
 import org.apache.commons.io.FileUtils;
@@ -18,8 +19,10 @@ public class IndexHtmlLet extends AbstractServerResource{
 	@Get
 	public Representation readHTMLFile() throws IOException{
 
-		String filePath = getContext().getAttributeObject(IndexHtmlLet.class.getCanonicalName(), String.class) ;
-		File file = new File(filePath);
+		String filePath = getContext().getAttributeObject(IndexHtmlLet.class.getCanonicalName(), "resource/toonweb/embed-index.html", String.class) ;
+		FileFinder ff = getContext().getAttributeObject(FileFinder.class.getCanonicalName(), FileFinder.class) ;
+		
+		File file = ff.findFile(getMySectionService(), filePath);
 		String result = "not found file. confirm context attribute[" + IndexHtmlLet.class.getCanonicalName() + "]" ;
 		if (file.exists()){
 			result = FileUtils.readFileToString(file, "UTF-8") ;

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import net.ion.framework.util.IOUtil;
+import net.ion.nchat.util.FileFinder;
 import net.ion.radon.core.let.AbstractServerResource;
 
 import org.antlr.stringtemplate.StringTemplate;
@@ -25,9 +26,11 @@ public class EventLet extends AbstractServerResource{
 		
 		String topicId = getInnerRequest().getAttribute("topicId") ;
 		
-		String fileName = getContext().getAttributeObject(EventLet.class.getCanonicalName(), "./resource/toonweb/event.tpl", String.class) ;
-		File tplFile = new File(fileName) ;
-		if (! tplFile.exists()) throw new ResourceException(Status.CLIENT_ERROR_NOT_FOUND, "not found template file : " + fileName) ;
+		String tplFileName = getContext().getAttributeObject(EventLet.class.getCanonicalName(), "./resource/toonweb/event.tpl", String.class) ;
+		FileFinder ff = getContext().getAttributeObject(FileFinder.class.getCanonicalName(), FileFinder.class) ;
+		
+		File tplFile = ff.findFile(getMySectionService(), tplFileName);
+		if (! tplFile.exists()) throw new ResourceException(Status.CLIENT_ERROR_NOT_FOUND, "not found template file : " + tplFile.getCanonicalPath()) ;
 		
 		StringTemplate st = new StringTemplate(IOUtil.toString(new FileInputStream(tplFile))) ;
 		st.setAttribute("topicId", topicId) ;

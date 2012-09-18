@@ -59,7 +59,7 @@ public class SampleChatHandler extends AbstractWebSocketResource implements Serv
 		container.newInstance(msgId).chat(packet.toRoot().inner("head").put("sender", sender.data("userId")).put("topicId", sender.data("topicId")) ).save();
 
 	}
-
+	
 	void broadCastToRoom(SerializedChatMessage msg) {
 		for (WebSocketConnection conn : conns) {
 			if (conn.data("userId").equals(msg.sender())) continue;
